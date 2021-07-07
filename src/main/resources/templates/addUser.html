@@ -2,9 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>新規登録画面</title>
 </head>
 <body>
+<h1>新規登録画面</h1>
+<form action="/user/add" method="post">
+名前：<input type="text" name="name" placeholder="名前を入力してください">
 
+<br>
+ユーザーID：<input type="text" name="userId" placeholder="ユーザーIDを設定してください">
+<br>
+
+メールアドレス：<input type="text" name="email" placeholder="メールアドレス">
+
+<br>
+パスワード設定：<input type="password" name="userid" placeholder="パスワードを設定してください">
+<br>
+パスワード確認：<input type="password" name="userid" placeholder="設定したパスワードを入力してください">
+<br>
+質問：<input type="radio">
+<br>
+質問回答：<input type="text" name="userid" placeholder="回答を設定してください">
+<br>
+
+<input type="submit" value="新規登録">
+</form>
 </body>
 </html>

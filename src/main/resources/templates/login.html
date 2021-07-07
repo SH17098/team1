@@ -2,9 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ログイン画面</title>
 </head>
 <body>
+<h3>IPA 資格取得情報アプリ</h3>
+
+<form action="/login">
+
+ユーザーID：<input type="text" name="userid" placeholder="ユーザーIDを入力してください">
+<br>
+パスワード：<input type="text" name="userid" placeholder="パスワードを入力してください">
+
+<br>
+
+<a href="/help">パスワードを忘れたら</a>
+
+<input type="submit" value="ログイン">
+
+<br>
+</form>
+<a href="/user/add">新規会員登録はこちらから</a>
 
 </body>
 </html>

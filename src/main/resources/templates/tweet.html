@@ -2,9 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>掲示板</title>
 </head>
 <body>
-
+<h1>掲示板</h1>
+<table border="1">
+    <tr><td>投稿内容一覧</td></tr>
+	<tr th:each="tweet:${tweets}">
+		<td th:text="${tweet.tweet}"></td>
+	</tr>
+<a href="/tweet/add">新規投稿作成</a>
+</table>
 </body>
 </html>

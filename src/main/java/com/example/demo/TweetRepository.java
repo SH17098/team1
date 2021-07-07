@@ -1,5 +1,7 @@
 package com.example.demo;
 
-public interface TweetRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TweetRepository extends JpaRepository<Tweet, Integer>{
 
 }

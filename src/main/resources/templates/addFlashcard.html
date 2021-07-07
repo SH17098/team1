@@ -2,9 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>新規作成</title>
 </head>
 <body>
-
+<h1>カードの新規作成</h1>
+<form action="/flashcard/add" method="post">
+<textarea name="question" th:placeholder="問題文を入力"><span th:text="${question}"></span></textarea>
+<input type="text" name="answer" th:placeholder="答えを入力" th:value=${answer}>
+<textarea name="explanation" th:placeholder="解説を入力"><span th:text="${question}"></span></textarea>
+<input type="submit" value="作成">
+</form>
+<a href="/flashcard/add"><span th:text="${next}"></span></a>
+<a href="/flashcard">終了する</a>
 </body>
 </html>

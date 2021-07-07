@@ -2,9 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>新規投稿作成</title>
 </head>
 <body>
+<h1>新規投稿作成</h1>
+投稿内容を入力して、情報共有を行いましょう！！
 
+<form action="/tweet/add" method="post">
+<textarea name="tweet" th:placeholder="ここに入力してください"></textarea>
+<input type="submit" value="投稿">
+</form>
 </body>
 </html>

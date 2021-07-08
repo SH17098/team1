@@ -2,22 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>カード学習</title>
+<title>過去問</title>
 </head>
 <body>
-<h1>学習</h1>
+<h1>過去問題</h1>
 問題：<div th:text="${question}"></div>
 
-<form action="/flashcard/answer" method="get">
+<form action="/test/answer" method="get">
 解答：<input type="submit" value="解答を見る">
 <div th:text="${answer}"></div>
 </form>
 
-<form action="/flashcard/explanation" method="get">
+<form action="/test/explanation" method="get">
 解説：<input type="submit" value="解説を見る">
 <div th:text="${explanation}"></div>
 </form>
 
-<a href="/flashcard/use">次へ</a>
+<a href="/test/use">次へ</a>
 </body>
 </html>

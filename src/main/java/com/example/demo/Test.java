@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="flashcardsfe")
-public class Flashcard {
+@Table(name="testfe")
+public class Test {
 	//フィールド
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,19 +26,19 @@ public class Flashcard {
 	private String explanation;
 
 	//コンストラクタ
-	public Flashcard(Integer code, String question,String answer, String explanation) {
+	public Test(Integer code, String question,String answer, String explanation) {
 		this(question, answer, explanation);
 		this.code = code;
 	}
 
-	public Flashcard(String question,String answer, String explanation) {
+	public Test(String question,String answer, String explanation) {
 		super();
 		this.question = question;
 		this.answer = answer;
 		this.explanation = explanation;
 	}
 
-	public Flashcard() {
+	public Test() {
 		super();
 	}
 

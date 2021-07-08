@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>おすすめ参考書</title>
+</head>
+<body>
+<h1>みんなのおすすめ参考書一覧</h1>
+<table border="1">
+<tr>
+    <th>参考書</th><th>値段</th><th></th>
+
+	<tr th:each="user:${books}">
+		<td th:text="${user.code}"></td>
+		<td th:text="${user.name}"></td>
+		<td th:text="${user.email}"></td>
+		<td th:text="${user.password}"></td>
+<td>
+<form action="/users/edit" method="get">
+<input type="hidden" name="user_code" th:value="${user.code}">
+		<input type="submit" value="更新">
+		</form>
+		</td>
+<td>
+<form action="/users/delete" method="get">
+<input type="hidden" name="user_code" th:value="${user.code}">
+		<input type="submit" value="削除">
+		</form>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

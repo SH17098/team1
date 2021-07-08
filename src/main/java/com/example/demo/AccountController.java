@@ -36,7 +36,7 @@ public class AccountController {
 	 * ログイン処理
 	 */
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView doLogin(
 			@RequestParam("userId") String userId,
 			@RequestParam("password") String password,
@@ -113,7 +113,7 @@ public class AccountController {
 		public ModelAndView doUserAdd(
 				@RequestParam("name") String name,
 				@RequestParam("userId") String userId,
-				@RequestParam("email") String email,
+				@RequestParam("mail") String mail,
 				@RequestParam("password") String password,
 				@RequestParam("passwordCheck") String passwordCheck,
 				@RequestParam("q_number") String q_number,
@@ -121,45 +121,46 @@ public class AccountController {
 				ModelAndView mv) {
 
 			//空白があったときの処理
-			if (name.equals("") || userId.equals("") || email.equals("") || password.equals("") || q_number.equals("")
+			if (name.equals("") || userId.equals("") || mail.equals("") || password.equals("") || q_number.equals("")
 					|| answer.equals("")) {
 
 				mv.addObject("message", "未入力の箇所があります。");
 				mv.setViewName("addUser");
 
 				return mv;
-
 			}
 
 
-
+            //２つのパスワードが一致していない
 			if(!password.equals(passwordCheck)) {
 				mv.addObject("message","パスワードが一致していません");
 				mv.setViewName("addUser");
 
 				return mv;
-
 			}
 
-
-			//ユーザーIDが存在していたときの処理
+			//ユーザーIDがすでに登録済みの場合
 			Optional<User> record = userRepository.findByUserId(userId);
+
 			if (record.isEmpty() == false) {
 				mv.addObject("message", "このIDは既に存在しています");
 				mv.setViewName("addUser");
 
 				return mv;
-
 			}
 
-
-
 			// パラメータからオブジェクトを生成
-			User user = new User();
+			User user = new User(name, userId, mail,password, q_number, answer);
 			// userテーブルへの登録
 			userRepository.saveAndFlush(user);
-			// login.html(ログイン画面)を表示
-			mv.setViewName("login");
+
+			mv.addObject("name", name);
+			mv.addObject("userId", userId);
+			mv.addObject("mail", mail);
+			mv.addObject("secret", "秘密");
+			//登録完了メッセージを表示
+			mv.addObject("complete", "登録が完了しました。再度ログインを行ってください。");
+			mv.setViewName("addUser");
 			return mv;
 
 		}
@@ -176,14 +177,13 @@ public class AccountController {
 		@RequestMapping(value = "/help", method = RequestMethod.POST)
 		public ModelAndView help(
 				@RequestParam("name") String name,
-				@RequestParam("email") String email,
-				@RequestParam("password") String password,
+				@RequestParam("mail") String mail,
 				@RequestParam("q_number") String q_number,
 				@RequestParam("answer") String answer,
 				ModelAndView mv) {
 
 			//空白箇所の処理
-			if (name.equals("") || email.equals("") || q_number.equals("")|| answer.equals("")) {
+			if (name.equals("") || mail.equals("") || q_number.equals("")|| answer.equals("")) {
 
 				mv.addObject("message", "未入力の箇所があります。");
 				mv.setViewName("help");
@@ -193,8 +193,8 @@ public class AccountController {
 			}
 
 
-			//emailの情報を取得
-			Optional<User> record = userRepository.findByEmail(email);
+			//emailから情報を取得
+			Optional<User> record = userRepository.findByEmail(mail);
 
 			//DBでの検証
 			if (record.isEmpty() == false) { //データが見つかれば
@@ -209,8 +209,15 @@ public class AccountController {
 				if (name.equals(user_name) && q_number.equals(user_Qnumber) && answer.equals(user_answer)) {
 
 
-					//DBと情報が一致したらパスワードを表示
-					mv.addObject("password",password);
+					//DBと情報が一致したらuserIDとパスワードを表示
+					String password = user.getPassword();
+					String userId = user.getUserId();
+					mv.addObject("password","パスワードは" + password + "です。");
+					mv.addObject("userId","あなたのユーザーネームは" + userId + "です。");
+					mv.addObject("name", name);
+					mv.addObject("mail", mail);
+					mv.addObject("q_number", q_number);
+					mv.addObject("answer", answer);
 
 					mv.setViewName("help");
 					return mv;
@@ -223,7 +230,7 @@ public class AccountController {
 
 				}
 
-				}else {
+			}else {
 					mv.addObject("message","データが見つかりません");
 					mv.setViewName("help");
 

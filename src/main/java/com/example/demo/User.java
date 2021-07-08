@@ -33,7 +33,7 @@ public class User {
 	}
 
 
-	//新規会員登録
+
 	public User(Integer userCode, String name, String userId,String email,String password, String q_number, String answer) {
 		this.userCode = userCode;
 		this.name = name;
@@ -43,7 +43,7 @@ public class User {
 		this.q_number = q_number;
 		this.answer = answer;
 	}
-
+    //新規登録
 	//パスワード忘れ
 	public User(String name, String userId, String email,String password, String q_number, String answer) {
 		this.name = name;

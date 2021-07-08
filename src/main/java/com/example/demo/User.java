@@ -17,6 +17,8 @@ public class User {
 	private String name;
 	@Column(name="userid")
 	private String userId;
+	@Column(name="mail")
+	private String email;
 	private String password;
 	private String q_number;
 	private String answer;
@@ -26,20 +28,23 @@ public class User {
 
 	}
 
+
 	//新規会員登録
-	public User(Integer userCode, String name, String userId, String password, String q_number, String answer) {
+	public User(Integer userCode, String name, String userId,String email,String password, String q_number, String answer) {
 		this.userCode = userCode;
 		this.name = name;
 		this.userId = userId;
+		this.email=email;
 		this.password = password;
 		this.q_number = q_number;
 		this.answer = answer;
 	}
 
 	//パスワード忘れ
-	public User(String name, String userId, String password, String q_number, String answer) {
+	public User(String name, String userId, String email,String password, String q_number, String answer) {
 		this.name = name;
 		this.userId = userId;
+		this.email=email;
 		this.password = password;
 		this.q_number = q_number;
 		this.answer = answer;
@@ -75,6 +80,17 @@ public class User {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 
 	public String getPassword() {
 		return password;

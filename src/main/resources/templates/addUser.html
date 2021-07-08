@@ -7,6 +7,10 @@
 <body>
 <h1>新規登録画面</h1>
 <form action="/user/add" method="post">
+
+
+
+<br>
 名前：<input type="text" name="name" placeholder="名前を入力してください">
 
 <br>
@@ -16,16 +20,23 @@
 メールアドレス：<input type="text" name="email" placeholder="メールアドレス">
 
 <br>
-パスワード設定：<input type="password" name="userid" placeholder="パスワードを設定してください">
+パスワード設定：<input type="password" name="password" placeholder="パスワードを設定してください">
 <br>
-パスワード確認：<input type="password" name="userid" placeholder="設定したパスワードを入力してください">
+パスワード確認：<input type="password" name="passwordCheck" placeholder="設定したパスワードを入力してください">
 <br>
-質問：<input type="radio">
+
+質問：<select name="q_number">
+<option>出身地は？</option>
+<option>好きな食べ物は？</option>
+<option>好きな色は？</option>
+</select>
+
 <br>
-質問回答：<input type="text" name="userid" placeholder="回答を設定してください">
+質問回答：<input type="text" name="answer" placeholder="回答を設定してください">
 <br>
 
 <input type="submit" value="新規登録">
+<span th:text="${message}" style="color:red"></span>
 </form>
 </body>
 </html>

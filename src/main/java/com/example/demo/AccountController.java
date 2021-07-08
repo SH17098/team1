@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -62,20 +62,29 @@ public class AccountController {
 
 		}
 
-		//userIdとパスワードをDBに入れる
-		List<User> users = userRepository.findByUserIdAndPassword(userId, password);
-
+		//userIdで検索
+//		List<User> users = userRepository.findByUserIdAndPassword(userId, password);
+        Optional<User> record = userRepository.findByUserId(userId);
 		//入力されたIDとパスワードが合う場合
 
 		//DBと照合
-		if () {
-			User user = users.get(0);
-			session.setAttribute("userInfo", user);
+		if (record.isEmpty() == false) { //データが見つかれば
+			User user = record.get();
+			String user_password = user.getPassword();//そのパスワードを取得
+
+			//パスワードの照合
+			if(password == user_password) {
 			// セッションスコープにユーザー情報を格納する
-			session.setAttribute("user", userRepository.findAll());
-			// top.htmlを表示する
-			mv.setViewName("top");
-			return mv;
+				session.setAttribute("userCode", user.getUserCode());
+				session.setAttribute("userId", user.getUserId());
+			    session.setAttribute("userInfo", user);
+
+				mv.setViewName("top");
+				return mv;
+			}else {//パスワードが一致しなかった場合、パスワードが間違ってる
+
+			}
+
 
 		} else {
 
@@ -84,7 +93,7 @@ public class AccountController {
 			mv.setViewName("login");
 			return mv;
 		}
-
+     return mv;
 	}
 
 }

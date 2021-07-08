@@ -52,6 +52,10 @@ public class FlashcardController {
 	}
 
 //学習画面を表示
-
+    @RequestMapping("/flashcard/use")
+    public ModelAndView useFlashcard(ModelAndView mv) {
+    	mv.setViewName("useFlashcard");
+    	return mv;
+    }
 
 }

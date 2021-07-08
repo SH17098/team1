@@ -41,6 +41,7 @@ public class AccountController {
 			@RequestParam("userId") String userId,
 			@RequestParam("password") String password,
 			ModelAndView mv) {
+
 		//両方が空だった場合
 		if (userId.equals("") && password.equals("")) {
 			mv.addObject("message", "ユーザーIDとパスワードを入力してください");
@@ -56,7 +57,7 @@ public class AccountController {
 
 		} else if (password.equals("")) {
 			//パスワードが空だった場合
-			mv.addObject("message", "パスポートを入力してください");
+			mv.addObject("message", "パスワードを入力してください");
 			mv.setViewName("login");
 
 			return mv;
@@ -74,7 +75,7 @@ public class AccountController {
 			String user_password = user.getPassword();//そのパスワードを取得
 
 			//パスワードの照合
-			if (password == user_password) {
+			if (password .equals(user_password)) {
 				// セッションスコープにユーザー情報を格納する
 				session.setAttribute("userCode", user.getUserCode());
 				session.setAttribute("userId", user.getUserId());
@@ -82,6 +83,7 @@ public class AccountController {
 
 				mv.setViewName("top");
 				return mv;
+
 			} else {//パスワードが一致しなかった場合、パスワードが間違ってる
 				mv.addObject("message", "ユーザーIDとパスワードが一致しません");
 				mv.setViewName("login");

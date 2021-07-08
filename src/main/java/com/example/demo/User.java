@@ -14,13 +14,17 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="code")
 	private Integer userCode;
+	@Column(name="name")
 	private String name;
 	@Column(name="userid")
 	private String userId;
-	@Column(name="mail")
+	@Column(name="email")
 	private String email;
+	@Column(name="password")
 	private String password;
+	@Column(name="q_number")
 	private String q_number;
+	@Column(name="answer")
 	private String answer;
 
 	//コンストラクタ

@@ -2,9 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>IPA 資格取得情報アプリ</title>
 </head>
 <body>
+<h1>パスワードを忘れた方</h1>
+<form action="/help">
+名前：<input type="text" name="name" placeholder="名前を入力してください">
+<br>
+メールアドレス：<input type="text" name="email" placeholder="メールアドレスを入力してください">
+<br>
+質問：<select name="q_number">
+<option>出身地は？</option>
+<option>好きな食べ物は？</option>
+<option>好きな色は？</option>
+</select>
+<br>
+質問の回答：<input type="text" name="name" placeholder="回答を入力してください">
+<br>
+<input type="submit" value="送信">
+<br>
+<span th:text="${message}" style="color:red"></span>
+
+
+</form>
+
+<br>
 
 </body>
 </html>

@@ -81,7 +81,7 @@ public class AccountController {
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("userInfo", user);
 
-				mv.setViewName("top");
+				mv.setViewName("home");
 				return mv;
 
 			} else {//パスワードが一致しなかった場合、パスワードが間違ってる
@@ -238,12 +238,6 @@ public class AccountController {
 			return mv;
 
 
-		}
-
-		//TOP画面
-		@GetMapping("/top")
-		public String top() {
-			return "top";
 		}
 
 

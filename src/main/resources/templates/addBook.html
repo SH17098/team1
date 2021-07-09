@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>参考書登録</title>
 </head>
 <body>
-
+<h1>皆さんにおすすめする参考書を登録しましょう！</h1>
+<br>
+<form action="/book/add" method="post">
+*参考書の名前：<input type="text" name="name" th:value=${name}>
+*値段：<input type="text" name="price" th:value=${price}>
+本に関するコメント（任意）：<input type="text" name="comment" th:value=${comment}>
+<input type="submit" value="登録">
+</form>
+<div th:text="${complete}"></div>
 </body>
 </html>
+

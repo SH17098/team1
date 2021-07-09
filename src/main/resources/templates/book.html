@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>おすすめ参考書</title>
@@ -7,27 +7,18 @@
 <body>
 <h1>みんなのおすすめ参考書一覧</h1>
 <table border="1">
+
 <tr>
     <th>参考書</th><th>値段</th><th></th>
+</tr>
 
-	<tr th:each="user:${books}">
-		<td th:text="${user.code}"></td>
-		<td th:text="${user.name}"></td>
-		<td th:text="${user.email}"></td>
-		<td th:text="${user.password}"></td>
-<td>
-<form action="/users/edit" method="get">
-<input type="hidden" name="user_code" th:value="${user.code}">
-		<input type="submit" value="更新">
-		</form>
-		</td>
-<td>
-<form action="/users/delete" method="get">
-<input type="hidden" name="user_code" th:value="${user.code}">
-		<input type="submit" value="削除">
-		</form>
-		</td>
-	</tr>
+<tr th:each="book:${books}">
+		<td th:text="${book.name}"></td>
+		<td th:text="${book.price}"></td>
+		<td><a th:href="'/comment/'+ ${book.code}">レビュー</a></td>
+</tr>
 </table>
+<a href="/book/add">おすすめ参考書を登録する</a>
+
 </body>
 </html>

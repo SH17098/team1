@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,19 +13,20 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer code;
 
-	private Integer book_code;
+	@Column(name="book_code")
+	private Integer bookCode;
 
 	private String comment;
 
 	//コンストラクタ
-	public Comment(Integer code, Integer book_code, String comment) {
-		this(book_code, comment);
+	public Comment(Integer code, Integer bookCode, String comment) {
+		this(bookCode, comment);
 		this.code = code;
 	}
 
-	public Comment(Integer book_code, String comment) {
+	public Comment(Integer bookCode, String comment) {
 		super();
-		this.book_code = book_code;
+		this.bookCode = bookCode;
 		this.comment = comment;
 	}
 
@@ -41,12 +43,12 @@ public class Comment {
 		this.code = code;
 	}
 
-	public Integer getBook_code() {
-		return book_code;
+	public Integer getBookCode() {
+		return bookCode;
 	}
 
-	public void setBook_code(Integer book_code) {
-		this.book_code = book_code;
+	public void setBookCode(Integer bookCode) {
+		this.bookCode = bookCode;
 	}
 
 	public String getComment() {

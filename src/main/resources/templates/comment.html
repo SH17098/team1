@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>レビュー</title>
 </head>
 <body>
+<h1>★みんなのレビュー★</h1>
+
+<div th:text="${mess}"></div>
+
+<table border="1">
+
+<tr th:each="comment:${comments}">
+	<td th:text="${comment.comment}"></td>
+</tr>
+
+</table>
+
+<br>
+<form action="/comment/add" method="post">
+<textarea name="comment" placeholder="レビュー内容を入力"></textarea>
+<input type="submit" value="投稿">
+</form>
+<br>
 
 </body>
 </html>

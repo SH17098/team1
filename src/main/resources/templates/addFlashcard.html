@@ -5,6 +5,10 @@
 <title>新規作成</title>
 </head>
 <body>
+
+<span th:replace="menu"></span>
+
+	<hr>
 <h1>カードの新規作成</h1>
 <form action="/flashcard/add" method="post">
 <textarea name="question" th:placeholder="問題文を入力"><span th:text="${question}"></span></textarea>

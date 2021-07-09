@@ -240,6 +240,12 @@ public class AccountController {
 
 		}
 
+		//TOP画面
+		@GetMapping("/top")
+		public String top() {
+			return "top";
+		}
+
 
 
 

@@ -58,4 +58,9 @@ public class TweetController {
 		return mv;
 	}
 
+//いいねボタンが押されたら
+	@RequestMapping("/twee/like")
+	public ModelAndView likeTweet(ModelAndView mv) {
+			return mv;
+	}
 }

@@ -7,6 +7,7 @@
 <body>
 <h1>皆さんにおすすめする参考書を登録しましょう！</h1>
 <br>
+<span th:text="${error}"></span>
 <form action="/book/add" method="post">
 *参考書の名前：<input type="text" name="name" th:value=${name}>
 *値段：<input type="text" name="price" th:value=${price}>

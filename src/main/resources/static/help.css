@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+body {
+	text-align: center
+}
+
+label {
+	display: inline-block;
+	text-align: right;
+	width: 150px;
+}
+
+#q_number{
+	width: 120px;
+}
+
+#inputField{
+
+	padding: 2em 1em;
+margin: 2em 10em;
+
+color: balck;  /*文字色*/
+background: #FFF;
+border:solid 5px #6091d3; /*線*/
+border-radius: 10px; /*角の丸み*/
+}

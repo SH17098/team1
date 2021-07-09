@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>掲示板</title>
+<link href="tweet.css" rel="stylesheet">
 </head>
 <body>
 <span th:replace="menu"></span>
 
 	<hr>
 <h1>掲示板</h1>
-<table border="1">
+<table border="1" align="center">
     <tr><td>投稿内容一覧</td></tr>
 	<tr th:each="tweet:${tweets}">
 		<td th:text="${tweet.tweet}"></td>

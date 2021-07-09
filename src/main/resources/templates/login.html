@@ -3,24 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン画面</title>
+
+<link href="login.css" rel="stylesheet">
 </head>
 <body>
 <h3>IPA 資格取得情報アプリ</h3>
-
+<div>
 <form action="/login" method="post">
 
-ユーザーID：<input type="text" name="userId" placeholder="ユーザーIDを入力してください">
+ユーザーID：<input type="text" name="userId" placeholder="ユーザーID">
 <br>
-パスワード：<input type="password" name="password" placeholder="パスワードを入力してください">
+パスワード：<input type="password" name="password" placeholder="パスワード">
 
 <br>
 
-<a href="/help">パスワードを忘れたら</a>
-
+<a href="/help">ID・パスワードを忘れたら</a>
+<br>
 <input type="submit" value="ログイン">
 <br>
 <span th:text="${message}" style="color:red"></span>
 </form>
+</div>
 <br>
 
 <a href="/user/add">新規会員登録はこちらから</a>

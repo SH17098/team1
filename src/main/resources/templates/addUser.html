@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>新規登録画面</title>
+
+<link href="addUser.css" rel="stylesheet">
+
 </head>
 <body>
 <h1>新規登録画面</h1>
 <form action="/user/add" method="post">
-
 
 
 <br>
@@ -17,12 +19,12 @@
 ユーザーID：<input type="text" name="userId" placeholder="ユーザーIDを設定してください" th:value=${userId}>
 <br>
 
-メールアドレス：<input type="text" name="mail" placeholder="メールアドレス" th:value=${mail}>
+メールアドレス：<input type="text" name="mail" placeholder="メールアドレスを入力してください" th:value=${mail}>
 
 <br>
 パスワード設定：<input type="password" name="password" placeholder="パスワードを設定してください" th:value=${secret}>
 <br>
-パスワード確認：<input type="password" name="passwordCheck" placeholder="設定したパスワードを入力してください" th:value=${secret}>
+パスワード確認：<input type="password" name="passwordCheck" placeholder="もう一度パスワードを入力してください" th:value=${secret}>
 <br>
 
 質問：<select name="q_number">

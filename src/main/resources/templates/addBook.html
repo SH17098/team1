@@ -5,13 +5,18 @@
 <title>参考書登録</title>
 </head>
 <body>
+<span th:replace="menu"></span>
+<hr>
 <h1>皆さんにおすすめする参考書を登録しましょう！</h1>
 <br>
-<span th:text="${error}"></span>
+<span th:text="${error}" style="color:red"></span>
 <form action="/book/add" method="post">
 *参考書の名前：<input type="text" name="name" th:value=${name}>
+<br>
 *値段：<input type="text" name="price" th:value=${price}>
+<br>
 本に関するコメント（任意）：<input type="text" name="comment" th:value=${comment}>
+<br>
 <input type="submit" value="登録">
 </form>
 <div th:text="${complete}"></div>

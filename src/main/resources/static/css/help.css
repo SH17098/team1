@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 body {
-	text-align: center
+	text-align: center;
+	background-color:#90D0F0
 }
 
 label {
@@ -21,6 +22,6 @@ margin: 2em 10em;
 
 color: balck;  /*文字色*/
 background: #FFF;
-border:solid 5px #6091d3; /*線*/
+border:solid 3px  #048; /*線*/
 border-radius: 10px; /*角の丸み*/
 }

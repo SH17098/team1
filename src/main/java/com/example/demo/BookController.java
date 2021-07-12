@@ -126,6 +126,9 @@ public class BookController {
 		List<Comment> comments = commentRepository.findByBookCode(bookCode);
 		mv.addObject("comments", comments);
 
+		//星評価
+		//
+
 		mv.setViewName("comment");
 		return mv;
 	}

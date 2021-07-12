@@ -1,5 +1,9 @@
 package com.example.demo;
 
+
+
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,15 +22,24 @@ public class Tweet {
 
 	@Column(name="user_code")
 	private Integer user_code;
+	private Date date;
 
 	@Column(name="tweet")
 	private String tweet;
 
 	//コンストラクタ
-	public Tweet(Integer code, Integer user_code, String tweet) {
-		this(user_code, tweet);
+	public Tweet(Integer code, Integer user_code,Date date, String tweet) {
+		this(user_code,date, tweet);
 		this.code = code;
 	}
+	public Tweet(Integer user_code,Date date, String tweet) {
+		super();
+		this.user_code = user_code;
+		this.date= date;
+		this.tweet = tweet;
+	}
+
+
 
 	public Tweet(Integer user_code, String tweet) {
 		super();
@@ -54,6 +67,14 @@ public class Tweet {
 
 	public void setUser_code(Integer user_code) {
 		this.user_code = user_code;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public String getTweet() {

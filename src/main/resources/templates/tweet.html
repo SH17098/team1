@@ -11,9 +11,17 @@
 	<hr>
 <h1>掲示板</h1>
 <table border="1" align="center">
-    <tr><td>投稿内容一覧</td></tr>
+    <tr><td>投稿内容一覧</td><td>投稿日</td></tr>
 	<tr th:each="tweet:${tweets}">
 		<td th:text="${tweet.tweet}"></td>
+		<td th:text="${tweet.date}"></td>
+		<td>
+		<form action="/like" method="get">
+		<input type="hidden" name="tweet_code" th:value=${tweet.code}>
+		<input type="submit" value="like">
+		<span th:text="${count}"></span>
+		</form>
+		</td>
 	</tr>
 <a href="/tweet/add">新規投稿作成</a>
 </table>

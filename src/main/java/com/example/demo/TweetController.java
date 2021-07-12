@@ -19,6 +19,9 @@ public class TweetController {
 	@Autowired
 	TweetRepository tweetRepository;
 
+	@Autowired
+	LikeRepository likeRepository;
+
 //掲示板の初期表示
 	@RequestMapping("/tweet")
 	public ModelAndView tweet(ModelAndView mv) {

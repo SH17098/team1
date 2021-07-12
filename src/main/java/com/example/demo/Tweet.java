@@ -22,17 +22,18 @@ public class Tweet {
 
 	@Column(name="user_code")
 	private Integer user_code;
+
 	private Date date;
 
 	@Column(name="tweet")
 	private String tweet;
 
 	//コンストラクタ
-	public Tweet(Integer code, Integer user_code,Date date, String tweet) {
-		this(user_code,date, tweet);
+	public Tweet(Integer code, Integer user_code,String tweet, Date date) {
+		this(user_code,tweet, date);
 		this.code = code;
 	}
-	public Tweet(Integer user_code,Date date, String tweet) {
+	public Tweet(Integer user_code,String tweet, Date date) {
 		super();
 		this.user_code = user_code;
 		this.date= date;

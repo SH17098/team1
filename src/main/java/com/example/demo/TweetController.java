@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -50,8 +53,15 @@ public class TweetController {
 		session.setAttribute("userCode", 1);
 		//セッションからusercodeを取得
 		int user_code = (int) session.getAttribute("userCode");
+
+		//日付を取得
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String str = sdf.format(timestamp);
+		Date today = Date.valueOf(str);
+
 		//インスタンス生成して、userCodeと投稿内容をtweetテーブルに保存
-		Tweet newTweet = new Tweet(user_code, tweet);
+		Tweet newTweet = new Tweet(user_code, tweet, today);
 		tweetRepository.saveAndFlush(newTweet);
 
 		List<Tweet> tweets = tweetRepository.findAll();

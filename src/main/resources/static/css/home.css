@@ -1,13 +1,33 @@
 @charset "UTF-8";
 body {
 	text-align: center;
-	background-color: #90D0F0;
+	background:linear-gradient(#00ced1,#e0ffff,#00ced1);
 	font-size:15px;
-	font-family:"Yu Gothic Medium", "游ゴシック Medium", "Yu Gothic", "游ゴシック", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo"
+
 }
 
 .url{
 font-size:20px;
 text-decoration:none
+
 }
+
+.url::after {
+  border-bottom: solid 2px #8b008b;/*下線設定*/
+  bottom: 0;
+  content: "";
+  display: block;
+  transition: all .3s ease;/*下線引く時間と長さ設定*/
+  -webkit-transition: all .3s ease;;/*下線無くす設定*/
+  width: 0;
+}
+
+/*選択したとき*/
+.url:hover::after {
+  width: 100%;
+}
+
+
+
+
 

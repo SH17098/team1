@@ -1,7 +1,10 @@
 @charset "UTF-8";
 body {
-	text-align: center;
-	background-color: #90D0F0
+
+		text-align: center;
+	background:linear-gradient(#00ced1,#e0ffff,#00ced1);
+	font-size:15px;
+
 }
 
 label {

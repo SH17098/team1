@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>新規作成</title>
-<link href="addFlashcard.css" rel="stylesheet">
+<link href="/css/addFlashcard.css" rel="stylesheet">
 </head>
 <body>
 
@@ -12,9 +12,11 @@
 	<hr>
 <h1>カードの新規作成</h1>
 <form action="/flashcard/add" method="post">
-<textarea name="question" th:placeholder="問題文を入力"><span th:text="${question}"></span></textarea>
+<textarea name="question" th:placeholder="問題文を入力" th:text="${question}"></textarea>
 <input type="text" name="answer" th:placeholder="答えを入力" th:value=${answer}>
-<textarea name="explanation" th:placeholder="解説を入力"><span th:text="${question}"></span></textarea>
+<textarea name="explanation" th:placeholder="解説を入力" th:text="${question}"></textarea>
+<br>
+<br>
 <input type="submit" value="作成">
 </form>
 <a href="/flashcard/add"><span th:text="${next}"></span></a>

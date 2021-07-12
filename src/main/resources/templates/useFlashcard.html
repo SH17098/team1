@@ -3,23 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <title>カード学習</title>
-<link href="useFlashcard.css" rel="stylesheet">
+<link href="/css/useFlashcard.css" rel="stylesheet">
 </head>
 <body>
 
 <span th:replace="menu"></span>
 
 	<hr>
-<h1>学習</h1>
-問題：<div th:text="${question}"></div>
 
+<h1>フラッシュカード学習</h1>
+<span  id="question">問題</span><div th:text="${question}" id="questionText"></div>
+
+<br>
 <form action="/flashcard/answer" method="get">
-解答：<input type="submit" value="解答を見る">
-<div th:text="${answer}"></div>
+<input type="submit" value="解答を見る">
+<div th:text="${answer}" id="answer"></div>
 </form>
 
-<form action="/flashcard/explanation" method="get">
-解説：<input type="submit" value="解説を見る">
+<br>
+<form action="/flashcard/explanation" method="get" id="explanation">
+<input type="submit" value="解説を見る">
 <div th:text="${explanation}"></div>
 </form>
 

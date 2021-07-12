@@ -2,7 +2,7 @@
 
 body {
 	text-align: center;
-	background:linear-gradient(#00ced1,#e0ffff,#00ced1);
+	background: #f0fff0
 }
 
 label {
@@ -11,17 +11,15 @@ label {
 	width: 150px;
 }
 
-#q_number{
+#q_number {
 	width: 120px;
 }
 
-#inputField{
-
+#inputField {
 	padding: 2em 1em;
-margin: 2em 10em;
-
-color: balck;  /*文字色*/
-background: #FFF;
-border:solid 3px  #048; /*線*/
-border-radius: 10px; /*角の丸み*/
+	margin: 2em 10em;
+	color: balck; /*文字色*/
+	background: #FFF;
+	border: solid 3px #048; /*線*/
+	border-radius: 10px; /*角の丸み*/
 }

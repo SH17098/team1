@@ -1,33 +1,68 @@
 @charset "UTF-8";
 body {
 	text-align: center;
-	background:linear-gradient(#00ced1,#e0ffff,#00ced1);
+	background:#f0fff0;
 	font-size:15px;
 
 }
 
-.url{
-font-size:20px;
-text-decoration:none
-
-}
-
-.url::after {
-  border-bottom: solid 2px #8b008b;/*下線設定*/
-  bottom: 0;
-  content: "";
-  display: block;
-  transition: all .3s ease;/*下線引く時間と長さ設定*/
-  -webkit-transition: all .3s ease;;/*下線無くす設定*/
-  width: 0;
-}
-
-/*選択したとき*/
-.url:hover::after {
-  width: 100%;
+h1{
+background-color:#fff;
+border:2px
 }
 
 
 
+#flashcard{
 
+	width:200px;
+	height:700px;
+	background-color:#f3e6ff;
+	text-decoration:none;
+	width:200px;
+	height:150;
+	padding:30px;
+	border:2px blue solid;
+	margin:50px
+
+}
+
+#test{
+
+	width:200px;
+	height:700px;
+	background-color:#f3e6ff;
+	text-decoration:none;
+	width:200px;
+	height:150;
+	padding:30px;
+	border:2px blue solid;
+	margin:50px
+}
+
+#tweet{
+
+	width:200px;
+	height:700px;
+	background-color:#f3e6ff;
+	text-decoration:none;
+	width:200px;
+	height:150;
+	padding:30px;
+	border:2px blue solid;
+	margin:50px
+}
+
+#book{
+
+	width:200px;
+	height:700px;
+	background-color:#f3e6ff;
+	text-decoration:none;
+	width:200px;
+	height:150;
+	padding:30px;
+	border:2px blue solid;
+	margin:50px
+}
 

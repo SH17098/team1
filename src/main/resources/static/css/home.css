@@ -1,6 +1,13 @@
 @charset "UTF-8";
 body {
 	text-align: center;
-	background-image: url("")no-repeat
+	background-color: #90D0F0;
+	font-size:15px;
+	font-family:"Yu Gothic Medium", "游ゴシック Medium", "Yu Gothic", "游ゴシック", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo"
+}
+
+.url{
+font-size:20px;
+text-decoration:none
 }
 

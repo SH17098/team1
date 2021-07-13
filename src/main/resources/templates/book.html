@@ -12,12 +12,27 @@
 <table border="1">
 
 <tr>
-    <th>参考書</th><th>値段</th><th></th>
+    <th>参考書</th><th>値段</th><th>評価</th><th></th>
 </tr>
 
 <tr th:each="book:${books}">
 		<td th:text="${book.name}"></td>
 		<td th:text="${book.price}"></td>
+		<th:block th:if="${book.rate == 1}">
+		<td>★☆☆☆☆</td>
+		</th:block>
+		<th:block th:if="${book.rate == 2}">
+		<td>★★☆☆☆</td>
+		</th:block>
+		<th:block th:if="${book.rate == 3}">
+		<td>★★★☆☆</td>
+		</th:block>
+		<th:block th:if="${book.rate == 4}">
+		<td>★★★★☆</td>
+		</th:block>
+		<th:block th:if="${book.rate == 5}">
+		<td>★★★★★</td>
+		</th:block>
 		<td><a th:href="'/comment/'+ ${book.code}">レビュー</a></td>
 </tr>
 </table>

@@ -29,9 +29,11 @@ public class TweetController {
 	@RequestMapping("/tweet")
 	public ModelAndView tweet(ModelAndView mv) {
     //tweetテーブルを全件取得し、tweetのみ表示
-		List<Tweet> tweets = tweetRepository.findAll();
+		List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
 		mv.addObject("tweets", tweets);
 
+	    boolean heart = false;
+	    mv.addObject("heart", heart);
 
 		mv.setViewName("tweet");//掲示板を表示
 		return mv;
@@ -61,19 +63,14 @@ public class TweetController {
 		Date today = Date.valueOf(str);
 
 		//インスタンス生成して、userCodeと投稿内容をtweetテーブルに保存
-		Tweet newTweet = new Tweet(user_code, tweet, today);
+		Tweet newTweet = new Tweet(0, user_code, tweet, today);
 		tweetRepository.saveAndFlush(newTweet);
 
-		List<Tweet> tweets = tweetRepository.findAll();
+		List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
 		mv.addObject("tweets", tweets);
 
 		mv.setViewName("Tweet");
 		return mv;
 	}
 
-//いいねボタンが押されたら
-	@RequestMapping("/twee/like")
-	public ModelAndView likeTweet(ModelAndView mv) {
-			return mv;
-	}
 }

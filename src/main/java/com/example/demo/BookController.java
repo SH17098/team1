@@ -26,9 +26,11 @@ public class BookController {
 
 	//参考書一覧の表示
 	@RequestMapping("/book")
-	public ModelAndView book(ModelAndView mv) {
+	public ModelAndView book(
+			ModelAndView mv) {
 		List<Book> books = bookRepository.findAll();
 		mv.addObject("books", books);
+
 
 		mv.setViewName("book");
 		return mv;
@@ -46,6 +48,7 @@ public class BookController {
 	public ModelAndView addBook2(
 			@RequestParam("name") String name,
 			@RequestParam("price") String book_price,
+			@RequestParam("star") String star,
 			@RequestParam("comment") String comment,
 			ModelAndView mv) {
 		//未入力
@@ -65,12 +68,14 @@ public class BookController {
 
 				//同じ本がなかったら登録
 			} else {
+				int rate = Integer.parseInt(star);
 				//本の登録
-				Book newBook = new Book(name, price);
+				Book newBook = new Book(name, price, rate);
 				bookRepository.saveAndFlush(newBook);
 				mv.addObject("complete", "登録が完了しました。");
 				mv.addObject("name", name);
 				mv.addObject("price", price);
+				mv.addObject("rate", rate);
 			}
 
 			//コメントが入力されていれば登録

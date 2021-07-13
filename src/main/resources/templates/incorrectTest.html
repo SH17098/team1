@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>過去問</title>
+<link href="test.css" rel="stylesheet">
+</head>
+<body>
+<span th:replace="menu"></span>
+
+	<hr>
+<h1>過去に間違えたことのある問題</h1>
+
+<table border="1">
+<tr th:each="test:${tests}">
+	<form action="/incorrect/detail" method="post">
+	<input type="hidden" name="test_code" value="${test.code}">
+		<td th:text="${test.question}"></td>
+		<td>
+	   <input type="submit" value="詳細">
+	</td>
+	</form>
+</tr>
+
+</table>
+
+<</body>
+</html>

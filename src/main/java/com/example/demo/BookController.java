@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ public class BookController {
 	@RequestMapping("/book")
 	public ModelAndView book(
 			ModelAndView mv) {
-		List<Book> books = bookRepository.findAll();
+		List<Book> books = bookRepository.findByOrderByCodeAsc();
 		mv.addObject("books", books);
 
 
@@ -69,8 +70,12 @@ public class BookController {
 				//同じ本がなかったら登録
 			} else {
 				int rate = Integer.parseInt(star);
+				int review = 0;
 				//本の登録
-				Book newBook = new Book(name, price, rate);
+				if(!comment.equals("")) {
+					review = 1;
+				}
+				Book newBook = new Book(name, price, rate, review);
 				bookRepository.saveAndFlush(newBook);
 				mv.addObject("complete", "登録が完了しました。");
 				mv.addObject("name", name);
@@ -127,15 +132,50 @@ public class BookController {
 		Comment newComment = new Comment(bookCode, comment);
 		commentRepository.saveAndFlush(newComment); //データベースにコメントを保存
 
+		//bookテーブルのcomment数を一増やす
+		Book book = null;
+		Optional<Book> record = bookRepository.findById(bookCode);
+		if(record.isEmpty() == false) {
+			book = record.get();
+		    int review = book.getComment();
+		    review++;
+
+		    //更新
+		    Book update = new Book(book.getCode(), book.getName(), book.getPrice(), book.getRate(), review);
+			bookRepository.saveAndFlush(update);
+
+		}
 		//get all data
 		List<Comment> comments = commentRepository.findByBookCode(bookCode);
 		mv.addObject("comments", comments);
 
-		//星評価
-		//
 
 		mv.setViewName("comment");
 		return mv;
 	}
+
+	//評価の高い順に表示
+	@GetMapping("/book/order/desc")
+	public ModelAndView order(ModelAndView mv) {
+        //星評価の数で降順に取得
+		List<Book> books = bookRepository.findByOrderByRateDesc();
+
+		mv.addObject("books", books);
+		mv.setViewName("book");
+		return mv;
+	}
+
+	//レビューの多い順に表示
+	@GetMapping("/book/order/review")
+	public ModelAndView orderReview(ModelAndView mv) {
+
+		//レビューの数で降順に取得
+		List<Book> books = bookRepository.findByOrderByCommentDesc();
+
+		mv.addObject("books", books);
+		mv.setViewName("book");
+		return mv;
+	}
+
 
 }

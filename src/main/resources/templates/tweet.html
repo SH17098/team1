@@ -17,12 +17,13 @@
 		<td th:text="${tweet.date}"></td>
 		<td>
 		<th:block th:if="${heart == false}">
-		<a th:href="'/like/'+${tweet.code}">♡</a>
-		<th:block th:if="${heart == true}">
-		<a th:href="'/like/'+${tweet.code}">💜</a>
+		<a th:href="'/like/'+${tweet.code}">&#9825;</a>
+		</th:block>
+		<th:block th:unless="${heart == false}">
+		<a th:href="'/like/'+${tweet.code}" style="color:red">&#9829;</a>
         <span th:text="${tweet.likes}"></span>
-
-		</td>
+        </th:block>
+ 		</td>
 	</tr>
 <a href="/tweet/add">新規投稿作成</a>
 </table>

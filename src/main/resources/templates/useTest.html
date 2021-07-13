@@ -10,17 +10,21 @@
 <span th:replace="menu"></span>
 
 	<hr>
-
+<form action="/test/answer" method="post">
 <h1>過去問題</h1>
 問題：<div th:text="${question}"></div>
-
-<form action="/test/answer" method="get">
-解答：<input type="submit" value="解答を見る">
+<br>
+<input type="radio" name="option" value="a"><span th:text="${option_a}"></span>
+<input type="radio" name="option" value="b"><span th:text="${option_b}"></span>
+<input type="radio" name="option" value="c"><span th:text="${option_c}"></span>
+<input type="radio" name="option" value="d"><span th:text="${option_d}"></span>
+<br>
+<div th:text="${correct}"></div>
+<input type="submit" value="解答">
+解答：
 <div th:text="${answer}"></div>
-</form>
-
-<form action="/test/explanation" method="get">
-解説：<input type="submit" value="解説を見る">
+<br>
+解説：
 <div th:text="${explanation}"></div>
 </form>
 

@@ -1,12 +1,15 @@
 package com.example.demo;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -16,6 +19,9 @@ public class TestController {
 
 	@Autowired
 	TestRepository testRepository;
+
+	@Autowired
+	IncorrectRepository incorrectRepository;
 
 	//過去問のホーム画面の表示
 	@RequestMapping("/test")
@@ -38,48 +44,115 @@ public class TestController {
 
 		//１増やしたコードで検索
 		Optional<Test> record = testRepository.findById(card_code);
-		    session.setAttribute("card_code", card_code);
+		session.setAttribute("card_code", card_code);
 
 		if (record.isEmpty() == false) {
 			Test test = record.get();
 			session.setAttribute("test", test);//セッションに追加
 			mv.addObject("question", test.getQuestion());
-		}else {
-				session.removeAttribute("card_code"); //card_codeセッションは破棄
-				useTest(mv);
+			mv.addObject("option_a", test.getOption_a());
+			mv.addObject("option_b", test.getOption_b());
+			mv.addObject("option_c", test.getOption_c());
+			mv.addObject("option_d", test.getOption_d());
+
+		} else {
+			session.removeAttribute("card_code"); //card_codeセッションは破棄
+			useTest(mv);
 		}
-        //test
-//		System.out.println(session.getAttribute("card_code"));
+		//test
+		//		System.out.println(session.getAttribute("card_code"));
 
 		mv.setViewName("useTest");
 		return mv;
 	}
 
 	//解答を表示
-	@RequestMapping("/test/answer")
-	public ModelAndView showAnswer(ModelAndView mv) {
+	@PostMapping("/test/answer")
+	public ModelAndView showAnswer(
+			@RequestParam("option") String option,
+			ModelAndView mv) {
 		Test current_test = (Test) session.getAttribute("test");//現在のフラッシュカード情報をセッションから取得
+		String check_answer = current_test.getCheck_answer(); //採点用に取得
 		String answer = current_test.getAnswer(); //answerのみ取得
+		String explanation = current_test.getExplanation(); //解説のみ取得
 
-		mv.addObject("answer", answer);
-        mv.addObject("question", current_test.getQuestion());
+		//test
+		System.out.println(option);
+		System.out.println(check_answer);
 
-		mv.setViewName("useTest");
-		return mv;
-	}
+		//採点
+		if (option.equals(check_answer)) {//正解だったら
+			//正解と表示
+			mv.addObject("correct", "正解");
 
-	//解説を表示
-	@RequestMapping("/test/explanation")
-	public ModelAndView showexplanation(ModelAndView mv) {
-		Test current_test = (Test) session.getAttribute("test");//現在のフラッシュカード情報をセッションから取得
-		String explanation = current_test.getExplanation(); //answerのみ取得
+		} else {//不正解なら
+				//データベースにuserCodeと問題番号を保存
+				//セッションからuserCodeを取得
+			int userCode = (int) session.getAttribute("userCode");
+
+			//セッションからtestCodeを取得
+			int testCode = current_test.getCode();
+
+			//incorrectテーブルに保存
+			Incorrect newIncorrect = new Incorrect(userCode, testCode);
+			incorrectRepository.saveAndFlush(newIncorrect);
+
+			//不正解と表示
+			mv.addObject("correct", "不正解");
+		}
 
 		mv.addObject("explanation", explanation);
-		mv.addObject("answer", current_test.getAnswer());
-        mv.addObject("question", current_test.getQuestion());
+		mv.addObject("answer", answer);
+		mv.addObject("question", current_test.getQuestion());
+		mv.addObject("option_a", current_test.getOption_a());
+		mv.addObject("option_b", current_test.getOption_b());
+		mv.addObject("option_c", current_test.getOption_c());
+		mv.addObject("option_d", current_test.getOption_d());
 
 		mv.setViewName("useTest");
 		return mv;
 	}
+
+	//過去に間違えた問題を解く
+	@RequestMapping("/test/incorrect")
+	public ModelAndView incorrect(ModelAndView mv) {
+		//userCodeを取得して、test_codeを取得
+		int userCode = (int) session.getAttribute("userCode");
+		List<Incorrect> lists = incorrectRepository.findByUserCode(userCode);
+		List<Integer> testCode = null;
+		for (int i = 0; i < lists.size(); i++) {
+			Incorrect incorrect = lists.get(i);
+			testCode.add(incorrect.getTestCode());
+		}
+
+		List<Test> tests = null;
+		//testCodeを使って、テスト一覧を表示
+		for (int k = 0; k < testCode.size(); k++) {
+			Optional<Test> record = testRepository.findById(testCode.get(k));
+			if (record.isEmpty() == false) {
+				Test nextTest = record.get();
+				tests.add(nextTest);
+			}
+		}
+
+		mv.addObject("tests", tests);
+        mv.setViewName("incorrectTest");
+		return mv;
+	}
+
+	//	//解説を表示
+	//	@RequestMapping("/test/explanation")
+	//	public ModelAndView showexplanation(ModelAndView mv) {
+	//		Test current_test = (Test) session.getAttribute("test");//現在のフラッシュカード情報をセッションから取得
+	//		String explanation = current_test.getExplanation(); //answerのみ取得
+	//
+	//		mv.addObject("explanation", explanation);
+	//		mv.addObject("answer", current_test.getAnswer());
+	//        mv.addObject("question", current_test.getQuestion());
+	//		mv.addObject("option", current_test.getOption());
+	//
+	//		mv.setViewName("useTest");
+	//		return mv;
+	//	}
 
 }

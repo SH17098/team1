@@ -19,17 +19,20 @@ public class Book {
 
 	private Integer rate;
 
+	private Integer comment;
+
 	//コンストラクタ
-	public Book(Integer code, String name,Integer price, Integer rate) {
-		this(name, price, rate);
+	public Book(Integer code, String name,Integer price, Integer rate, Integer comment) {
+		this(name, price, rate, comment);
 		this.code = code;
 	}
 
-	public Book(String name,Integer price, Integer rate) {
+	public Book(String name,Integer price, Integer rate, Integer comment) {
 		super();
 		this.name = name;
 		this.price = price;
 		this.rate = rate;
+		this.comment = comment;
 	}
 
 	public Book() {
@@ -67,6 +70,13 @@ public class Book {
 
 	public void setRate(Integer rate) {
 		this.rate = rate;
+	}
+	public Integer getComment() {
+		return comment;
+	}
+
+	public void setComment(Integer comment) {
+		this.comment = comment;
 	}
 
 

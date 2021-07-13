@@ -8,61 +8,9 @@ body {
 
 h1{
 background-color:#fff;
-border:2px
-}
-
-
-
-#flashcard{
-
-	width:200px;
-	height:700px;
-	background-color:#f3e6ff;
-	text-decoration:none;
-	width:200px;
-	height:150;
-	padding:30px;
-	border:2px blue solid;
-	margin:50px
+border:1px	#f3e6ff solid;
 
 }
 
-#test{
 
-	width:200px;
-	height:700px;
-	background-color:#f3e6ff;
-	text-decoration:none;
-	width:200px;
-	height:150;
-	padding:30px;
-	border:2px blue solid;
-	margin:50px
-}
-
-#tweet{
-
-	width:200px;
-	height:700px;
-	background-color:#f3e6ff;
-	text-decoration:none;
-	width:200px;
-	height:150;
-	padding:30px;
-	border:2px blue solid;
-	margin:50px
-}
-
-#book{
-
-	width:200px;
-	height:700px;
-	background-color:#f3e6ff;
-	text-decoration:none;
-	width:200px;
-	height:150;
-	padding:30px;
-	border:2px blue solid;
-	margin:50px
-}
 

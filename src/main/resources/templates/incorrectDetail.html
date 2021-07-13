@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>過去問</title>
+</head>
+<body>
+<span th:replace="menu"></span>
+
+	<hr>
+<h1>過去に間違えたことのある問題</h1>
+
+問題
+<div th:text="${question}"></div>
+選択肢
+<span th:text="${option_a}"></span>
+<span th:text="${option_b}"></span>
+<span th:text="${option_c}"></span>
+<span th:text="${option_d}"></span>
+
+<br>
+解答
+<div th:text="${answer}"></div>
+解説
+<div th:text="${explanation}"></div>
+
+
+</body>
+</html>

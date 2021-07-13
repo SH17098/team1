@@ -21,8 +21,8 @@
 		</th:block>
 		<th:block th:unless="${heart == false}">
 		<a th:href="'/like/'+${tweet.code}" style="color:red">&#9829;</a>
-        <span th:text="${tweet.likes}"></span>
         </th:block>
+        <span th:text="${tweet.likes}"></span>
  		</td>
 	</tr>
 <a href="/tweet/add">新規投稿作成</a>

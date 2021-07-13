@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -113,19 +114,23 @@ public class TestController {
 		return mv;
 	}
 
-	//過去に間違えた問題を解く
+	//過去に間違えた問題を表示
 	@RequestMapping("/test/incorrect")
 	public ModelAndView incorrect(ModelAndView mv) {
 		//userCodeを取得して、test_codeを取得
 		int userCode = (int) session.getAttribute("userCode");
 		List<Incorrect> lists = incorrectRepository.findByUserCode(userCode);
-		List<Integer> testCode = null;
+		if(lists.size() == 0) {
+			mv.addObject("none", "まだ間違えた問題はありません。");
+		}
+
+		List<Integer> testCode = new ArrayList<Integer>();
 		for (int i = 0; i < lists.size(); i++) {
 			Incorrect incorrect = lists.get(i);
 			testCode.add(incorrect.getTestCode());
 		}
 
-		List<Test> tests = null;
+		List<Test> tests = new ArrayList<Test>();
 		//testCodeを使って、テスト一覧を表示
 		for (int k = 0; k < testCode.size(); k++) {
 			Optional<Test> record = testRepository.findById(testCode.get(k));
@@ -136,7 +141,32 @@ public class TestController {
 		}
 
 		mv.addObject("tests", tests);
-        mv.setViewName("incorrectTest");
+		mv.setViewName("incorrectTest");
+		return mv;
+	}
+
+	//過去に間違えた問題の詳細を表示
+	@PostMapping("/incorrect/detail")
+	public ModelAndView incorrect2(
+			@RequestParam("test_code") String test_code,
+			ModelAndView mv) {
+		int testCode = Integer.parseInt(test_code);
+		//testCodeから全情報をデータベースより取得
+		Test test = null;
+		Optional<Test> record = testRepository.findById(testCode);
+        if(record.isEmpty() == false) {
+        	test = record.get();
+        }
+
+ 		mv.addObject("explanation", test.getExplanation());
+		mv.addObject("answer", test.getAnswer());
+		mv.addObject("question", test.getQuestion());
+		mv.addObject("option_a", test.getOption_a());
+		mv.addObject("option_b", test.getOption_b());
+		mv.addObject("option_c", test.getOption_c());
+		mv.addObject("option_d", test.getOption_d());
+
+        mv.setViewName("incorrectDetail");
 		return mv;
 	}
 

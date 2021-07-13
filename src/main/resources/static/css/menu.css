@@ -10,17 +10,21 @@ div {  /*各spanのメニューに指定*/
 	background-color: #fff;
 }
 
-
-
-#back {
-	float: left;
-	padding-right:10px;
-	padding-bottom:20px;
-	padding-left:10px;
+#back{
+	background-color: #ccffff;
+	border-radius: 5px;
+	padding: 10px;
+	text-decoration:none;
+	color:darkblue;
+	font-weight:bold;
 }
 
 #Top {
-	float: left;
+	background-color: #ffffcc;
+	border-radius: 5px;
+	padding: 10px;
+	text-decoration:none;
+	font-weight:bold;
 	padding-right:10px;
 	padding-bottom:20px;
 	padding-left:10px;

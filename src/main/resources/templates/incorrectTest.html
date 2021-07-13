@@ -6,23 +6,25 @@
 <link href="test.css" rel="stylesheet">
 </head>
 <body>
-<span th:replace="menu"></span>
+	<span th:replace="menu"></span>
 
 	<hr>
-<h1>過去に間違えたことのある問題</h1>
+	<h1>過去に間違えたことのある問題</h1>
 
-<table border="1">
-<tr th:each="test:${tests}">
-	<form action="/incorrect/detail" method="post">
-	<input type="hidden" name="test_code" value="${test.code}">
-		<td th:text="${test.question}"></td>
-		<td>
-	   <input type="submit" value="詳細">
-	</td>
-	</form>
-</tr>
+	<br>
+	<div th:text="${none}"></div>
 
-</table>
+	<table border="1">
+		<tr th:each="test:${tests}">
+			<td th:text="${test.code}"></td>
+			<form action="/incorrect/detail" method="post">
+				<input type="hidden" name="test_code" th:value="${test.code}">
+				<td th:text="${test.question}"></td>
+			<td><input type="submit" value="詳細"></td>
+			</form>
+		</tr>
 
-<</body>
+	</table>
+
+</body>
 </html>

@@ -5,9 +5,9 @@
 </head>
 
 
-<a href="javascript:history.back();" style="text-decoration:none" id="back">戻る</a>
+<a href="javascript:history.back();" style="text-decoration:none" id="back">←</a>
 <a href="/home" style="text-decoration:none" id="Top">TOP</a>
 <span id="title">基本情報技術者試験</span>
 <a href="/logout" style="text-decoration:none" id="logout">ログアウト</a>
-<span th:text="'（'+${session.userInfo.name}+' さんがログイン中）'" id="user"></span>
+<span th:text="'（'+${session.userId}+' さんがログイン中）'" id="user"></span>
 

@@ -57,7 +57,11 @@ public class LikeController {
 
 		    //ハートの表示用
 		    boolean heart = false;
-            mv.addObject("heart", "heart");
+
+		    //test
+//		    System.out.println(heart);
+
+            mv.addObject("heart", heart);
 		    mv.setViewName("tweet");
 		    return mv;
 
@@ -87,7 +91,11 @@ public class LikeController {
 
 		    //ハートの表示用
 		    boolean heart = true;
-            mv.addObject("heart", "heart");
+
+		    //test
+//		    System.out.println(heart);
+
+		    mv.addObject("heart", heart);
 		    mv.setViewName("tweet");
 		    return mv;
 	    }

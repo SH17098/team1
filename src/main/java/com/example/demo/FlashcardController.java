@@ -27,7 +27,7 @@ public class FlashcardController {
 	}
 
 	//新規カード作成画面の表示
-	@RequestMapping("/flashcard/add")
+	@RequestMapping("/flashcard/new/add")
 	public ModelAndView addFlashcard(ModelAndView mv) {
 		mv.setViewName("addFlashcard");
 		return mv;
@@ -40,6 +40,15 @@ public class FlashcardController {
 			@RequestParam("answer") String answer,
 			@RequestParam("explanation") String explanation,
 			ModelAndView mv) {
+
+		//未入力の項目
+		if (question.equals("") || answer.equals("") || explanation.equals("")) {
+			mv.addObject("message", "未入力の項目があります。");
+			mv.setViewName("addFlashcard");
+			return mv;
+
+		}
+
 		//新規カードをflashcardfeテーブルに保存
 		Flashcard newflashcard = new Flashcard(question, answer, explanation);
 		flashcardRepository.saveAndFlush(newflashcard);

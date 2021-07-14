@@ -71,6 +71,7 @@ svg {
   padding: 0;
 }
 
+
 .navigation a {
   display: block;
   padding: var(--navigation-anchor-padding);

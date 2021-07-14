@@ -20,7 +20,7 @@
 		   <a th:href="'/like/'+${tweet.code}">&#9825;</a>
 		</th:block>
 		<th:block th:unless="${heart == false}">
-		<a th:href="'/like/'+${tweet.code}" style="color:red">&#9829;</a>
+		<a th:href="'/like/'+${tweet.code}" style="color:red" id="hart">&#9829;</a>
         </th:block>
        <span th:text="${tweet.likes}"></span>
  		</td>

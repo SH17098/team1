@@ -3,7 +3,9 @@ package com.example.demo;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -32,8 +34,35 @@ public class TweetController {
 		List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
 		mv.addObject("tweets", tweets);
 
-	    boolean heart = false;
-	    mv.addObject("heart", heart);
+	//ハートの色を設定
+		List<Boolean> hearts = new ArrayList<>();
+
+		//userCodeを取得
+		int user_code = (int) session.getAttribute("userCode");
+
+
+		for(int i = 0; i < tweets.size(); i++) {
+			//tweetCodeを取得する
+			Tweet tweet = tweets.get(i);
+			int tweet_code = tweet.getCode();
+
+			//test
+			System.out.println(user_code + "/" + tweet_code);
+			//デフォルト
+			boolean like = false;
+
+			//ハートを押したことがあるかlikeテーブルで確認
+			Optional<Like> record = likeRepository.findByUserCodeAndTweetCode(user_code, tweet_code);
+			if(record.isEmpty() == false) { //押したことがある場合
+				like = true;
+			}
+
+			hearts.add(like);
+		}
+		//test
+		System.out.println(hearts);
+
+	    mv.addObject("hearts", hearts);
 
 		mv.setViewName("tweet");//掲示板を表示
 		return mv;

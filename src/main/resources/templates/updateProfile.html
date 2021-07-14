@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>プロフィール</title>
+</head>
+<body>
+<span th:replace="menu"></span>
+
+<h1>プロフィール参照・変更</h1>
+
+<div th:text="${message}"></div>
+
+<form action="/profile/update" method="post">
+名前：<input type="text" name="name" th:value=${name}>
+<br>
+Email：<input type="text" name="mail" th:value=${mail}>
+<br>
+パスワード：<input type="password" name="password" th:value=${password}>
+<br>
+<input type="submit" value="更新">
+</form>
+
+</body>
+</html>

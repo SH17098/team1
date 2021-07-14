@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>プロフィール</title>
+</head>
+<body>
+<span th:replace="menu"></span>
+
+<h1><span th:text="${session.userId}"></span>さんのプロフィール</h1>
+名前：<span th:text="${name}"></span>
+<br>
+Email：<span th:text="${mail}"></span>
+<br>
+パスワード：<span th:text="${password}"></span>
+<form action="/password">
+<input type="submit" value="パスワードを表示する">
+</form>
+
+<br>
+<a href="/profile/update">登録内容を変更する</a>
+
+</body>
+</html>

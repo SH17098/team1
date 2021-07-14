@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,13 +56,34 @@ public class LikeController {
 		    List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
 		    mv.addObject("tweets", tweets);
 
-		    //ハートの表示用
-		    boolean heart = false;
+			//ハートの色を設定
+			List<Boolean> hearts = new ArrayList<>();
+
+			//userCodeを取得
+			int user_code = (int) session.getAttribute("userCode");
+
+
+			for(int i = 0; i < tweets.size(); i++) {
+				//tweetCodeを取得する
+				Tweet tweeted = tweets.get(i);
+				int tweet_code = tweeted.getCode();
+
+				//デフォルト
+				boolean like = false;
+
+				//ハートを押したことがあるかlikeテーブルで確認
+				Optional<Like> record4 = likeRepository.findByUserCodeAndTweetCode(user_code, tweet_code);
+				if(record4.isEmpty() == false) { //押したことがある場合
+					like = true;
+				}
+
+				hearts.add(like);
+			}
 
 		    //test
-//		    System.out.println(heart);
+		    System.out.println(hearts);
 
-            mv.addObject("heart", heart);
+            mv.addObject("hearts", hearts);
 		    mv.setViewName("tweet");
 		    return mv;
 
@@ -89,13 +111,34 @@ public class LikeController {
 		    List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
 		    mv.addObject("tweets", tweets);
 
-		    //ハートの表示用
-		    boolean heart = true;
+			//ハートの色を設定
+			List<Boolean> hearts = new ArrayList<>();
+
+			//userCodeを取得
+			int user_code = (int) session.getAttribute("userCode");
+
+
+			for(int i = 0; i < tweets.size(); i++) {
+				//tweetCodeを取得する
+				Tweet tweeted = tweets.get(i);
+				int tweet_code = tweeted.getCode();
+
+				//デフォルト
+				boolean liked = false;
+
+				//ハートを押したことがあるかlikeテーブルで確認
+				Optional<Like> record4 = likeRepository.findByUserCodeAndTweetCode(user_code, tweet_code);
+				if(record4.isEmpty() == false) { //押したことがある場合
+					liked = true;
+				}
+
+				hearts.add(liked);
+			}
 
 		    //test
-//		    System.out.println(heart);
+		    System.out.println(hearts);
 
-		    mv.addObject("heart", heart);
+		    mv.addObject("hearts", hearts);
 		    mv.setViewName("tweet");
 		    return mv;
 	    }

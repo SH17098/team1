@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface LikeRepository extends JpaRepository<Like, Integer>{
    long countByTweetCode(Integer tweetCode);
    Optional<Like> findByUserCodeAndTweetCode(int userCode, int tweetCode);
+   Optional<Like> findByOrderByTweetCodeAsc();
 }

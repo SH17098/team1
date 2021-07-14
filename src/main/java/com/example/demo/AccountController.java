@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -240,7 +241,107 @@ public class AccountController {
 
 		}
 
+		/**
+		 * プロフィールを表示
+		 */
+		@RequestMapping("/profile")
+		public ModelAndView profile(ModelAndView mv) {
+			int userCode = (int) session.getAttribute("userCode");
 
+			User user = null;
+			Optional<User> record = userRepository.findById(userCode);
+			if(record.isEmpty() == false) {
+				user = record.get();
+			}
+			mv.addObject("name", user.getName());
+			mv.addObject("mail", user.getEmail());
+			mv.addObject("userId", user.getUserId());
+			mv.setViewName("profile");
+			return mv;
+		}
+		/**
+		 * パスワードを表示
+		 */
+		@RequestMapping("/password")
+		public ModelAndView password(ModelAndView mv) {
+			int userCode = (int) session.getAttribute("userCode");
+
+			User user = null;
+			Optional<User> record = userRepository.findById(userCode);
+			if(record.isEmpty() == false) {
+				user = record.get();
+			}
+			mv.addObject("name", user.getName());
+			mv.addObject("mail", user.getEmail());
+			mv.addObject("userId", user.getUserId());
+			mv.addObject("password", user.getPassword());
+			mv.setViewName("profile");
+			return mv;
+		}
+
+		/**
+		 * プロフィール変更画面
+		 */
+		@RequestMapping("/profile/update")
+		public ModelAndView update(ModelAndView mv) {
+			int userCode = (int) session.getAttribute("userCode");
+
+			User user = null;
+			Optional<User> record = userRepository.findById(userCode);
+			if(record.isEmpty() == false) {
+				user = record.get();
+			}
+			mv.addObject("name", user.getName());
+			mv.addObject("mail", user.getEmail());
+			mv.addObject("password", user.getPassword());
+
+			mv.setViewName("updateProfile");
+			return mv;
+		}
+
+		/**
+		 * プロフィール変更画面
+		 */
+		@PostMapping("/profile/update")
+		public ModelAndView update2(
+				@RequestParam("name") String name,
+				@RequestParam("mail") String mail,
+				@RequestParam("password") String password,
+				ModelAndView mv) {
+
+			//test
+//			System.out.println(name);
+			//空白があったときの処理
+			if (name.equals("") || mail.equals("") || password.equals("")) {
+
+				mv.addObject("message", "未入力の箇所があります。");
+				mv.setViewName("updateProfile");
+
+				return mv;
+			}
+
+
+			int userCode = (int) session.getAttribute("userCode");
+			Optional<User> record2 = userRepository.findById(userCode);
+            User user = null;
+			if (record2.isEmpty() == false) {
+				user = record2.get();
+			}
+
+			// パラメータからオブジェクトを生成
+			User update = new User(userCode, name, user.getUserId(), mail,password, user.getQ_number(), user.getAnswer());
+			// userテーブルへの登録
+			userRepository.saveAndFlush(update);
+
+			//test
+//			System.out.println(mail);
+			mv.addObject("name", name);
+			mv.addObject("mail", mail);
+
+
+			mv.setViewName("profile");
+			return mv;
+		}
 
 
 		//ホーム画面

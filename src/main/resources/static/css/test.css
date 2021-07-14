@@ -1,6 +1,25 @@
 @charset "UTF-8";
 
-body{
-	background:#f0fff0;
-	text-align:center
+body {
+	text-align: center;
+	background: #f0fff0
+}
+
+a {
+	font-size: 20px;
+	text-decoration: none
+}
+
+a::after {
+	border-bottom: solid 2px #8b008b;
+	bottom: 0;
+	content: "";
+	display: block;
+	transition: all .3s ease;
+	-webkit-transition: all .3s ease;
+	width: 0;
+}
+
+a:hover::after {
+	width: 100%;
 }

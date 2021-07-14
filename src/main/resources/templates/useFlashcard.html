@@ -21,9 +21,9 @@
 </form>
 
 <br>
-<form action="/flashcard/explanation" method="get" id="explanation">
+<form action="/flashcard/explanation" method="get">
 <input type="submit" value="解説を見る">
-<div th:text="${explanation}"></div>
+<div th:text="${explanation}"  id="explanation"></div>
 </form>
 
 <a href="/flashcard/use">次へ</a>

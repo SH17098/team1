@@ -9,25 +9,26 @@ body {
 
 #questionText {
 	display:inline-block;
-	 padding: 0.5em 1em;
+	 padding: 0.5em 0em;
     margin: 2em 0;
     color: #232323;
     background: rgb(220, 220, 224);
-    border-left: solid 10px rgb(0, 128, 255);
+    border-left: solid 70px rgb(0, 128, 255);
 }
 
 #answer {
-	 padding: 0.5em 1em;
+
+	 padding: 0.5em;
     margin: 2em 0;
     color: #232323;
     background: rgb(220, 220, 224);
-    border-left: solid 10px rgb(0, 128, 255);
+    border-left: solid 70px rgb(0, 128, 255);
 }
 
 #explanation{
-	 padding: 0.5em 1em;
+	 padding: 0.5em 3em;
     margin: 2em 0;
     color: #232323;
     background: rgb(220, 220, 224);
-    border-left: solid 10px rgb(0, 128, 255);
+    border-left: solid 70px rgb(0, 128, 255);
 }

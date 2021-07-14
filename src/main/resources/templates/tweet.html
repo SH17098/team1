@@ -12,17 +12,17 @@
 <h1>掲示板</h1>
 <table border="1" align="center">
     <tr><td>投稿内容一覧</td><td>投稿日</td><td>いいね</td></tr>
-	<tr th:each="tweet:${tweets}">
+	<tr th:each="tweet, i:${tweets}">
 		<td th:text="${tweet.tweet}"></td>
 		<td th:text="${tweet.date}"></td>
-		<td>
-		<th:block th:if="${heart == false}">
-		<a th:href="'/like/'+${tweet.code}">&#9825;</a>
+		<td th:each="heart, i2:${hearts}" th:if="${i.index == i2.index}">
+        <th:block th:if="${heart == false}">
+		   <a th:href="'/like/'+${tweet.code}">&#9825;</a>
 		</th:block>
 		<th:block th:unless="${heart == false}">
 		<a th:href="'/like/'+${tweet.code}" style="color:red">&#9829;</a>
         </th:block>
-        <span th:text="${tweet.likes}"></span>
+       <span th:text="${tweet.likes}"></span>
  		</td>
 	</tr>
 <a href="/tweet/add">新規投稿作成</a>

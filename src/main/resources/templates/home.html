@@ -7,12 +7,17 @@
 </head>
 <body>
 <div><span th:replace="menu"  class="menu"></span></div>
+<div class="time">
+<br><br>
+<u th:text="${#calendars.format(#calendars.createNowForTimeZone('Asia/Tokyo'), 'yyyy年MM月dd日')}"></u>
+<br><br><br>
+
+ようこそ！今日も一緒に頑張りましょう☆彡
+</div>
+<br><br>
 
 
-
-
-<a href="/flashcard" id="flashcard">
-フラッシュカード</a>
+<a href="/flashcard" id="flashcard">フラッシュカード</a>
 
 
 <a href="/test" id="test">過去問</a>

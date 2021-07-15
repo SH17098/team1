@@ -8,23 +8,41 @@
 <body>
 <span th:replace="menu"></span>
 
-	<hr>
-<h1>過去に間違えたことのある問題</h1>
 
+<h1>過去に間違えたことのある問題</h1>
+<div class="fixed">
 問題
-<div th:text="${question}"></div>
+<br>
+<div class="change" th:text="${question}"></div>
+</div>
+
+<br>
+
+<div  class="fixed">
 選択肢
+<br>
+<div class="change">
 <span th:text="${option_a}"></span>
 <span th:text="${option_b}"></span>
 <span th:text="${option_c}"></span>
 <span th:text="${option_d}"></span>
+</div>
+</div>
 
 <br>
+<div class="fixed">
 解答
-<div th:text="${answer}"></div>
-解説
-<div th:text="${explanation}"></div>
+<br>
+<div class="change" th:text="${answer}"></div>
+</div>
 
+<br>
+
+<div class="fixed">
+解説
+<br>
+<div class="change" th:text="${explanation}"></div>
+</div>
 
 </body>
 </html>

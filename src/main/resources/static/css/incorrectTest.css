@@ -1,7 +1,29 @@
 @charset "UTF-8";
 
-body{
-	text-align:center;
-	background:#f0fff0
+body {
+	text-align: center;
+	background: #f0fff0
 }
 
+Table {
+    border-collapse: separate;
+    border-spacing: 0px 8px;
+}
+
+td{
+        background-color:#d1f5f5;
+        border-bottom:solid 2px #0094ff;
+    }
+
+
+#code{
+ padding:20px;
+}
+
+#question{
+	 padding:20px;
+}
+
+#detail{
+
+}

@@ -9,23 +9,39 @@
 
 <span th:replace="menu"></span>
 
-	<hr>
+
 <form action="/test/answer" method="post">
 <h1>過去問題</h1>
-問題：<div th:text="${question}"></div>
+<div class="questions">
+<p>問題</p>
+<div id="question" th:text="${question}">
+</div>
+</div>
 <br>
+
+<div class="select">
+<p>選択肢</p>
+<div  class="option">
 <input type="radio" name="option" value="a"><span th:text="${option_a}"></span>
 <input type="radio" name="option" value="b"><span th:text="${option_b}"></span>
 <input type="radio" name="option" value="c"><span th:text="${option_c}"></span>
 <input type="radio" name="option" value="d"><span th:text="${option_d}"></span>
+</div>
+</div>
 <br>
-<div th:text="${correct}"></div>
-<input type="submit" value="解答">
 
-<div th:text="${answer}"></div>
+
+<p><div th:text="${correct}"></div></p>
+
+<input type="submit" value="解答">
 <br>
-解説
-<div th:text="${explanation}"></div>
+<div id="answer" th:text="${answer}"></div>
+<br>
+<div class="explanation">
+<p>解説</p>
+<div th:text="${explanation}" id="explanation"></div>
+</div>
+
 </form>
 
 <a href="/test/use">次へ</a>

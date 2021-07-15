@@ -4,3 +4,22 @@ body{
 	text-align:center;
 	background:#f0fff0
 }
+
+.fixed{
+ 	background: rgb(137, 192, 254);
+	padding: 1px 1px;
+	margin-top: 30px;
+	border: 0.5px solid rgb(137, 192, 254);
+	color: #000;
+	font-weight: bold;
+	display: inline-block;
+}
+
+.change{
+	background: #cde1fe;
+	padding: 10px;
+	border-right: 2px solid rgb(137, 192, 254);
+	border-bottom: 2px solid rgb(137, 192, 254);
+	border-left: 2px solid rgb(137, 192, 254);
+	display: inline-block;
+}

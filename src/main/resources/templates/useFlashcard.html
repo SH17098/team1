@@ -12,20 +12,25 @@
 	<hr>
 
 <h1>フラッシュカード学習</h1>
-<span  id="question">問題</span><div th:text="${question}" id="questionText"></div>
+<h3>問題</h3>
+<div th:text="${question}" id="questionText"></div>
 
 <br>
 <form action="/flashcard/answer" method="get">
+
 <input type="submit" value="解答を見る">
+
+<br>
 <div th:text="${answer}" id="answer"></div>
 </form>
 
 <br>
 <form action="/flashcard/explanation" method="get">
 <input type="submit" value="解説を見る">
-<div th:text="${explanation}"  id="explanation"></div>
+<br>
+<div th:text="${explanation}" id="explanation"></div>
 </form>
 
-<a href="/flashcard/use">次へ</a>
+<a href="/flashcard/use" id="next">次へ</a>
 </body>
 </html>

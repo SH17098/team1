@@ -43,6 +43,14 @@ public class AccountController {
 			@RequestParam("password") String password,
 			ModelAndView mv) {
 
+		//サニタイジング
+		userId = Sanitizing.convert(userId);
+		password = Sanitizing.convert(password);
+
+		//test
+//		System.out.println(userId);
+
+
 		//両方が空だった場合
 		if (userId.equals("") && password.equals("")) {
 			mv.addObject("message", "ユーザーIDとパスワードを入力してください");
@@ -121,6 +129,15 @@ public class AccountController {
 				@RequestParam("answer") String answer,
 				ModelAndView mv) {
 
+			//サニタイジング
+			userId = Sanitizing.convert(userId);
+			password = Sanitizing.convert(password);
+            mail = Sanitizing.convert(mail);
+            password = Sanitizing.convert(password);
+            passwordCheck = Sanitizing.convert(passwordCheck);
+            q_number = Sanitizing.convert(q_number);
+            answer = Sanitizing.convert(answer);
+
 			//空白があったときの処理
 			if (name.equals("") || userId.equals("") || mail.equals("") || password.equals("") || q_number.equals("")
 					|| answer.equals("")) {
@@ -182,6 +199,14 @@ public class AccountController {
 				@RequestParam("q_number") String q_number,
 				@RequestParam("answer") String answer,
 				ModelAndView mv) {
+
+
+			//サニタイジング
+			name = Sanitizing.convert(name);
+            mail = Sanitizing.convert(mail);
+           q_number = Sanitizing.convert(q_number);
+            answer = Sanitizing.convert(answer);
+
 
 			//空白箇所の処理
 			if (name.equals("") || mail.equals("") || q_number.equals("")|| answer.equals("")) {
@@ -308,6 +333,12 @@ public class AccountController {
 				@RequestParam("mail") String mail,
 				@RequestParam("password") String password,
 				ModelAndView mv) {
+
+			//サニタイジング
+			name = Sanitizing.convert(name);
+            mail = Sanitizing.convert(mail);
+            password = Sanitizing.convert(password);
+
 
 			//test
 //			System.out.println(name);

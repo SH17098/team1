@@ -52,6 +52,15 @@ public class BookController {
 			@RequestParam("star") String star,
 			@RequestParam("comment") String comment,
 			ModelAndView mv) {
+
+		//サニタイジング
+		name = Sanitizing.convert(name);
+		book_price = Sanitizing.convert(book_price);
+		star = Sanitizing.convert(star);
+		comment = Sanitizing.convert(comment);
+
+
+
 		//未入力
 		if (name.equals("") || book_price.equals("")) {
 			mv.addObject("error", "すべての項目に入力してください");
@@ -130,6 +139,10 @@ public class BookController {
 	public ModelAndView addComment(
 			@RequestParam("comment") String comment,
 			ModelAndView mv) {
+
+		//サニタイジング
+		comment = Sanitizing.convert(comment);
+
 		//get bookCode from session
 		int bookCode = (int)session.getAttribute("bookCode");
         //add

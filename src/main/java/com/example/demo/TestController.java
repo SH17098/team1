@@ -50,6 +50,7 @@ public class TestController {
 		if (record.isEmpty() == false) {
 			Test test = record.get();
 			session.setAttribute("test", test);//セッションに追加
+			mv.addObject("code", test.getCode());
 			mv.addObject("question", test.getQuestion());
 			mv.addObject("option_a", test.getOption_a());
 			mv.addObject("option_b", test.getOption_b());
@@ -72,6 +73,16 @@ public class TestController {
 	public ModelAndView showAnswer(
 			@RequestParam("option") String option,
 			ModelAndView mv) {
+
+		//ラジオボタンが選択されなかった場合
+		if(option.equals("")) {
+			mv.addObject("error", "選択肢から解答をしてください");
+
+			mv.setViewName("useTest");
+			return mv;
+		}
+
+
 		Test current_test = (Test) session.getAttribute("test");//現在のフラッシュカード情報をセッションから取得
 		String check_answer = current_test.getCheck_answer(); //採点用に取得
 		String answer = current_test.getAnswer(); //answerのみ取得
@@ -150,6 +161,10 @@ public class TestController {
 	public ModelAndView incorrect2(
 			@RequestParam("test_code") String test_code,
 			ModelAndView mv) {
+
+		//サニタイジング
+		test_code = Sanitizing.convert(test_code);
+
 		int testCode = Integer.parseInt(test_code);
 		//testCodeから全情報をデータベースより取得
 		Test test = null;

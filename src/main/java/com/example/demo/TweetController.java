@@ -99,6 +99,10 @@ public class TweetController {
 	public ModelAndView addTweet2(
 			@RequestParam("tweet") String tweet,//作成した投稿内容を取得
 			ModelAndView mv) {
+
+		//サニタイジング
+		tweet = Sanitizing.convert(tweet);
+
 		//test用
 		session.setAttribute("userCode", 1);
 		//セッションからusercodeを取得

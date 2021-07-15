@@ -41,6 +41,12 @@ public class FlashcardController {
 			@RequestParam("explanation") String explanation,
 			ModelAndView mv) {
 
+		//サニタイジング
+		question = Sanitizing.convert(question);
+		answer = Sanitizing.convert(answer);
+		explanation = Sanitizing.convert(explanation);
+
+
 		//未入力の項目
 		if (question.equals("") || answer.equals("") || explanation.equals("")) {
 			mv.addObject("message", "未入力の項目があります。");

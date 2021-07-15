@@ -6,13 +6,17 @@ body{
 }
 
 table{
-	width: 100%;
-	border-collapse: collapse;
+	width: 40%;
+/*	border-collapse: collapse; */
 }
 
 tr{
 	border-bottom: solid 2px white;
 }
+table tr:hover{
+  background-color: #d4f0fd;
+}
+
 
 tr:last-child{
 	border-bottom: none;
@@ -40,11 +44,32 @@ tr:last-child{
   border-bottom: 10px solid transparent;
 }
 
+textarea{
+	resize: none;
+	width:500px;
+	height:50px;
+	border-radius: 0.5rem;
 
-table {
+}
+
+.tweet{
   text-align: center;
   width: 70%;
   text-align: center;
   background-color: #eee;
   padding: 10px 0;
+}
+
+.button{
+	background-color: #6699cc;
+  position: relative;
+  display: inline-block;
+  padding: 8px 17px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  color: white;
+  border-radius: 0.5rem;
 }

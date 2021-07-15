@@ -11,13 +11,14 @@
 <hr>
 <h1>皆さんにおすすめする参考書を登録しましょう！</h1>
 <br>
+<div class="letter">
 <span th:text="${error}" style="color:red"></span>
 <form action="/book/add" method="post">
-*参考書の名前：<input type="text" name="name" th:value=${name}>
-<br>
-*値段：<input type="text" name="price" th:value=${price}>
-<br>
-星評価をつけてください
+<font color="red">*</font>参考書の名前：<input type="text" name="name" th:value=${name}>
+<br><br>
+<font color="red">*</font>値段：<input type="text" name="price" th:value=${price}>
+<br><br>
+<font color="red">*</font>星評価をつけてください</div>
 <div class="cont">
 <div class="stars">
   <input class="star star-5" id="star-5" type="radio" name="star" value="5"/>
@@ -33,12 +34,18 @@
 </div>
 </div>
 <br>
-本に関するコメント（任意）：<input type="text" name="comment" th:value=${comment}>
+<br><br><br>
+<div class="letter">
+本に関するコメント（任意）
+</div><br>
+<textarea name="comment" th:value=${comment}></textarea>
 <br>
 
-<input type="submit" value="登録">
+<input class="button" type="submit" value="登録">
 </form>
 <div th:text="${complete}"></div>
+
+<br><br>
 </body>
 </html>
 

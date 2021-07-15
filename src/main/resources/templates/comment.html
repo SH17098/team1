@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link href="/css/comment.css" rel="stylesheet">
+
 <title>レビュー</title>
 </head>
 <body>
@@ -12,7 +14,7 @@
 
 <div th:text="${mess}"></div>
 
-<table border="1">
+<table align="center">
 
 <tr th:each="comment:${comments}">
 	<td th:text="${comment.comment}"></td>
@@ -21,9 +23,10 @@
 </table>
 
 <br>
+<br><br>
 <form action="/comment/add" method="post">
 <textarea name="comment" placeholder="レビュー内容を入力"></textarea>
-<input type="submit" value="投稿">
+<input class="button" type="submit" value="投稿">
 </form>
 <br>
 

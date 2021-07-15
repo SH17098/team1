@@ -10,7 +10,7 @@
 
 	<hr>
 <h1>掲示板</h1>
-<table align="center">
+<table align="center" class="tweet">
  	<tr th:each="tweet, i:${tweets}">
 	    <td th:each="user, i3:${users}" th:if="${i.index == i3.index}" class="userName">
 	    <span th:text="${user}"></span>
@@ -28,10 +28,12 @@
  		</td>
 	</tr>
 </table>
-<table>
+	<br>
+	<br>
+<table align="center">
 <form action="/tweet/add" method="post">
-<tr><td class="text"><textarea name="tweet"></textarea></td>
-<td><input type="submit" value="投稿"></td>
+<tr><td><textarea name="tweet" placeholder="試験情報を共有しましょう！"></textarea></td>
+<td><input type="submit" value="投稿" class="button"></td>
 <tr>
 </form></table>
 

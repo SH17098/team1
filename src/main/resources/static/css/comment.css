@@ -1,5 +1,40 @@
 @charset "UTF-8";
 
 body{
-	text-align:center
+	text-align:center;
+	background:#f0fff0;
+}
+table{
+	border-collapse: collapse;
+	width: 70%;
+}
+td{
+	font-size: 18px;
+}
+
+table tr{
+  border-bottom: solid 1px #008080;
+  cursor: pointer;
+}
+
+textarea{
+	resize: none;
+	width:500px;
+	height:50px;
+	border-radius: 0.5rem;
+
+}
+
+.button{
+  background-color: #6699cc;
+  position: relative;
+  display: inline-block;
+  padding: 8px 17px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  color: white;
+  border-radius: 0.5rem;
 }

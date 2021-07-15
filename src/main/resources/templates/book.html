@@ -11,14 +11,16 @@
 <hr>
 <h1>みんなのおすすめ参考書一覧</h1>
 <br>
+<div class="submit">
 <form action="/book/order/desc" method="get">
-<input type="submit" value="評価の高い順">
+<input type="submit" value="評価の高い順" id="button">
 </form>
 <form action="/book/order/review" method="get">
-<input type="submit" value="レビューの多い順">
+<input type="submit" value="レビューの多い順" id="button">
 </form>
+</div>
 <br>
-<table border="1" align="center">
+<table align="center">
 <tr>
     <th>参考書</th><th>値段</th><th>評価</th><th></th>
 </tr>
@@ -44,7 +46,10 @@
 		<td><a th:href="'/comment/'+ ${book.code}">レビュー</a></td>
 </tr>
 </table>
-<a href="/book/add">おすすめ参考書を登録する</a>
+<br>
+<br>
 
+<a class="button" href="/book/add">おすすめ参考書を登録する</a>
+<br><br><br>
 </body>
 </html>

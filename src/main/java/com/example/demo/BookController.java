@@ -77,10 +77,14 @@ public class BookController {
 				}
 				Book newBook = new Book(name, price, rate, review);
 				bookRepository.saveAndFlush(newBook);
-				mv.addObject("complete", "登録が完了しました。");
-				mv.addObject("name", name);
-				mv.addObject("price", price);
-				mv.addObject("rate", rate);
+
+				List<Book> books = bookRepository.findByOrderByCodeAsc();
+				mv.addObject("books", books);
+
+//				mv.addObject("complete", "登録が完了しました。");
+//				mv.addObject("name", name);
+//				mv.addObject("price", price);
+//				mv.addObject("rate", rate);
 			}
 
 			//コメントが入力されていれば登録
@@ -92,10 +96,10 @@ public class BookController {
 
 					Comment newComment = new Comment(bookCode, comment);
 					commentRepository.saveAndFlush(newComment); //データベースにコメントを保存
-					mv.addObject("comment", comment);
+//					mv.addObject("comment", comment);
 				}
 			}
-			mv.setViewName("addBook");
+			mv.setViewName("book");
 			return mv;
 		}
 

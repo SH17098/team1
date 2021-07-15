@@ -2,15 +2,28 @@
 body {
 	text-align: center;
 	background: #f0fff0;
-	font-size: 15px;
 }
+
 input.star{
   display: none;
 }
 
+textarea{
+	resize: none;
+	width:500px;
+	height:50px;
+	border-radius: 0.5rem;
+
+}
+
+div.letter{
+	font-size: 20px;
+}
 
 label.star {
   float: right;
+  position:relative;
+  right: 40%;
   padding: 10px;
   font-size: 36px;
   color: #444;
@@ -41,4 +54,18 @@ label.star:hover{  /*カーソル合わせるとちょっと動く */
 
 label.star:before{
 content:'☆';
+}
+
+.button{
+	background-color: #6699cc;
+  position: relative;
+  display: inline-block;
+  padding: 8px 17px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  color: white;
+  border-radius: 0.5rem;
 }

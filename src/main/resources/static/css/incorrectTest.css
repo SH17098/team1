@@ -6,24 +6,37 @@ body {
 }
 
 Table {
-    border-collapse: separate;
-    border-spacing: 0px 8px;
+	border-collapse: separate;
+	border-spacing: 0px 8px;
 }
 
-td{
-        background-color:#d1f5f5;
-        border-bottom:solid 2px #0094ff;
-    }
-
-
-#code{
- padding:20px;
+td {
+	background-color: #d1f5f5;
+	border-bottom: solid 2px #0094ff;
 }
 
-#question{
-	 padding:20px;
+#code {
+	padding: 20px;
 }
 
-#detail{
+#question {
+	padding: 20px;
+}
 
+#detail {
+	background-color: #6699cc;
+	position: relative;
+	display: inline-block;
+	padding: 8px 17px;
+	cursor: pointer;
+	transition: all 0.3s;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	color: white;
+	border-radius: 0.5rem;
+}
+
+table:hover{
+  background-color: #fff;
 }

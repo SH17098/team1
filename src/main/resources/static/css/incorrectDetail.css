@@ -1,9 +1,13 @@
 @charset "UTF-8";
 
-body{
-	text-align:center;
-	background:#f0fff0
+body {
+	margin:0;
+	text-align: center;
+	background:#f0fff0;
+	font-size:15px;
+
 }
+
 
 .fixed{
  	background: rgb(137, 192, 254);

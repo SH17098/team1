@@ -1,17 +1,21 @@
 @charset "UTF-8";
 
 body {
+	margin:0;
 	text-align: center;
-	background: #f0fff0
+	background:#f0fff0;
+	font-size:15px;
+
 }
 
-a {
+
+.test {
 	font-size: 20px;
 	text-decoration: none
 }
 
-a::after {
-	border-bottom: solid 2px #8b008b;
+.test::after {
+	border-bottom: solid 2px rgb(128, 128, 255);
 	bottom: 0;
 	content: "";
 	display: block;
@@ -20,6 +24,6 @@ a::after {
 	width: 0;
 }
 
-a:hover::after {
+.test:hover::after {
 	width: 100%;
 }

@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +31,9 @@ public class TweetController {
 
 	@Autowired
 	LikeRepository likeRepository;
+
+	@Autowired
+	ReplyRepository replyRepository;
 
 	//掲示板の初期表示
 	@RequestMapping("/tweet")
@@ -249,6 +253,96 @@ public class TweetController {
 		mv.addObject("hearts", hearts);
 
 		mv.setViewName("tweet");
+		return mv;
+	}
+
+	//リプライ機能
+	@RequestMapping("/reply/{tweetCode}/{tweetUserCode}")
+	@Transactional
+	public ModelAndView reply(
+			@PathVariable(name="tweetCode") int tweetCode,
+			@PathVariable(name="tweetUserCode") int userCode,
+			ModelAndView mv) {
+		//セッションに保存
+		session.setAttribute("tweetCode", tweetCode);
+		session.setAttribute("tweetUser", userCode);
+
+		//tweetCodeからそれに関するreplyを取得
+		List<Reply> replies = replyRepository.findByTweetCode(tweetCode);
+		if(replies.size() == 0) {
+			mv.addObject("none", "まだコメントはありません。");
+		}else {
+			mv.addObject("replies", replies); //tweetに対するreply取得
+
+			//選択されたツイートも一番上に表示する
+			Optional<Tweet> record = tweetRepository.findById(tweetCode);
+			Tweet tweet = null;
+			String tweetUser = "";
+			if(record.isEmpty() == false) {
+				tweet = record.get();
+				mv.addObject("tweet", tweet); //選択したツイートの取得完了
+
+                Optional<User> record3 = userRepository.findById(userCode);
+                User user = null;
+                if(record3.isEmpty() == false) {
+                	user = record3.get();
+                }
+                tweetUser = user.getUserId(); //userネームの取得完了
+                mv.addObject("tweetUser", tweetUser);
+
+			}
+
+			//userIdの取得
+			List<String> users = new ArrayList<>();
+			String b = "";
+			int a = 0;
+			for (int k = 0; k < replies.size(); k++) {
+				Reply replyRecord = replies.get(k);
+				a = replyRecord.getUserCode();
+				Optional<User> record2 = userRepository.findById(a);
+				if (record2.isEmpty() == false) {
+					User userData = record2.get();
+					b = userData.getUserId();
+					users.add(b);
+				}
+			}
+			mv.addObject("users", users); //replyをしたuserのネーム取得
+
+		}
+
+		mv.setViewName("reply");
+        return mv;
+	}
+
+	//リプライ機能
+	@PostMapping("/reply/add")
+	public ModelAndView addReply(
+			@RequestParam("reply") String reply,
+			ModelAndView mv) {
+
+		//サニタイジング
+		reply = Sanitizing.convert(reply);
+
+        int tweetCode = (int)session.getAttribute("tweetCode");
+        int tweetUser = (int)session.getAttribute("tweetUser");
+
+		if(reply.equals("")) {
+			mv.addObject("error", "投稿内容を入力してください");
+
+//			mv.setViewName("reply");
+//			return mv;
+		}else {
+
+		int userCode = (int)session.getAttribute("userCode");
+
+		//replyテーブルに保存
+		Reply new_reply = new Reply(userCode, tweetCode, reply);
+        replyRepository.saveAndFlush(new_reply);
+
+		}
+		    reply(tweetCode, tweetUser, mv);
+
+		mv.setViewName("reply");
 		return mv;
 	}
 

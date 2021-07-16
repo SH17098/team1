@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="/css/reply.css" rel="stylesheet">
+
+<title>掲示板</title>
+</head>
+<body>
+<span th:replace="menu"></span>
+
+<h1>コメント</h1>
+<br>
+<p th:text="${none}"></p>
+
+<table align="center" class="reply">
+  <tr>
+    <td th:text="${tweetUser}" class="Maintweet"></td>
+    <th th:text="${tweet.tweet}"></th>
+    <td th:text="${tweet.date}"></td>
+  </tr>
+  <tr th:each="reply, i:${replies}">
+    <td th:each="user, i2:${users}" th:if="${i.index == i2.index}" class="userName">
+    <span th:text="${user}"></span>
+    </td>
+    <th th:text="${reply.reply}"></th>
+    <td th:if="${reply.userCode} == ${session.userCode}">
+ 		<form action="/reply/delete" method="post">
+ 		<input type="hidden" name="deleteCode" th:value="${reply.code}">
+ 		<input type="submit" value="削除" class="delete">
+        </form>
+ 	</td>
+  </tr>
+</table>
+	<br>
+	<br>
+<table align="center">
+<form action="/reply/add" method="post">
+<tr><td><textarea name="reply" placeholder="コメントを書いてみましょう"></textarea></td>
+<td><input type="submit" value="投稿" class="button"></td>
+<tr>
+</form></table>
+<p th:text="${error}" style="color: red"></p>
+<br><br><br>
+
+</body>
+</html>

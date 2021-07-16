@@ -133,6 +133,15 @@ public class BookController {
 			return mv;
 		}
 		mv.addObject("comments", comments);
+
+		//表示用
+		Book book = null;
+		Optional<Book> record = bookRepository.findById(bookCode);
+		if(record.isEmpty() == false) {
+			book = record.get();
+		}
+		mv.addObject("name", book.getName());
+		mv.addObject("price", book.getPrice());
 		mv.setViewName("comment");
 		return mv;
 	}

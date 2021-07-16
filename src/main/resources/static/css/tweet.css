@@ -1,8 +1,12 @@
 @charset "UTF-8";
 
-body{
+body {
+	margin:0;
+	text-align: center;
 	background:#f0fff0;
-	text-align:center;
+	font-size:15px;
+
+
 }
 
 table{

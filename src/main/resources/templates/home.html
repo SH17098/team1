@@ -7,8 +7,12 @@
 </head>
 <body>
 <div><span th:replace="menu"  class="menu"></span></div>
+
+<h1>基本情報技術者試験</h1>
+
 <div class="time">
 <br><br>
+
 <u th:text="${#calendars.format(#calendars.createNowForTimeZone('Asia/Tokyo'), 'yyyy年MM月dd日')}"></u>
 <br><br><br>
 
@@ -17,25 +21,28 @@
 <br><br>
 
 <div class="main">
-<a href="/flashcard" id="flashcard"><img src="/img/flashcard_color.png"></a>
-<p class="text">フラッシュカード</p>
+<a href="/flashcard" id="flashcard"><img src="/img/flashcard_color.png"><p class="text">フラッシュカード</p></a>
+
 
 </div>
 
 <div class="main">
-<a href="/test" id="test"><img src="/img/test.png"></a>
-<p class="text">過去問</p>
+<a href="/test" id="test"><img src="/img/test.png"><p class="text">過去問</p></a>
+
 </div>
 
 
 <div class="main">
-<a href="/tweet" id="tweet"><img src="/img/tweet.png"></a>
-<p class="text">掲示板</p>
+<a href="/tweet" id="tweet"><img src="/img/tweet.png"><p class="text">掲示板</p></a>
+
 </div>
 
 <div class="main">
-<a href="/book" id="book_color"><img src="/img/book.png"></a>
-<p class="text">おすすめの参考書</p>
+<a href="/book" id="book_color"><img src="/img/book.png"><p class="text">おすすめの参考書</p></a>
+
 </div>
+
+
+
 </body>
 </html>

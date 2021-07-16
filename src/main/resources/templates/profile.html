@@ -8,18 +8,25 @@
 <body>
 <span th:replace="menu"></span>
 
+<div class="profile">
 <h1><span th:text="${session.userId}"></span>さんのプロフィール</h1>
 名前：<span th:text="${name}"></span>
+<hr>
 <br>
 Email：<span th:text="${mail}"></span>
+<hr>
 <br>
 パスワード：<span th:text="${password}"></span>
+
 <form action="/password">
-<input type="submit" value="パスワードを表示する">
+<input type="submit" id="button" value="パスワードを表示する">
 </form>
 
+
+</div>
+<hr>
 <br>
-<a href="/profile/update">登録内容を変更する</a>
+<a href="/profile/update" class="change"><span>登録内容を変更する</span></a>
 
 </body>
 </html>

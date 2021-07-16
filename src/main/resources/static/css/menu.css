@@ -1,6 +1,8 @@
 @use postcss-preset-env {
   stage: 0;
 }
+
+/*元の書式*/
 .invisible {
   left: -999px;
   overflow: hidden;
@@ -26,8 +28,8 @@
 
 
 a {
-  color: inherit;
-  outline: 0;
+ color: inherit;
+ outline: 0;
 }
 .icons {
   display: none;
@@ -99,3 +101,4 @@ svg {
 .navigation--inline ul {
   display: flex;
 }
+

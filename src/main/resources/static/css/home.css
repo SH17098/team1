@@ -1,29 +1,27 @@
 @charset "UTF-8";
-body {
-	margin:0;
-	text-align: center;
-	background:#f0fff0;
-	font-size:15px;
 
+body {
+	margin: 0;
+	text-align: center;
+	background: #f0fff0;
+	font-size: 15px;
 }
 
-.time{
+.time {
 	font-size: 30px;
 }
 
-
-h1{
-
-background-color:#fff;
-border:1px	#f3e6ff solid;
-
+h1 {
+	background-color: #fff;
+	border: 1px #f3e6ff solid;
 }
 
-li{
-	list-style:none;
-
-
-
+li {
+	list-style: none;
+	display: inline;
 }
 
-
+img {
+	width: 300px;
+	height: 300px;
+}

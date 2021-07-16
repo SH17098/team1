@@ -115,9 +115,15 @@ public class TestController {
 			//セッションからtestCodeを取得
 			int testCode = current_test.getCode();
 
-			//incorrectテーブルに保存
-			Incorrect newIncorrect = new Incorrect(userCode, testCode);
-			incorrectRepository.saveAndFlush(newIncorrect);
+			//すでに間違えた問題か確認
+			List<Incorrect> past_incorrects = incorrectRepository.findByUserCodeAndTestCode(userCode, testCode);
+
+			if(past_incorrects.size() == 0) { //始めて間違えた場合は保存
+
+			   //incorrectテーブルに保存
+		     	Incorrect newIncorrect = new Incorrect(userCode, testCode);
+	     		incorrectRepository.saveAndFlush(newIncorrect);
+	 		}
 
 			//不正解と表示
 			mv.addObject("correct", "不正解");

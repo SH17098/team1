@@ -8,7 +8,7 @@
 <body>
 <span th:replace="menu"></span>
 
-	<hr>
+
 <h1>掲示板</h1>
 <table align="center" class="tweet">
  	<tr th:each="tweet, i:${tweets}">
@@ -16,13 +16,13 @@
 	    <span th:text="${user}"></span>
 	    </td>
 		<th th:text="${tweet.tweet}"></th>
-		<td th:text="${tweet.date}"></td>
-		<td th:each="heart, i2:${hearts}" th:if="${i.index == i2.index}">
+		<td th:text="${tweet.date}" id="date"></td>
+		<td th:each="heart, i2:${hearts}" th:if="${i.index == i2.index}" class="heart">
         <th:block th:if="${heart == false}">
-		   <a th:href="'/like/'+${tweet.code}" style="text-decoration: none">&#9825;</a>
+		   <a th:href="'/like/'+${tweet.code}" style="text-decoration: none;">&#9825;</a>
 		</th:block>
 		<th:block th:unless="${heart == false}">
-		<a th:href="'/like/'+${tweet.code}" style="color:red;text-decoration:none">&#9829;</a>
+		<a th:href="'/like/'+${tweet.code}" style="color:red;text-decoration:none; ">&#9829;</a>
         </th:block>
        <span th:text="${tweet.likes}"></span>
  		</td>

@@ -8,6 +8,11 @@ body {
 
 }
 
+.correct{
+	color:red;
+	font-size:20px;
+}
+
 #error{
 	color: red;
 	font-size: 16px;

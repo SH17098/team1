@@ -13,7 +13,7 @@
 <form action="/test/answer" method="post">
 <h1>過去問題</h1>
 <div class="questions">
-<p>問題</p>
+<p>問題<span th:text="${code}"></span></p>
 <div id="question" th:text="${question}">
 </div>
 </div>
@@ -24,15 +24,18 @@
 <div  class="option">
 <input type="radio" name="option" value="none" style="display:none;" checked>
 <input type="radio" name="option" value="a"><span th:text="${option_a}"></span>
+<br>
 <input type="radio" name="option" value="b"><span th:text="${option_b}"></span>
+<br>
 <input type="radio" name="option" value="c"><span th:text="${option_c}"></span>
+<br>
 <input type="radio" name="option" value="d"><span th:text="${option_d}"></span>
 </div>
 </div>
 <br>
 <div id="error" th:text="${error}"></div>
 
-<p><div th:text="${correct}"></div></p>
+<p><div th:text="${correct}" class="correct"></div></p>
 
 <input type="submit" class="button" value="解答">
 <br>

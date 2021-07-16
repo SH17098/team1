@@ -7,31 +7,30 @@ body{
 
 table{
 	width: 40%;
-/*	border-collapse: collapse; */
 }
 
 tr{
 	border-bottom: solid 2px white;
 }
-table.tweet tr:hover{
+table.tweet tr:hover{ /*hoverしてる行を色で表示*/
   background-color: #d4f0fd;
 }
 
 
-tr:last-child{
+tr:last-child{ /*一番下のボーダー削除*/
 	border-bottom: none;
 }
-
+/*名前の表示*/
 .userName{
-  position: relative;
+  position: relative;  /*相対位置*/
   text-align: left;
-  width: 30%;
+  width: 15%;
   background-color: #52c2d0;
   color: white;
   text-align: center;
   padding: 10px 0;
 }
-.userName:after{
+.userName:after{  /*吹き出しの三角の部分*/
   display: block;
   content: "";
   width: 0px;
@@ -45,14 +44,14 @@ tr:last-child{
 }
 
 textarea{
-	resize: none;
+	resize: none;  /*大きさ固定*/
 	width:500px;
 	height:50px;
-	border-radius: 0.5rem;
+	border-radius: 0.5rem; /*丸み*/
 
 }
 
-.tweet{
+.tweet{ /*テーブル全体*/
   text-align: center;
   width: 70%;
   text-align: center;
@@ -60,7 +59,15 @@ textarea{
   padding: 10px 0;
 }
 
-.button{
+#date{
+	width:15%;
+}
+
+.heart{
+	width:8%;
+}
+
+.button{  /*投稿ボタン*/
 	background-color: #6699cc;
   position: relative;
   display: inline-block;
@@ -74,7 +81,7 @@ textarea{
   border-radius: 0.5rem;
 }
 
-.delete{
+.delete{  /*削除ボタン*/
 	background-color: ff3333;
 	border-radius: 0.5rem;
 }

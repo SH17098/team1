@@ -18,7 +18,7 @@
 <br>
 <form action="/flashcard/answer" method="get">
 
-<input type="submit" value="解答を見る">
+<input type="submit" class="button" value="解答を見る">
 
 <br>
 <div th:text="${answer}" id="answer"></div>
@@ -26,7 +26,7 @@
 
 <br>
 <form action="/flashcard/explanation" method="get">
-<input type="submit" value="解説を見る">
+<input type="submit" class="button" value="解説を見る">
 <br>
 <div th:text="${explanation}" id="explanation"></div>
 </form>

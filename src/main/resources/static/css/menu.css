@@ -15,22 +15,23 @@
   place-items: center;
 }
 
-.sub-menu{
+li.menu-title ul{
 	display: none;
-	overflow: hidden;
 }
 
 .menu-title:hover .sub-menu{
-	overflow: visible;
 	display: block;
 }
 
-
+ul.sub-menu li:hover li{
+	display: block;
+}
 
 a {
  color: inherit;
  outline: 0;
 }
+
 .icons {
   display: none;
 }

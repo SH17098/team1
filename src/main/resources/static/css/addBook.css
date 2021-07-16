@@ -7,9 +7,6 @@ body {
 
 }
 
-input.star{
-  display: none;
-}
 
 textarea{
 	resize: none;
@@ -21,6 +18,9 @@ textarea{
 
 div.letter{
 	font-size: 20px;
+}
+input.star{
+  display: none;
 }
 
 label.star {

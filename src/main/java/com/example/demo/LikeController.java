@@ -23,6 +23,9 @@ public class LikeController {
 	@Autowired
 	TweetRepository tweetRepository;
 
+	@Autowired
+	UserRepository userRepository;
+
 	//likeボタンが押されたとき
 	@RequestMapping("/like/{tweetCode}")
 	public ModelAndView like(
@@ -55,6 +58,23 @@ public class LikeController {
 			//全データを取得して表示
 		    List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
 		    mv.addObject("tweets", tweets);
+
+			//userIdの取得
+			List<String> users = new ArrayList<>();
+			String b = "";
+			int a = 0;
+			for (int k = 0; k < tweets.size(); k++) {
+				Tweet tweetRecord = tweets.get(k);
+				a = tweetRecord.getUser_code();
+				Optional<User> record2 = userRepository.findById(a);
+				if (record2.isEmpty() == false) {
+					User userData = record2.get();
+					b = userData.getUserId();
+					users.add(b);
+				}
+			}
+			mv.addObject("users", users);
+
 
 			//ハートの色を設定
 			List<Boolean> hearts = new ArrayList<>();
@@ -110,6 +130,23 @@ public class LikeController {
 		//tweetテーブルを全件取得し、tweetと時間、like数を表示
 		    List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
 		    mv.addObject("tweets", tweets);
+
+			//userIdの取得
+			List<String> users = new ArrayList<>();
+			String b = "";
+			int a = 0;
+			for (int k = 0; k < tweets.size(); k++) {
+				Tweet tweetRecord = tweets.get(k);
+				a = tweetRecord.getUser_code();
+				Optional<User> record5 = userRepository.findById(a);
+				if (record2.isEmpty() == false) {
+					User userData = record5.get();
+					b = userData.getUserId();
+					users.add(b);
+				}
+			}
+			mv.addObject("users", users);
+
 
 			//ハートの色を設定
 			List<Boolean> hearts = new ArrayList<>();

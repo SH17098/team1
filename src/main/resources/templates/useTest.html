@@ -22,6 +22,7 @@
 <div class="select">
 <p>選択肢</p>
 <div  class="option">
+<input type="radio" name="option" value="none" style="display:none;" checked>
 <input type="radio" name="option" value="a"><span th:text="${option_a}"></span>
 <input type="radio" name="option" value="b"><span th:text="${option_b}"></span>
 <input type="radio" name="option" value="c"><span th:text="${option_c}"></span>
@@ -29,7 +30,7 @@
 </div>
 </div>
 <br>
-
+<div id="error" th:text="${error}"></div>
 
 <p><div th:text="${correct}"></div></p>
 
@@ -43,7 +44,8 @@
 </div>
 
 </form>
-
+<br>
 <a href="/test/use">次へ</a>
+<br><br><br><br>
 </body>
 </html>

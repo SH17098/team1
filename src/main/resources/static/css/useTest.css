@@ -8,6 +8,10 @@ body {
 
 }
 
+#error{
+	color: red;
+	font-size: 16px;
+}
 
 .questions {
 	background: rgb(137, 192, 254);

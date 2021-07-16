@@ -56,7 +56,6 @@ public class BookController {
 		//サニタイジング
 		name = Sanitizing.convert(name);
 		book_price = Sanitizing.convert(book_price);
-		star = Sanitizing.convert(star);
 		comment = Sanitizing.convert(comment);
 
 
@@ -138,9 +137,10 @@ public class BookController {
 	@PostMapping("/comment/add")
 	public ModelAndView addComment(
 			@RequestParam("comment") String comment,
+			@RequestParam("star") String star,
 			ModelAndView mv) {
 
-		//サニタイジング
+	//サニタイジング
 		comment = Sanitizing.convert(comment);
 
 		//get bookCode from session
@@ -149,16 +149,28 @@ public class BookController {
 		Comment newComment = new Comment(bookCode, comment);
 		commentRepository.saveAndFlush(newComment); //データベースにコメントを保存
 
-		//bookテーブルのcomment数を一増やす
+	//星評価の計算と保存
+        //bookテーブルからbooCodeで現在のrateを取得
 		Book book = null;
 		Optional<Book> record = bookRepository.findById(bookCode);
 		if(record.isEmpty() == false) {
 			book = record.get();
+
+		    int current_rate = book.getRate();
+
+        //今回のrateと取得した現在のrateを足して2で割る
+		    int rate = Integer.parseInt(star);
+		    double caliculate_rate = (current_rate + rate)/2 + 0.5 ;
+
+		    int new_rate = (int)caliculate_rate;
+
+	    //bookテーブルのcomment数を一増やす
 		    int review = book.getComment();
 		    review++;
 
-		    //更新
-		    Book update = new Book(book.getCode(), book.getName(), book.getPrice(), book.getRate(), review);
+         //更新
+		    Book update = new Book(book.getCode(), book.getName(), book.getPrice(), new_rate, review);
+//		    Book update = new Book(book.getCode(), book.getName(), book.getPrice(), book.getRate(), review);
 			bookRepository.saveAndFlush(update);
 
 		}

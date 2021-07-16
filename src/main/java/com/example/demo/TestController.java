@@ -74,23 +74,33 @@ public class TestController {
 			@RequestParam("option") String option,
 			ModelAndView mv) {
 
-		//ラジオボタンが選択されなかった場合
-		if(option.equals("")) {
-			mv.addObject("error", "選択肢から解答をしてください");
-
-			mv.setViewName("useTest");
-			return mv;
-		}
-
+		//test
+		System.out.println(option);
 
 		Test current_test = (Test) session.getAttribute("test");//現在のフラッシュカード情報をセッションから取得
 		String check_answer = current_test.getCheck_answer(); //採点用に取得
 		String answer = current_test.getAnswer(); //answerのみ取得
 		String explanation = current_test.getExplanation(); //解説のみ取得
 
+
+		//ラジオボタンが選択されなかった場合
+		if(option.equals("none")) {
+			mv.addObject("error", "選択肢から解答をしてください");
+
+			mv.addObject("question", current_test.getQuestion());
+			mv.addObject("option_a", current_test.getOption_a());
+			mv.addObject("option_b", current_test.getOption_b());
+			mv.addObject("option_c", current_test.getOption_c());
+			mv.addObject("option_d", current_test.getOption_d());
+
+
+			mv.setViewName("useTest");
+			return mv;
+		}
+
 		//test
-		System.out.println(option);
-		System.out.println(check_answer);
+//		System.out.println(option);
+//		System.out.println(check_answer);
 
 		//採点
 		if (option.equals(check_answer)) {//正解だったら

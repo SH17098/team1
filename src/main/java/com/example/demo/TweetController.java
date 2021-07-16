@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,22 +31,22 @@ public class TweetController {
 	@Autowired
 	LikeRepository likeRepository;
 
-//掲示板の初期表示
+	//掲示板の初期表示
 	@RequestMapping("/tweet")
 	public ModelAndView tweet(ModelAndView mv) {
-    //tweetテーブルを全件取得し、tweetのみ表示
+		//tweetテーブルを全件取得し、tweetのみ表示
 		List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
 		mv.addObject("tweets", tweets);
 
 		//userIdの取得
 		List<String> users = new ArrayList<>();
-		String b ="";
+		String b = "";
 		int a = 0;
-		for(int k = 0; k < tweets.size(); k++) {
+		for (int k = 0; k < tweets.size(); k++) {
 			Tweet tweetRecord = tweets.get(k);
 			a = tweetRecord.getUser_code();
 			Optional<User> record2 = userRepository.findById(a);
-			if(record2.isEmpty() == false) {
+			if (record2.isEmpty() == false) {
 				User userData = record2.get();
 				b = userData.getUserId();
 				users.add(b);
@@ -53,14 +54,13 @@ public class TweetController {
 		}
 		mv.addObject("users", users);
 
-	//ハートの色を設定
+		//ハートの色を設定
 		List<Boolean> hearts = new ArrayList<>();
 
 		//userCodeを取得
 		int user_code = (int) session.getAttribute("userCode");
 
-
-		for(int i = 0; i < tweets.size(); i++) {
+		for (int i = 0; i < tweets.size(); i++) {
 			//tweetCodeを取得する
 			Tweet tweet = tweets.get(i);
 			int tweet_code = tweet.getCode();
@@ -72,39 +72,47 @@ public class TweetController {
 
 			//ハートを押したことがあるかlikeテーブルで確認
 			Optional<Like> record = likeRepository.findByUserCodeAndTweetCode(user_code, tweet_code);
-			if(record.isEmpty() == false) { //押したことがある場合
+			if (record.isEmpty() == false) { //押したことがある場合
 				like = true;
 			}
 
 			hearts.add(like);
 		}
 		//test
-		System.out.println(hearts);
+		//		System.out.println(hearts);
 
-	    mv.addObject("hearts", hearts);
+		mv.addObject("hearts", hearts);
 
 		mv.setViewName("tweet");//掲示板を表示
 		return mv;
 	}
 
-////新規投稿作成画面の表示
-//	@RequestMapping("/tweet/add")
-//	public ModelAndView addTweet(ModelAndView mv) {
-//		mv.setViewName("addTweet");
-//		return mv;
-//	}
+	////新規投稿作成画面の表示
+	//	@RequestMapping("/tweet/add")
+	//	public ModelAndView addTweet(ModelAndView mv) {
+	//		mv.setViewName("addTweet");
+	//		return mv;
+	//	}
 
-//新規投稿作成
+	//新規投稿作成
 	@PostMapping("/tweet/add")
 	public ModelAndView addTweet2(
-			@RequestParam("tweet") String tweet,//作成した投稿内容を取得
+			@RequestParam("tweet") String tweet, //作成した投稿内容を取得
 			ModelAndView mv) {
 
 		//サニタイジング
 		tweet = Sanitizing.convert(tweet);
 
+		if(tweet.equals("")) {
+			mv.addObject("error", "投稿内容を入力してください");
+			tweet(mv);
+
+			mv.setViewName("tweet");
+			return mv;
+		}
+
 		//test用
-		session.setAttribute("userCode", 1);
+//		session.setAttribute("userCode", 1);
 		//セッションからusercodeを取得
 		int user_code = (int) session.getAttribute("userCode");
 
@@ -123,13 +131,13 @@ public class TweetController {
 
 		//userIdの取得
 		List<String> users = new ArrayList<>();
-		String b ="";
+		String b = "";
 		int a = 0;
-		for(int k = 0; k < tweets.size(); k++) {
+		for (int k = 0; k < tweets.size(); k++) {
 			Tweet tweetRecord = tweets.get(k);
 			a = tweetRecord.getUser_code();
 			Optional<User> record2 = userRepository.findById(a);
-			if(record2.isEmpty() == false) {
+			if (record2.isEmpty() == false) {
 				User userData = record2.get();
 				b = userData.getUserId();
 				users.add(b);
@@ -137,38 +145,110 @@ public class TweetController {
 		}
 		mv.addObject("users", users);
 
-	//ハートの色を設定
+		//ハートの色を設定
 		List<Boolean> hearts = new ArrayList<>();
 
 		//userCodeを取得
 		int userCode = (int) session.getAttribute("userCode");
 
-
-		for(int i = 0; i < tweets.size(); i++) {
+		for (int i = 0; i < tweets.size(); i++) {
 			//tweetCodeを取得する
 			Tweet tweet2 = tweets.get(i);
 			int tweet_code = tweet2.getCode();
 
 			//test
-			System.out.println(userCode + "/" + tweet_code);
+//			System.out.println(userCode + "/" + tweet_code);
 			//デフォルト
 			boolean like = false;
 
 			//ハートを押したことがあるかlikeテーブルで確認
 			Optional<Like> record = likeRepository.findByUserCodeAndTweetCode(user_code, tweet_code);
-			if(record.isEmpty() == false) { //押したことがある場合
+			if (record.isEmpty() == false) { //押したことがある場合
 				like = true;
 			}
 
 			hearts.add(like);
 		}
 		//test
-	//	System.out.println(hearts);
+		//	System.out.println(hearts);
 
-	    mv.addObject("hearts", hearts);
-
+		mv.addObject("hearts", hearts);
 
 		mv.setViewName("Tweet");
+		return mv;
+	}
+
+	//投稿削除
+
+	@PostMapping("/tweet/delete")
+	@Transactional
+	public ModelAndView delete(
+			@RequestParam("deleteCode") String delete_code,
+			ModelAndView mv) {
+//削除
+
+		int deleteCode = Integer.parseInt(delete_code);
+		//test
+		System.out.println(deleteCode);
+
+		//まず子テーブルlikesの履歴を消す
+		likeRepository.deleteByTweetCode(deleteCode);
+
+		//それから親テーブルtweet自体を消す
+		tweetRepository.deleteById(deleteCode);
+
+
+//再度表示用
+		//tweetテーブルを全件取得し、tweetのみ表示
+		List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
+		mv.addObject("tweets", tweets);
+
+		//userIdの取得
+		List<String> users = new ArrayList<>();
+		String b = "";
+		int a = 0;
+		for (int k = 0; k < tweets.size(); k++) {
+			Tweet tweetRecord = tweets.get(k);
+			a = tweetRecord.getUser_code();
+			Optional<User> record2 = userRepository.findById(a);
+			if (record2.isEmpty() == false) {
+				User userData = record2.get();
+				b = userData.getUserId();
+				users.add(b);
+			}
+		}
+		mv.addObject("users", users);
+
+		//ハートの色を設定
+		List<Boolean> hearts = new ArrayList<>();
+
+		//userCodeを取得
+		int user_code = (int) session.getAttribute("userCode");
+
+		for (int i = 0; i < tweets.size(); i++) {
+			//tweetCodeを取得する
+			Tweet tweet = tweets.get(i);
+			int tweet_code = tweet.getCode();
+
+			//test
+			System.out.println(user_code + "/" + tweet_code);
+			//デフォルト
+			boolean like = false;
+
+			//ハートを押したことがあるかlikeテーブルで確認
+			Optional<Like> record = likeRepository.findByUserCodeAndTweetCode(user_code, tweet_code);
+			if (record.isEmpty() == false) { //押したことがある場合
+				like = true;
+			}
+
+			hearts.add(like);
+		}
+		//test
+//		System.out.println(hearts);
+
+		mv.addObject("hearts", hearts);
+
+		mv.setViewName("tweet");
 		return mv;
 	}
 

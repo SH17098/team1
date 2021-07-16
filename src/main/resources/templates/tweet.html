@@ -19,12 +19,18 @@
 		<td th:text="${tweet.date}"></td>
 		<td th:each="heart, i2:${hearts}" th:if="${i.index == i2.index}">
         <th:block th:if="${heart == false}">
-		   <a th:href="'/like/'+${tweet.code}">&#9825;</a>
+		   <a th:href="'/like/'+${tweet.code}" style="text-decoration: none">&#9825;</a>
 		</th:block>
 		<th:block th:unless="${heart == false}">
-		<a th:href="'/like/'+${tweet.code}" style="color:red">&#9829;</a>
+		<a th:href="'/like/'+${tweet.code}" style="color:red;text-decoration:none">&#9829;</a>
         </th:block>
        <span th:text="${tweet.likes}"></span>
+ 		</td>
+ 		<td th:if="${tweet.user_code} == ${session.userCode}">
+ 		<form action="/tweet/delete" method="post">
+ 		<input type="hidden" name="deleteCode" th:value="${tweet.code}">
+ 		<input type="submit" value="削除" class="delete">
+ 		</form>
  		</td>
 	</tr>
 </table>
@@ -36,7 +42,8 @@
 <td><input type="submit" value="投稿" class="button"></td>
 <tr>
 </form></table>
-
+<p th:text="${error}" style="color: red"></p>
+<br><br><br>
 
 </body>
 </html>

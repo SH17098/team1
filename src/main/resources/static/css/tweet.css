@@ -13,7 +13,7 @@ table{
 tr{
 	border-bottom: solid 2px white;
 }
-table tr:hover{
+table.tweet tr:hover{
   background-color: #d4f0fd;
 }
 
@@ -72,4 +72,9 @@ textarea{
   text-decoration: none;
   color: white;
   border-radius: 0.5rem;
+}
+
+.delete{
+	background-color: ff3333;
+	border-radius: 0.5rem;
 }

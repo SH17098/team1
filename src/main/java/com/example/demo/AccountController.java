@@ -90,6 +90,10 @@ public class AccountController {
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("userInfo", user);
 
+//				Home home = new Home();
+//				String time = home.getDatetime();
+//
+//				mv.addObject("time", time);
 				mv.setViewName("home");
 				return mv;
 
@@ -377,8 +381,15 @@ public class AccountController {
 
 		//ホーム画面
 		@GetMapping("/home")
-		public String home() {
-			return "home";
+		public ModelAndView home(ModelAndView mv) {
+//			Home home = new Home();
+//			String time = home.getDatetime();
+//
+//			mv.addObject("time", time);
+
+
+			mv.setViewName("home");
+			return mv;
 		}
 
 

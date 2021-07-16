@@ -8,5 +8,49 @@ body {
 
 }
 
+label {
+	display: inline-block;
+	text-align: right;
+	width: 150px;
+}
+
+.update{
+	font-size:20px;
+}
+
+/*更新ボタン*/
+.change {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+a.change {
+  color: #000;
+  background-color: #e1d3fe;
+}
+
+/*マウス当てたら*/
+a.change:hover {
+  color: #000;
+  background: #73c4ff;
+}
+
 
 

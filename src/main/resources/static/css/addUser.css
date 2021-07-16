@@ -6,6 +6,7 @@ body {
 	font-size: 15px;
 }
 
+/*「：」の位置をそろえる*/
 label {
 	display: inline-block;
 	text-align: right;
@@ -13,12 +14,12 @@ label {
 }
 
 
-
-
+/*質問項目の位置調整*/
 #q_number {
 	width: 120px;
 }
 
+/*入力画面を囲む枠*/
 #inputField {
 	padding: 2em 1em;
 	margin: 2em 10em;

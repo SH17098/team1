@@ -12,15 +12,19 @@
 
 <div th:text="${message}"></div>
 
+<div class="update">
 <form action="/profile/update" method="post">
-名前：<input type="text" name="name" th:value=${name}>
+<label>名前：</label><input type="text" class="text" name="name" th:value=${name}>
 <br>
-Email：<input type="text" name="mail" th:value=${mail}>
+<label>Email：</label><input type="text" class="text" name="mail" th:value=${mail}>
 <br>
-パスワード：<input type="password" name="password" th:value=${password}>
-<br>
-<input type="submit" value="更新">
+<label>パスワード：</label><input type="password" class="text" name="password" th:value=${password}>
+<br><br>
+
+<input type="submit" class="change" value="更新">
 </form>
+</div>
+
 
 </body>
 </html>

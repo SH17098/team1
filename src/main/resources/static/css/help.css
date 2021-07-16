@@ -5,16 +5,19 @@ body {
 	background: #f0fff0
 }
 
+/*文字の位置調整*/
 label {
 	display: inline-block;
 	text-align: right;
 	width: 150px;
 }
 
+/*「質問：」の位置調整*/
 #q_number {
 	width: 120px;
 }
 
+/*囲み枠*/
 #inputField {
 	padding: 2em 1em;
 	margin: 2em 10em;

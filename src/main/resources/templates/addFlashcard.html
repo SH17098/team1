@@ -18,7 +18,7 @@
 <input type="text" id="answer" name="answer" th:placeholder="答えを入力" th:value=${answer}>
 <br>
 <br>
-<textarea id="explanation" name="explanation" th:placeholder="解説を入力" th:text="${question}"></textarea>
+<textarea id="explanation" name="explanation" th:placeholder="解説を入力" th:text="${explanation}"></textarea>
 
 <br>
 <br>
@@ -28,8 +28,9 @@
 
 
 </form>
-
-<a href="/flashcard/add"><span th:text="${next}"></span></a>
 <a href="/flashcard" id="end">終了する</a>
+<br>
+<br>
+<br>
 </body>
 </html>

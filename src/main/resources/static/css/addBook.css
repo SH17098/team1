@@ -2,13 +2,13 @@
 body {
 	margin:0;
 	text-align: center;
-	background:#f0fff0;
+	background:#f0fff0;  /*背景色*/
 	font-size:15px;
 
 }
 
 
-textarea{
+textarea{ /*入力箇所の大きさ固定*/
 	resize: none;
 	width:500px;
 	height:50px;
@@ -19,34 +19,37 @@ textarea{
 div.letter{
 	font-size: 20px;
 }
-input.star{
+
+/*星評価*/
+
+input.star{   /*radioボタンを表示させない*/
   display: none;
 }
 
 label.star {
-  float: right;
-  position:relative;
+  float: right; /* 星を左から順に表示*/
+  position:relative;  /*相対位置*/
   right: 40%;
   padding: 10px;
   font-size: 36px;
   color: #444;
   transition: all .2s;
 }
+/* :before はそれよりも前*/
 
-input.star:checked ~ label.star:before { /*５星の時は色が濃い */
+input.star:checked ~ label.star:before { /* 普通の星は黄色 */
 content:'☆';
   color:#FE7;
   transition: all .25s;
 }
 
 
-input.star-5:checked ~ label.star:before { /* 普通の星は黄色 */
+input.star-5:checked ~ label.star:before { /*５星の時は色が濃い */
   color: #FD4;
   text-shadow: 0 0 20px #952;
 }
 
-input.star-1:checked ~ label.star:before { /*　一つ星だと色がオレンジに */
-  color:#FE7;
+input.star-1:checked ~ label.star:before { /*一つ星だと色がオレンジに */
   text-shadow: 0 0 20px #952;
 	color: #F62;
 }
@@ -60,11 +63,11 @@ content:'☆';
 }
 
 .button{
-	background-color: #6699cc;
+  background-color: #6699cc;
   position: relative;
   display: inline-block;
   padding: 8px 17px;
-  cursor: pointer;
+  cursor: pointer; /*hoverでポインターが変わる*/
   transition: all 0.3s;
   text-align: center;
   vertical-align: middle;

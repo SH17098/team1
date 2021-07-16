@@ -59,7 +59,6 @@ input.star-5:checked ~ label.star:before { /* 普通の星は黄色 */
 }
 
 input.star-1:checked ~ label.star:before { /*　一つ星だと色がオレンジに */
-  color:#FE7;
   text-shadow: 0 0 20px #952;
 	color: #F62;
 }

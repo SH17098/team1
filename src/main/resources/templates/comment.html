@@ -24,10 +24,11 @@
 
 <br>
 <br><br>
+<p th:text="${error}" style="color:red"></p>
 <form action="/comment/add" method="post">
 <textarea name="comment" placeholder="レビュー内容を入力"></textarea>
 <br><br>
-<span id="hoshi"> 5点満点で星評価を選択してください。</span>
+<span id="hoshi"> 星評価を選択してください。</span>
 <div class="cont">
 <div class="stars">
   <input class="star star-5" id="star-5" type="radio" name="star" value="5"/>
@@ -40,6 +41,7 @@
   <label class="star star-2" for="star-2"></label>
   <input class="star star-1" id="star-1" type="radio" name="star" value="1"/>
   <label class="star star-1" for="star-1"></label>
+  <input class="star" type="radio" name="star" value="none" checked>
 </div>
 </div>
 <br><br><br><br>

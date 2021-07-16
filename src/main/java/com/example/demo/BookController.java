@@ -58,11 +58,15 @@ public class BookController {
 		book_price = Sanitizing.convert(book_price);
 		comment = Sanitizing.convert(comment);
 
-
+        //test
+		System.out.println(star);
 
 		//未入力
-		if (name.equals("") || book_price.equals("")) {
+		if (name.equals("") || book_price.equals("") || star.equals("none")) {
 			mv.addObject("error", "すべての項目に入力してください");
+			mv.addObject("name", name);
+			mv.addObject("price", book_price);
+
 			mv.setViewName("addBook");
 			return mv;
 
@@ -145,7 +149,17 @@ public class BookController {
 
 		//get bookCode from session
 		int bookCode = (int)session.getAttribute("bookCode");
-        //add
+
+	//未入力がある場合
+		if(comment.equals("") || star.equals("none")) {
+			mv.addObject("error", "未入力箇所があります");
+            comment(bookCode,mv);
+
+            mv.setViewName("comment");
+            return mv;
+		}
+
+       //add
 		Comment newComment = new Comment(bookCode, comment);
 		commentRepository.saveAndFlush(newComment); //データベースにコメントを保存
 

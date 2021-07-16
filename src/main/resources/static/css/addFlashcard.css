@@ -29,7 +29,8 @@ body {
 	font-size: 15px;
 }
 
-#end{
-	float:right;
-	text-decoration:none;
+#end{ /*終了ボタン*/
+    position: relative;
+    float: right;
+    right: 10%;
 }

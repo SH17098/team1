@@ -50,6 +50,9 @@ public class FlashcardController {
 		//未入力の項目
 		if (question.equals("") || answer.equals("") || explanation.equals("")) {
 			mv.addObject("message", "未入力の項目があります。");
+		mv.addObject("question", question);
+		mv.addObject("answer", answer);
+		mv.addObject("explanation", explanation);
 			mv.setViewName("addFlashcard");
 			return mv;
 
@@ -58,10 +61,6 @@ public class FlashcardController {
 		//新規カードをflashcardfeテーブルに保存
 		Flashcard newflashcard = new Flashcard(question, answer, explanation);
 		flashcardRepository.saveAndFlush(newflashcard);
-
-		mv.addObject("question", question);
-		mv.addObject("answer", answer);
-		mv.addObject("explanation", explanation);
 
 		mv.setViewName("addFlashcard");
 		return mv;

@@ -8,12 +8,14 @@ body {
 
 }
 
+/*各項目*/
 label {
 	display: inline-block;
 	text-align: right;
 	width: 150px;
 }
 
+/*変更項目の書式*/
 .update{
 	font-size:20px;
 }
@@ -26,31 +28,28 @@ label {
   position: relative;
   display: inline-block;
   padding: 0.5rem 2rem;
-  cursor: pointer;
+  cursor: pointer;/*カーソルを変える*/
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  text-align: center;
-  vertical-align: middle;
+  text-align: center;/*文字真ん中*/
+  vertical-align: middle;/*垂直方向の文字位置*/
   text-decoration: none;
   letter-spacing: 0.1em;
   color: #212529;
   border-radius: 0.5rem;
 }
 
-a.change {
+/*更新ボタン色*/
+.change {
   color: #000;
   background-color: #e1d3fe;
 }
 
-/*マウス当てたら*/
-a.change:hover {
-  color: #000;
-  background: #73c4ff;
-}
+
 
 
 

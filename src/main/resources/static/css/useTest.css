@@ -8,16 +8,19 @@ body {
 
 }
 
+/*正解・不正解出力*/
 .correct{
 	color:red;
 	font-size:20px;
 }
 
+/*未選択表示*/
 #error{
 	color: red;
 	font-size: 16px;
 }
 
+/*タイトル「問題○○」*/
 .questions {
 	background: rgb(137, 192, 254);
 	padding: 1px 1px;
@@ -27,6 +30,7 @@ body {
 	display: inline-block;
 }
 
+/*データベースからの問題*/
 #question {
 	background: #cde1fe;
 	padding: 10px;
@@ -36,6 +40,7 @@ body {
 	display: inline-block;
 }
 
+/*選択肢*/
 .select {
 	background: rgb(137, 192, 254);
 	padding: 1px 1px;
@@ -46,6 +51,7 @@ body {
 	display: inline-block;
 }
 
+/*データベースからの選択肢出力*/
 .option {
 	background: #cde1fe;
 	padding: 10px;
@@ -55,6 +61,7 @@ body {
 	display: inline-block;
 }
 
+/*解答表示*/
 #answer {
 	background: #cde1fe;
 	padding: 10px;
@@ -63,6 +70,7 @@ body {
 	display: inline-block;
 }
 
+/*解説*/
 .explanation{
 	background: rgb(137, 192, 254);
 	padding: 1px 1px;
@@ -74,6 +82,7 @@ body {
 
 }
 
+/*データベースからの解説*/
 #explanation{
 	background: #cde1fe;
 	padding: 10px;
@@ -83,6 +92,7 @@ body {
 	display: inline-block;
 }
 
+/*解答ボタン*/
 .button{
 	background-color: rgb(157, 211, 255);
   position: relative;
@@ -97,6 +107,7 @@ body {
   border-radius: 0.5rem;
 }
 
+/*選択肢左揃え*/
 label {
 	float:left;
 

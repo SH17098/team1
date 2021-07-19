@@ -9,7 +9,7 @@ body {
 }
 
 
-
+/*データベース問題出力*/
 #questionText {
 	display:inline-block;
 	 padding: 0.5em 0em;
@@ -19,6 +19,7 @@ body {
     border-left: solid 50px rgb(0, 128, 255);
 }
 
+/*データベース解答出力*/
 #answer{
 	 display:inline-block;
 	 padding: 0.5em 0em;
@@ -28,6 +29,7 @@ body {
     border-left: solid 50px rgb(0, 128, 255)
 }
 
+/*データベース解説出力*/
 #explanation{
 	 display:inline-block;
 	 padding: 0.5em 0em;
@@ -39,7 +41,7 @@ body {
 
 
 
-
+/*次へボタン*/
 #next{
 	text-decoration:none;
   background-color:#326c9c;
@@ -59,7 +61,7 @@ body {
 
 
 
-
+/*解答・解説ボタン*/
 .button{
 background-color:rgb(157, 211, 255);
   position: relative;

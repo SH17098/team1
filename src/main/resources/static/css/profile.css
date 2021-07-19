@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/*全体の書式*/
 body {
 	margin:0;
 	text-align: center;
@@ -8,15 +9,17 @@ body {
 
 }
 
+/*メインの書式設定*/
 .profile{
 	font-size:20px;
 }
 
+/*登録内容変更ボタン*/
 .change{
 	text-decoration: none;
 }
 
-
+/*登録内容変更ボタン*/
 a.change {
   font-size: 15px;
   font-weight: 700;
@@ -24,7 +27,7 @@ a.change {
   position: relative;
   display: inline-block;
   padding: 1rem 4rem;
-  cursor: pointer;
+  cursor: pointer;/*カーソルを指に*/
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -39,19 +42,19 @@ a.change {
   border-radius: 0.5rem;
 }
 
-
-
+/*ボタン色*/
 a.change {
   color: #000;
   background-color: #e1d3fe;
 }
 
+/*カーソル合わせ色を変化させる*/
 a.change:hover {
   color: #000;
   background: #73c4ff;
 }
 
-
+/*パスワード表示ボタン*/
 #button {
   font-size: 5px;
   font-weight: 700;
@@ -75,12 +78,13 @@ a.change:hover {
 }
 
 
-
+/*パスワード表示ボタン色*/
 #button {
   color: #000;
   background-color: #e1d3fe;
 }
 
+/*カーソル合わせて色を変える*/
 #button:hover {
   color: #000;
   background: #ffffff;

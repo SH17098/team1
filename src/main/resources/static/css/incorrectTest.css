@@ -5,24 +5,29 @@ body {
 	background: #f0fff0
 }
 
+/*問題ごとのセルの間隔設定*/
 Table {
 	border-collapse: separate;
 	border-spacing: 0px 8px;
 }
 
+/*セルの色と線*/
 td {
 	background-color: #d1f5f5;
 	border-bottom: solid 2px #0094ff;
 }
 
+/*問題番号*/
 #code {
 	padding: 20px;
 }
 
+/*問題*/
 #question {
 	padding: 20px;
 }
 
+/*問題の詳細ボタン*/
 #detail {
 	background-color: #6699cc;
 	position: relative;
@@ -37,6 +42,3 @@ td {
 	border-radius: 0.5rem;
 }
 
-table:hover{
-  background-color: #fff;
-}

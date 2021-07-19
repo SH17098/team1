@@ -8,7 +8,7 @@ body {
 
 }
 
-
+/*各ブロックの枠設定*/
 .fixed{
  	background: rgb(137, 192, 254);
 	padding: 1px 1px;
@@ -19,6 +19,7 @@ body {
 	display: inline-block;
 }
 
+/*データベースのデザイン*/
 .change{
 	background: #cde1fe;
 	padding: 10px;

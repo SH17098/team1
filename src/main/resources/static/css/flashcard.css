@@ -14,7 +14,7 @@ body {
 	text-decoration: none
 }
 
-/*選択肢にマウスを当てた時の線*/
+/*選択肢にマウスを当てた時の線（マウス当てる前）*/
 .url::after {
 	border-bottom: solid 2px rgb(128, 128, 255);
 	bottom: 0;
@@ -25,12 +25,8 @@ body {
 	width: 0;
 }
 
+/*マウス当てた時*/
 .url:hover::after {
 	width: 100%;
 }
-/*.url:hover{
-text-decoration:underline;
-color:#8b008b;
 
-}
-*/

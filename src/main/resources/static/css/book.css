@@ -9,20 +9,25 @@ body {
 }
 
 
+/*参考書の表*/
 table{
 	width:70%;
 	border-collapse: separate;
 	border-spacing: 0;
 }
+
+/*参考書の表のセル*/
 table td{
 	height: 50px;
 }
 
+/*参考書の表*/
 .submit form{
 	display: inline-block;
 	margin: 0 10px;
 }
 
+/*参考書の並び替え*/
 #button{
 	display: inline-block;
 	border-radius: 5%;
@@ -36,6 +41,7 @@ table td{
 	border: 2px solid rgba(153, 153, 153, 0.59);
 }
 
+/*登録ボタン*/
 .button{
 	display: inline-block;
 	padding: 16px 24px;
@@ -45,21 +51,25 @@ table td{
 	color: white;
 	box-shadow: 0px 2px 4px #575;
 }
+
+/*参考書分類*/
 table th:first-child{
   border-radius: 5px 0 0 0;
 }
 
+/*参考書分類*/
 table tr:hover{
   background-color: #d4f0fd;
 }
 
 
-
+/*参考書分類*/
 table th:last-child{
   border-radius: 0 5px 0 0;
   border-right: 1px solid #3c6690;
 }
 
+/*参考書の表　背景色*/
 table th{
   text-align: center;
   color:white;
@@ -72,6 +82,7 @@ table th{
   padding: 10px 0;
 }
 
+/*セル設定*/
 table td{
   text-align: center;
   border-left: 1px solid #a8b7c5;
@@ -82,14 +93,17 @@ table td{
   padding: 10px 0;
 }
 
+/**/
 table td:last-child{
   border-right: 1px solid #a8b7c5;
 }
 
+/**/
 table tr:last-child td:first-child {
   border-radius: 0 0 0 5px;
 }
 
+/**/
 table tr:last-child td:last-child {
   border-radius: 0 0 5px 0;
 }

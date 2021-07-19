@@ -7,15 +7,18 @@ body {
 	font-size: 15px;
 }
 
+/*時間表示*/
 .time {
 	font-size: 30px;
 }
 
+/*「基本情報技術者試験」*/
 h1 {
 	font-size:40px;
 
 }
 
+/*URL移動画像のサイズ設定*/
 .main {
 	margin-left: auto;
 	margin-right: auto;

@@ -26,7 +26,11 @@
         </th:block>
        <span th:text="${tweet.likes}"></span>
  		</td>
- 		<td><a th:href="'/reply/'+ ${tweet.code} + '/' + ${tweet.user_code}" style="text-decoration: none;">💬</a></td>
+ 		<td><a th:href="'/reply/'+ ${tweet.code} + '/' + ${tweet.user_code}" style="text-decoration: none;">
+		<img src="/img/hukidashi05.png" id="hukidashi">
+ 		</a>
+	 <span th:text="${tweet.review}"></span>
+ 		</td>
  		<td th:if="${tweet.user_code} == ${session.userCode}">
  		<form action="/tweet/delete" method="post">
  		<input type="hidden" name="deleteCode" th:value="${tweet.code}">

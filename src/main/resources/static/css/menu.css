@@ -1,42 +1,22 @@
-@use postcss-preset-env {
-  stage: 0;
-}
 
-/*元の書式*/
-.invisible {
-  left: -999px;
-  overflow: hidden;
-  position: absolute;
-  top: -999px;
-}
-
-.align {
-  display: grid;
-  place-items: center;
-}
-
-li.menu-title ul{
+li.menu-title ul{ /*profileのドロップダウンを非表示*/
 	display: none;
 }
 
-.menu-title:hover .sub-menu{
-	display: block;
-}
 
-ul.sub-menu li:hover li{
+.menu-title:hover .sub-menu{/*hoverしたらblockで表示*/
 	display: block;
 }
 
 a {
  color: inherit;
- outline: 0;
 }
 
-.icons {
+.icons {  /*profileの画面に合わせない*/
   display: none;
 }
 
-.icon {
+.icon { /*アイコン*/
   block-size: 1em;
   display: inline-block;
   fill: currentcolor;
@@ -61,14 +41,15 @@ svg {
   --navigation-anchor-padding: 1.5em;
 }
 
-.navigation {
+.navigation { /*全てに対して*/
   color: white;
   background-color: var(--navigation-background-color);
   border-radius: var(--navigation-border-radius);
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.3);
 }
 
-.navigation ul {
+.navigation ul { /*リストの設定*/
+  display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -87,7 +68,7 @@ svg {
   opacity: 1;
 }
 
-.navigation a::after {
+.navigation a::after { /*選択時に見分けやすく*/
   block-size: 100%;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.3);
   content: '';
@@ -97,9 +78,5 @@ svg {
   position: absolute;
   top: 0;
   transition: opacity 0.3s;
-}
-
-.navigation--inline ul {
-  display: flex;
 }
 

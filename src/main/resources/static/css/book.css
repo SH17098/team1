@@ -21,16 +21,15 @@ table td{
 	height: 50px;
 }
 
-/*参考書の表*/
+/*並び替えボタンの表示方法*/
 .submit form{
-	display: inline-block;
+	display: inline-block; /*横並びに*/
 	margin: 0 10px;
 }
 
-/*参考書の並び替え*/
+/*並び替えボタンの装飾*/
 #button{
-	display: inline-block;
-	border-radius: 5%;
+	border-radius: 5%;  /*丸み*/
 	font-size: 15px;
 	cursor: pointer;
 	padding: 10px 18px;
@@ -52,18 +51,18 @@ table td{
 	box-shadow: 0px 2px 4px #575;
 }
 
-/*参考書分類*/
+/*一行目を丸める*/
 table th:first-child{
   border-radius: 5px 0 0 0;
 }
 
-/*参考書分類*/
+/*hoverしたらハイライト*/
 table tr:hover{
   background-color: #d4f0fd;
 }
 
 
-/*参考書分類*/
+/*タイトルの最後の行を丸める*/
 table th:last-child{
   border-radius: 0 5px 0 0;
   border-right: 1px solid #3c6690;
@@ -93,17 +92,12 @@ table td{
   padding: 10px 0;
 }
 
-/**/
+/*最後の列のボーダー*/
 table td:last-child{
   border-right: 1px solid #a8b7c5;
 }
 
-/**/
-table tr:last-child td:first-child {
-  border-radius: 0 0 0 5px;
-}
-
-/**/
+/*丸め*/
 table tr:last-child td:last-child {
-  border-radius: 0 0 5px 0;
+  border-radius: 0 0 5px 5px;
 }

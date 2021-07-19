@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class BookController {
+public class BookController extends SecurityController{
 	@Autowired
 	HttpSession session;
 
@@ -36,7 +36,7 @@ public class BookController {
 		mv.addObject("books", books);
 
 		mv.setViewName("book");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class BookController {
 	@RequestMapping("/book/add")
 	public ModelAndView addBook(ModelAndView mv) {
 		mv.setViewName("addBook");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class BookController {
 				}
 			}
 			mv.setViewName("book");
-			return mv;
+			return security(mv);
 		}
 
 	}
@@ -150,7 +150,7 @@ public class BookController {
 		mv.addObject("name", book.getName());
 		mv.addObject("price", book.getPrice());
 		mv.setViewName("comment");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -175,7 +175,7 @@ public class BookController {
 			comment(bookCode, mv);
 
 			mv.setViewName("comment");
-			return mv;
+			return security(mv);
 		}
 
 		//add
@@ -183,7 +183,7 @@ public class BookController {
 		commentRepository.saveAndFlush(newComment); //データベースにコメントを保存
 
 		//星評価の計算と保存
-		//bookテーブルからbooCodeで現在のrateを取得
+		//bookテーブルからbookCodeで現在のrateを取得
 		Book book = null;
 		Optional<Book> record = bookRepository.findById(bookCode);
 		if (record.isEmpty() == false) {
@@ -212,8 +212,10 @@ public class BookController {
 		List<Comment> comments = commentRepository.findByBookCode(bookCode);
 		mv.addObject("comments", comments);
 
+		mv.addObject("name", book.getName());
+		mv.addObject("price", book.getPrice());
 		mv.setViewName("comment");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -227,7 +229,7 @@ public class BookController {
 
 		mv.addObject("books", books);
 		mv.setViewName("book");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -242,7 +244,7 @@ public class BookController {
 
 		mv.addObject("books", books);
 		mv.setViewName("book");
-		return mv;
+		return security(mv);
 	}
 
 }

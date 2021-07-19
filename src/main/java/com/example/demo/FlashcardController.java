@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class FlashcardController {
+public class FlashcardController extends SecurityController{
 	@Autowired
 	HttpSession session;
 
 	@Autowired
 	FlashcardRepository flashcardRepository;
+
+	@Autowired
+	FavoriteRepository favoriteRepository;
 
 	/**
 	  *フラッシュカードのホーム画面の表示
@@ -26,7 +29,7 @@ public class FlashcardController {
 	@RequestMapping("/flashcard")
 	public ModelAndView flashcard(ModelAndView mv) {
 		mv.setViewName("flashcard");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -36,7 +39,7 @@ public class FlashcardController {
 	@RequestMapping("/flashcard/new/add")
 	public ModelAndView addFlashcard(ModelAndView mv) {
 		mv.setViewName("addFlashcard");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -55,15 +58,14 @@ public class FlashcardController {
 		answer = Sanitizing.convert(answer);
 		explanation = Sanitizing.convert(explanation);
 
-
 		//未入力の項目がある場合
 		if (question.equals("") || answer.equals("") || explanation.equals("")) {
 			mv.addObject("message", "未入力の項目があります。");
-		mv.addObject("question", question);
-		mv.addObject("answer", answer);
-		mv.addObject("explanation", explanation);
+			mv.addObject("question", question);
+			mv.addObject("answer", answer);
+			mv.addObject("explanation", explanation);
 			mv.setViewName("addFlashcard");
-			return mv;
+			return security(mv);
 
 		}
 
@@ -72,7 +74,7 @@ public class FlashcardController {
 		flashcardRepository.saveAndFlush(newflashcard);
 
 		mv.setViewName("addFlashcard");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -92,24 +94,24 @@ public class FlashcardController {
 
 		//１増やしたコードで検索
 		Optional<Flashcard> record = flashcardRepository.findById(card_code);
-		    session.setAttribute("card_code", card_code);
+		session.setAttribute("card_code", card_code);
 
 		if (record.isEmpty() == false) {
 			Flashcard flashcard = record.get();
 			session.setAttribute("flashcard", flashcard);//セッションに追加
 			mv.addObject("question", flashcard.getQuestion());
-		}else {
-			if(card_code < 100) {//recordがなければ、もう一度一から実行する
-			    useFlashcard(mv);
+		} else {
+			if (card_code < 100) {//recordがなければ、もう一度一から実行する
+				useFlashcard(mv);
 
-			}else {//100以上になったら、card_codeを再度一に初期化させる
+			} else {//100以上になったら、card_codeを再度一に初期化させる
 				session.removeAttribute("card_code"); //card_codeセッションは破棄
 				useFlashcard(mv);
 			}
 		}
 
 		mv.setViewName("useFlashcard");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -122,10 +124,10 @@ public class FlashcardController {
 		String answer = current_flashcard.getAnswer(); //answerのみ取得
 
 		mv.addObject("answer", answer);
-        mv.addObject("question", current_flashcard.getQuestion());
+		mv.addObject("question", current_flashcard.getQuestion());
 
 		mv.setViewName("useFlashcard");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -139,10 +141,82 @@ public class FlashcardController {
 
 		mv.addObject("explanation", explanation);
 		mv.addObject("answer", current_flashcard.getAnswer());
-        mv.addObject("question", current_flashcard.getQuestion());
+		mv.addObject("question", current_flashcard.getQuestion());
 
 		mv.setViewName("useFlashcard");
-		return mv;
+		return security(mv);
 	}
+
+//	/**
+//	  *お気に入り機能
+//	 */
+//
+//	@RequestMapping("/flashcard/favorite")
+//	public ModelAndView favorite(ModelAndView mv) {
+//		//userCodeとtestCodeを取得
+//		int userCode = (int) session.getAttribute("userCode");
+//		Flashcard current_flashcard = (Flashcard) session.getAttribute("flashcard");
+//		int flashcardCode = current_flashcard.getCode();
+//
+//		//もしテーブルに同じ値が保存されていたら、お気に入りを削除
+//		Optional<Favorite> record = favoriteRepository.findByUserCodeAndFlashcardCode(userCode, flashcardCode);
+//		if (record.isEmpty() == false) {//もしすでにお気に入り登録していたら
+//			Favorite favorite = record.get();
+//
+//			//recordに来た情報を削除
+//			favoriteRepository.deleteById(favorite.getCode());
+//
+//		} else {//まだお気に入り登録してなかったら
+//
+//			//favoriteデータベースに保存
+//			Favorite new_favorite = new Favorite(userCode, flashcardCode);
+//			favoriteRepository.saveAndFlush(new_favorite);
+//
+//		}
+//		return mv;
+//	}
+
+//	/**
+//	  *お気に入り一覧画面表示
+//	 */
+//
+//	@RequestMapping("/flashcard/favorites")
+//	public ModelAndView favorites(ModelAndView mv) {
+//		//favoriteテーブルからuserCodeの一致するflashcardCodeを取得する
+//		int userCode = (int)session.getAttribute("userCode");
+//		List<Favorite> lists = favoriteRepository.findByUserCode(userCode);
+//
+//		if(lists.size() == 0) {
+//				mv.addObject("none", "まだお気に入り登録したカードはありません。");
+//		}else {
+//
+//     		List<Integer> flashcardCodes = new ArrayList<>();
+//		    Favorite favorite = null;
+//		    int a = 0;
+//		    //flashcardCodeをリストに
+//		    for(int i=0; i<lists.size(); i++) {
+//		    	favorite = lists.get(i);
+//		    	a = favorite.getFlashcardCode();
+//		    	flashcardCodes.add(a);
+//
+//		    }
+//		    List<Flashcard> flashcards = new ArrayList<>();
+//
+//		    for(int k=0; k<flashcardCodes.size(); k++) {
+//		    	int b = flashcardCodes.get(k);
+//		    	Optional<Flashcard> record = flashcardRepository.findById(b);
+//		    	Flashcard fav_flashcard = null;
+//		    	if(record.isEmpty() == false) {
+//		    		fav_flashcard = record.get();
+//		    	}
+//		    	flashcards.add(fav_flashcard);
+//		    }
+//
+//		    mv.addObject("flashcards", flashcards);
+//		}
+//
+//        mv.setViewName("favorite");
+//		return mv;
+//	}
 
 }

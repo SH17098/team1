@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class TweetController {
+public class TweetController extends SecurityController{
 	@Autowired
 	HttpSession session;
 
@@ -93,7 +93,7 @@ public class TweetController {
 		mv.addObject("hearts", hearts);
 
 		mv.setViewName("tweet");//掲示板を表示
-		return mv;
+		return security(mv);
 	}
 
 
@@ -115,7 +115,7 @@ public class TweetController {
 			tweet(mv);
 
 			mv.setViewName("tweet");
-			return mv;
+			return security(mv);
 		}
 
 		//test用
@@ -186,7 +186,7 @@ public class TweetController {
 		mv.addObject("hearts", hearts);
 
 		mv.setViewName("Tweet");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -259,7 +259,7 @@ public class TweetController {
 		mv.addObject("hearts", hearts);
 
 		mv.setViewName("tweet");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -302,7 +302,7 @@ public class TweetController {
 		if (replies.size() == 0) {
 			mv.addObject("none", "まだコメントはありません。");
 			mv.setViewName("reply");
-			return mv;
+			return security(mv);
 
 		} else {//あった場合
 			mv.addObject("replies", replies); //tweetに対するreply取得
@@ -327,7 +327,7 @@ public class TweetController {
 		}
 
 		mv.setViewName("reply");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -362,7 +362,7 @@ public class TweetController {
 		reply(tweetCode, tweetUser, mv);
 
 		mv.setViewName("reply");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -390,7 +390,7 @@ public class TweetController {
 		reply(tweetCode, tweetUser, mv);
 
 		mv.setViewName("reply");
-		return mv;
+		return security(mv);
 	}
 
 }

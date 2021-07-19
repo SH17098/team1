@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class LikeController {
+public class LikeController extends SecurityController{
 	@Autowired
 	LikeRepository likeRepository;
 
@@ -108,7 +108,7 @@ public class LikeController {
 
 			mv.addObject("hearts", hearts);
 			mv.setViewName("tweet");
-			return mv;
+			return security(mv);
 
 		} else {//まだいいねしてなかったら
 
@@ -179,7 +179,7 @@ public class LikeController {
 
 			mv.addObject("hearts", hearts);
 			mv.setViewName("tweet");
-			return mv;
+			return security(mv);
 		}
 	}
 }

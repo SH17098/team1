@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class TestController {
+public class TestController extends SecurityController{
 	@Autowired
 	HttpSession session;
 
@@ -67,7 +67,7 @@ public class TestController {
 		//		System.out.println(session.getAttribute("card_code"));
 
 		mv.setViewName("useTest");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class TestController {
 			mv.addObject("option_d", current_test.getOption_d());
 
 			mv.setViewName("useTest");
-			return mv;
+			return security(mv);
 		}
 
 		//test
@@ -141,7 +141,7 @@ public class TestController {
 		mv.addObject("option_d", current_test.getOption_d());
 
 		mv.setViewName("useTest");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class TestController {
 
 		mv.addObject("tests", tests);
 		mv.setViewName("incorrectTest");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -210,7 +210,7 @@ public class TestController {
 		mv.addObject("option_d", test.getOption_d());
 
 		mv.setViewName("incorrectDetail");
-		return mv;
+		return security(mv);
 	}
 
 	//	//解説を表示

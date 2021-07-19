@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class AccountController {
+public class AccountController extends SecurityController{
 
 	@Autowired
 	HttpSession session;
@@ -89,6 +89,7 @@ public class AccountController {
 				session.setAttribute("userCode", user.getUserCode());
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("userInfo", user);
+				session.setAttribute("securityCode", "1234");
 
 				mv.setViewName("home");
 				return mv;
@@ -275,7 +276,7 @@ public class AccountController {
 		mv.addObject("mail", user.getEmail());
 		mv.addObject("userId", user.getUserId());
 		mv.setViewName("profile");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -295,7 +296,7 @@ public class AccountController {
 		mv.addObject("userId", user.getUserId());
 		mv.addObject("password", user.getPassword());
 		mv.setViewName("profile");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -315,7 +316,7 @@ public class AccountController {
 		mv.addObject("password", user.getPassword());
 
 		mv.setViewName("updateProfile");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -341,7 +342,7 @@ public class AccountController {
 			mv.addObject("message", "未入力の箇所があります。");
 			mv.setViewName("updateProfile");
 
-			return mv;
+			return security(mv);
 		}
 
 		int userCode = (int) session.getAttribute("userCode");
@@ -362,7 +363,7 @@ public class AccountController {
 		mv.addObject("mail", mail);
 
 		mv.setViewName("profile");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -373,7 +374,7 @@ public class AccountController {
 	public ModelAndView home(ModelAndView mv) {
 
 		mv.setViewName("home");
-		return mv;
+		return security(mv);
 	}
 
 	/**
@@ -381,6 +382,7 @@ public class AccountController {
 	 */
 	@RequestMapping("/logout")
 	public String logout() {
+		session.invalidate();
 		// ログイン画面表示処理を実行するだけ
 		return login();
 	}

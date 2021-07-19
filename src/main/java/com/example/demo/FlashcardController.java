@@ -19,21 +19,30 @@ public class FlashcardController {
 	@Autowired
 	FlashcardRepository flashcardRepository;
 
-	//フラッシュカードのホーム画面の表示
+	/**
+	  *フラッシュカードのホーム画面の表示
+	 */
+
 	@RequestMapping("/flashcard")
 	public ModelAndView flashcard(ModelAndView mv) {
 		mv.setViewName("flashcard");
 		return mv;
 	}
 
-	//新規カード作成画面の表示
+	/**
+	  *新規カード作成画面の表示
+	 */
+
 	@RequestMapping("/flashcard/new/add")
 	public ModelAndView addFlashcard(ModelAndView mv) {
 		mv.setViewName("addFlashcard");
 		return mv;
 	}
 
-	//新規カードを登録
+	/**
+	  *新規カードを登録
+	 */
+
 	@PostMapping("/flashcard/add")
 	public ModelAndView addFlashcard2(
 			@RequestParam("question") String question,
@@ -47,7 +56,7 @@ public class FlashcardController {
 		explanation = Sanitizing.convert(explanation);
 
 
-		//未入力の項目
+		//未入力の項目がある場合
 		if (question.equals("") || answer.equals("") || explanation.equals("")) {
 			mv.addObject("message", "未入力の項目があります。");
 		mv.addObject("question", question);
@@ -66,13 +75,15 @@ public class FlashcardController {
 		return mv;
 	}
 
-	//学習画面と問題を表示
+	/**
+	  *学習画面と問題を表示
+	 */
+
 	@RequestMapping("/flashcard/use")
 	public ModelAndView useFlashcard(ModelAndView mv) {
 		session.removeAttribute("flashcard");
-		//順番に取得していくver.
-		int card_code = 1; //初期化
 
+		int card_code = 1; //初期化
 
 		if (session.getAttribute("card_code") != null) {//セッションがあれば
 			card_code = (int) session.getAttribute("card_code"); //コードを取得して１増やす
@@ -101,7 +112,10 @@ public class FlashcardController {
 		return mv;
 	}
 
-	//解答を表示
+	/**
+	  *解答を表示
+	 */
+
 	@RequestMapping("/flashcard/answer")
 	public ModelAndView showAnswer(ModelAndView mv) {
 		Flashcard current_flashcard = (Flashcard) session.getAttribute("flashcard");//現在のフラッシュカード情報をセッションから取得
@@ -114,7 +128,10 @@ public class FlashcardController {
 		return mv;
 	}
 
-	//解説を表示
+	/**
+	  *解説を表示
+	 */
+
 	@RequestMapping("/flashcard/explanation")
 	public ModelAndView showexplanation(ModelAndView mv) {
 		Flashcard current_flashcard = (Flashcard) session.getAttribute("flashcard");//現在のフラッシュカード情報をセッションから取得

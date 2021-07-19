@@ -35,7 +35,10 @@ public class TweetController {
 	@Autowired
 	ReplyRepository replyRepository;
 
-	//掲示板の初期表示
+	/**
+	  *掲示板の初期表示
+	 */
+
 	@RequestMapping("/tweet")
 	public ModelAndView tweet(ModelAndView mv) {
 		//tweetテーブルを全件取得し、tweetのみ表示
@@ -49,7 +52,7 @@ public class TweetController {
 		for (int k = 0; k < tweets.size(); k++) {
 			Tweet tweetRecord = tweets.get(k);
 			a = tweetRecord.getUser_code();
-			Optional<User> record2 = userRepository.findById(a);
+			Optional<User> record2 = userRepository.findById(a); //userCodeを使ってuserIDを取得
 			if (record2.isEmpty() == false) {
 				User userData = record2.get();
 				b = userData.getUserId();
@@ -59,6 +62,7 @@ public class TweetController {
 		mv.addObject("users", users);
 
 		//ハートの色を設定
+
 		List<Boolean> hearts = new ArrayList<>();
 
 		//userCodeを取得
@@ -70,7 +74,8 @@ public class TweetController {
 			int tweet_code = tweet.getCode();
 
 			//test
-			System.out.println(user_code + "/" + tweet_code);
+//			System.out.println(user_code + "/" + tweet_code);
+
 			//デフォルト
 			boolean like = false;
 
@@ -80,7 +85,7 @@ public class TweetController {
 				like = true;
 			}
 
-			hearts.add(like);
+			hearts.add(like); //trueまたはfalseの値をリストに追加していく
 		}
 		//test
 		//		System.out.println(hearts);
@@ -91,14 +96,11 @@ public class TweetController {
 		return mv;
 	}
 
-	////新規投稿作成画面の表示
-	//	@RequestMapping("/tweet/add")
-	//	public ModelAndView addTweet(ModelAndView mv) {
-	//		mv.setViewName("addTweet");
-	//		return mv;
-	//	}
 
-	//新規投稿作成
+	/**
+	  *新規投稿作成
+	 */
+
 	@PostMapping("/tweet/add")
 	public ModelAndView addTweet2(
 			@RequestParam("tweet") String tweet, //作成した投稿内容を取得
@@ -107,6 +109,7 @@ public class TweetController {
 		//サニタイジング
 		tweet = Sanitizing.convert(tweet);
 
+		//未入力の場合
 		if (tweet.equals("")) {
 			mv.addObject("error", "投稿内容を入力してください");
 			tweet(mv);
@@ -117,6 +120,7 @@ public class TweetController {
 
 		//test用
 		//		session.setAttribute("userCode", 1);
+
 		//セッションからusercodeを取得
 		int user_code = (int) session.getAttribute("userCode");
 
@@ -130,9 +134,11 @@ public class TweetController {
 		Tweet newTweet = new Tweet(0, user_code, tweet, today);
 		tweetRepository.saveAndFlush(newTweet);
 
+		//表示用
 		List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
 		mv.addObject("tweets", tweets);
 
+		//userCodeからuserIDを取得してリスト化
 		//userIdの取得
 		List<String> users = new ArrayList<>();
 		String b = "";
@@ -162,6 +168,7 @@ public class TweetController {
 
 			//test
 			//			System.out.println(userCode + "/" + tweet_code);
+
 			//デフォルト
 			boolean like = false;
 
@@ -182,15 +189,15 @@ public class TweetController {
 		return mv;
 	}
 
-	//投稿削除
+	/**
+	  *投稿削除
+	 */
 
 	@PostMapping("/tweet/delete")
 	@Transactional
 	public ModelAndView delete(
 			@RequestParam("deleteCode") String delete_code,
 			ModelAndView mv) {
-		//削除
-
 		int deleteCode = Integer.parseInt(delete_code);
 		//test
 		//		System.out.println(deleteCode);
@@ -255,7 +262,10 @@ public class TweetController {
 		return mv;
 	}
 
-	//リプライ機能
+	/**
+	  *リプライ機能
+	 */
+
 	@RequestMapping("/reply/{tweetCode}/{tweetUserCode}")
 	@Transactional
 	public ModelAndView reply(
@@ -274,6 +284,7 @@ public class TweetController {
 			tweet = record.get();
 			mv.addObject("tweet", tweet); //選択したツイートの取得完了
 
+			//userCodeからuserIDを取得
 			Optional<User> record3 = userRepository.findById(userCode);
 			User user = null;
 			if (record3.isEmpty() == false) {
@@ -286,14 +297,17 @@ public class TweetController {
 
 		//tweetCodeからそれに関するreplyを取得
 		List<Reply> replies = replyRepository.findByTweetCode(tweetCode);
+
+		//なかった場合
 		if (replies.size() == 0) {
 			mv.addObject("none", "まだコメントはありません。");
 			mv.setViewName("reply");
 			return mv;
 
-		} else {
+		} else {//あった場合
 			mv.addObject("replies", replies); //tweetに対するreply取得
 
+			//表示用
 			//userIdの取得
 			List<String> users = new ArrayList<>();
 			String b = "";
@@ -316,7 +330,10 @@ public class TweetController {
 		return mv;
 	}
 
-	//リプライ機能
+	/**
+	  *リプライ機能
+	 */
+
 	@PostMapping("/reply/add")
 	public ModelAndView addReply(
 			@RequestParam("reply") String reply,
@@ -328,11 +345,11 @@ public class TweetController {
 		int tweetCode = (int) session.getAttribute("tweetCode");
 		int tweetUser = (int) session.getAttribute("tweetUser");
 
+		//null処理
 		if (reply.equals("")) {
 			mv.addObject("error", "投稿内容を入力してください");
 
-			//			mv.setViewName("reply");
-			//			return mv;
+        //入力があった場合
 		} else {
 
 			int userCode = (int) session.getAttribute("userCode");
@@ -348,7 +365,10 @@ public class TweetController {
 		return mv;
 	}
 
-	//削除機能
+	/**
+	  *削除機能
+	 */
+
 	@PostMapping("/reply/delete")
 	@Transactional
 	public ModelAndView deleteReply(

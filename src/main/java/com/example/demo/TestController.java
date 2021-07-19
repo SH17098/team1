@@ -31,11 +31,13 @@ public class TestController {
 		return mv;
 	}
 
-	//学習画面と問題を表示
+	/**
+	  *解答を表示
+	 */
+
 	@RequestMapping("/test/use")
 	public ModelAndView useTest(ModelAndView mv) {
 		session.removeAttribute("test");
-		//順番に取得していくver.
 		int card_code = 1; //初期化
 
 		if (session.getAttribute("card_code") != null) {//セッションがあれば
@@ -57,7 +59,7 @@ public class TestController {
 			mv.addObject("option_c", test.getOption_c());
 			mv.addObject("option_d", test.getOption_d());
 
-		} else {
+		} else { //レコードがなくなったら、再度一から
 			session.removeAttribute("card_code"); //card_codeセッションは破棄
 			useTest(mv);
 		}
@@ -68,23 +70,25 @@ public class TestController {
 		return mv;
 	}
 
-	//解答を表示
+	/**
+	  *解答を表示
+	 */
+
 	@PostMapping("/test/answer")
 	public ModelAndView showAnswer(
 			@RequestParam("option") String option,
 			ModelAndView mv) {
 
 		//test
-		System.out.println(option);
+		//		System.out.println(option);
 
 		Test current_test = (Test) session.getAttribute("test");//現在のフラッシュカード情報をセッションから取得
 		String check_answer = current_test.getCheck_answer(); //採点用に取得
 		String answer = current_test.getAnswer(); //answerのみ取得
 		String explanation = current_test.getExplanation(); //解説のみ取得
 
-
 		//ラジオボタンが選択されなかった場合
-		if(option.equals("none")) {
+		if (option.equals("none")) {
 			mv.addObject("error", "選択肢から解答をしてください");
 
 			mv.addObject("question", current_test.getQuestion());
@@ -93,14 +97,13 @@ public class TestController {
 			mv.addObject("option_c", current_test.getOption_c());
 			mv.addObject("option_d", current_test.getOption_d());
 
-
 			mv.setViewName("useTest");
 			return mv;
 		}
 
 		//test
-//		System.out.println(option);
-//		System.out.println(check_answer);
+		//		System.out.println(option);
+		//		System.out.println(check_answer);
 
 		//採点
 		if (option.equals(check_answer)) {//正解だったら
@@ -118,12 +121,12 @@ public class TestController {
 			//すでに間違えた問題か確認
 			List<Incorrect> past_incorrects = incorrectRepository.findByUserCodeAndTestCode(userCode, testCode);
 
-			if(past_incorrects.size() == 0) { //始めて間違えた場合は保存
+			if (past_incorrects.size() == 0) { //始めて間違えた場合は保存
 
-			   //incorrectテーブルに保存
-		     	Incorrect newIncorrect = new Incorrect(userCode, testCode);
-	     		incorrectRepository.saveAndFlush(newIncorrect);
-	 		}
+				//incorrectテーブルに保存
+				Incorrect newIncorrect = new Incorrect(userCode, testCode);
+				incorrectRepository.saveAndFlush(newIncorrect);
+			}
 
 			//不正解と表示
 			mv.addObject("correct", "不正解");
@@ -141,16 +144,22 @@ public class TestController {
 		return mv;
 	}
 
-	//過去に間違えた問題を表示
+	/**
+	  *過去に間違えた問題を表示
+	 */
+
 	@RequestMapping("/test/incorrect")
 	public ModelAndView incorrect(ModelAndView mv) {
-		//userCodeを取得して、test_codeを取得
+		//userCodeを取得
 		int userCode = (int) session.getAttribute("userCode");
 		List<Incorrect> lists = incorrectRepository.findByUserCode(userCode);
-		if(lists.size() == 0) {
+
+		//まだ間違えてない場合
+		if (lists.size() == 0) {
 			mv.addObject("none", "まだ間違えた問題はありません。");
 		}
 
+		//test_codeを取得
 		List<Integer> testCode = new ArrayList<Integer>();
 		for (int i = 0; i < lists.size(); i++) {
 			Incorrect incorrect = lists.get(i);
@@ -172,7 +181,10 @@ public class TestController {
 		return mv;
 	}
 
-	//過去に間違えた問題の詳細を表示
+	/**
+	  *過去に間違えた問題の詳細を表示
+	 */
+
 	@PostMapping("/incorrect/detail")
 	public ModelAndView incorrect2(
 			@RequestParam("test_code") String test_code,
@@ -185,11 +197,11 @@ public class TestController {
 		//testCodeから全情報をデータベースより取得
 		Test test = null;
 		Optional<Test> record = testRepository.findById(testCode);
-        if(record.isEmpty() == false) {
-        	test = record.get();
-        }
+		if (record.isEmpty() == false) {
+			test = record.get();
+		}
 
- 		mv.addObject("explanation", test.getExplanation());
+		mv.addObject("explanation", test.getExplanation());
 		mv.addObject("answer", test.getAnswer());
 		mv.addObject("question", test.getQuestion());
 		mv.addObject("option_a", test.getOption_a());
@@ -197,7 +209,7 @@ public class TestController {
 		mv.addObject("option_c", test.getOption_c());
 		mv.addObject("option_d", test.getOption_d());
 
-        mv.setViewName("incorrectDetail");
+		mv.setViewName("incorrectDetail");
 		return mv;
 	}
 

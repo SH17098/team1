@@ -26,21 +26,24 @@ public class LikeController {
 	@Autowired
 	UserRepository userRepository;
 
-	//likeボタンが押されたとき
+	/**
+	  *likeボタンが押されたとき
+	 */
+
 	@RequestMapping("/like/{tweetCode}")
 	public ModelAndView like(
-			@PathVariable(name="tweetCode") int tweetCode,
+			@PathVariable(name = "tweetCode") int tweetCode,
 			ModelAndView mv) {
 		//get userCode from session
 		int userCode = (int) session.getAttribute("userCode");
 
 		//もしlikesに同じ値が保存されていたら、likeを削除
 		Optional<Like> record = likeRepository.findByUserCodeAndTweetCode(userCode, tweetCode);
-		if(record.isEmpty() == false) {//もしすでにlikeしていたら
+		if (record.isEmpty() == false) {//もしすでにlikeしていたら
 			Like liked = record.get();
 
 			//recordに来た情報を削除
-		    likeRepository.deleteById(liked.getCode());
+			likeRepository.deleteById(liked.getCode());
 
 			//tweetテーブルのlikesを１減らす
 			Tweet tweet = null;
@@ -51,13 +54,15 @@ public class LikeController {
 				likes--;
 
 				//更新する
-				Tweet update = new Tweet(tweet.getCode(), likes, tweet.getUser_code(), tweet.getTweet(), tweet.getDate());
+				Tweet update = new Tweet(tweet.getCode(), likes, tweet.getUser_code(), tweet.getTweet(),
+						tweet.getDate());
 				tweetRepository.saveAndFlush(update);
 			}
 
+			//表示用
 			//全データを取得して表示
-		    List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
-		    mv.addObject("tweets", tweets);
+			List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
+			mv.addObject("tweets", tweets);
 
 			//userIdの取得
 			List<String> users = new ArrayList<>();
@@ -75,15 +80,13 @@ public class LikeController {
 			}
 			mv.addObject("users", users);
 
-
 			//ハートの色を設定
 			List<Boolean> hearts = new ArrayList<>();
 
 			//userCodeを取得
 			int user_code = (int) session.getAttribute("userCode");
 
-
-			for(int i = 0; i < tweets.size(); i++) {
+			for (int i = 0; i < tweets.size(); i++) {
 				//tweetCodeを取得する
 				Tweet tweeted = tweets.get(i);
 				int tweet_code = tweeted.getCode();
@@ -93,43 +96,44 @@ public class LikeController {
 
 				//ハートを押したことがあるかlikeテーブルで確認
 				Optional<Like> record4 = likeRepository.findByUserCodeAndTweetCode(user_code, tweet_code);
-				if(record4.isEmpty() == false) { //押したことがある場合
+				if (record4.isEmpty() == false) { //押したことがある場合
 					like = true;
 				}
 
 				hearts.add(like);
 			}
 
-		    //test
-		    System.out.println(hearts);
+			//test
+			//		    System.out.println(hearts);
 
-            mv.addObject("hearts", hearts);
-		    mv.setViewName("tweet");
-		    return mv;
+			mv.addObject("hearts", hearts);
+			mv.setViewName("tweet");
+			return mv;
 
+		} else {//まだいいねしてなかったら
 
-		}else {//まだいいねしてなかったら
+			//押されたtweetのlikeだけ増やす
+			Like like = new Like(userCode, tweetCode);
+			likeRepository.saveAndFlush(like);
 
-		//押されたtweetのlikeだけ増やす
-     		Like like = new Like(userCode, tweetCode);
-	    	likeRepository.saveAndFlush(like);
+			//Tweetテーブルのlikesを1増やす
+			Tweet tweet2 = null;
+			Optional<Tweet> record2 = tweetRepository.findById(tweetCode);
+			if (record2.isEmpty() == false) {
+				tweet2 = record2.get();
+				int likes = tweet2.getLikes();
+				likes++;
 
-		//Tweetテーブルのlikesを1増やす
-	    	Tweet tweet2 = null;
-		    Optional<Tweet> record2 = tweetRepository.findById(tweetCode);
-		    if (record2.isEmpty() == false) {
-		    	tweet2 = record2.get();
-			    int likes = tweet2.getLikes();
-			    likes++;
+				//更新する
+				Tweet update = new Tweet(tweet2.getCode(), likes, tweet2.getUser_code(), tweet2.getTweet(),
+						tweet2.getDate());
+				tweetRepository.saveAndFlush(update);
+			}
 
-			//更新する
-			    Tweet update = new Tweet(tweet2.getCode(), likes, tweet2.getUser_code(), tweet2.getTweet(), tweet2.getDate());
-			    tweetRepository.saveAndFlush(update);
-		    }
-
-		//tweetテーブルを全件取得し、tweetと時間、like数を表示
-		    List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
-		    mv.addObject("tweets", tweets);
+			//表示用
+			//tweetテーブルを全件取得し、tweetと時間、like数を表示
+			List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
+			mv.addObject("tweets", tweets);
 
 			//userIdの取得
 			List<String> users = new ArrayList<>();
@@ -147,15 +151,13 @@ public class LikeController {
 			}
 			mv.addObject("users", users);
 
-
 			//ハートの色を設定
 			List<Boolean> hearts = new ArrayList<>();
 
 			//userCodeを取得
 			int user_code = (int) session.getAttribute("userCode");
 
-
-			for(int i = 0; i < tweets.size(); i++) {
+			for (int i = 0; i < tweets.size(); i++) {
 				//tweetCodeを取得する
 				Tweet tweeted = tweets.get(i);
 				int tweet_code = tweeted.getCode();
@@ -165,19 +167,19 @@ public class LikeController {
 
 				//ハートを押したことがあるかlikeテーブルで確認
 				Optional<Like> record4 = likeRepository.findByUserCodeAndTweetCode(user_code, tweet_code);
-				if(record4.isEmpty() == false) { //押したことがある場合
+				if (record4.isEmpty() == false) { //押したことがある場合
 					liked = true;
 				}
 
 				hearts.add(liked);
 			}
 
-		    //test
-		    System.out.println(hearts);
+			//test
+			System.out.println(hearts);
 
-		    mv.addObject("hearts", hearts);
-		    mv.setViewName("tweet");
-		    return mv;
-	    }
-    }
+			mv.addObject("hearts", hearts);
+			mv.setViewName("tweet");
+			return mv;
+		}
+	}
 }

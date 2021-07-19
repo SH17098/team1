@@ -7,9 +7,8 @@ body{
 
 /*囲み枠と中身*/
 div{
-padding: 2em 1em;
-margin: 2em 10em;
-
+display: inline-block;
+padding:20px 20px 30px 20px;
 color: balck;  /*文字色*/
 background: rgb(255, 255, 255);
 border:solid 3px #048; /*線*/
@@ -17,5 +16,14 @@ border-radius: 10px; /*角の丸み*/
 }
 
 
+
+a{
+	text-decoration: none;
+}
+
+/*ログインボタン位置*/
+#login{
+	margin-top:10px;
+}
 
 

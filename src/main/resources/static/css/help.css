@@ -19,10 +19,18 @@ label {
 
 /*囲み枠*/
 #inputField {
-	padding: 2em 1em;
-	margin: 2em 10em;
+	display: inline-block;
+	padding: 20px 30px 20px 10px;
 	color: balck; /*文字色*/
-	background: #FFF;
+	background: rgb(255, 255, 255);
 	border: solid 3px #048; /*線*/
 	border-radius: 10px; /*角の丸み*/
+}
+
+a {
+	text-decoration: none;
+}
+
+#send{
+	margin-top:10px;
 }

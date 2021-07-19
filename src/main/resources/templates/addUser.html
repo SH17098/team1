@@ -30,7 +30,7 @@
 				<option value="c">好きな色は？</option>
 			</select> <br> <label>質問回答：</label><input type="text" name="answer"
 				placeholder="回答を設定してください" th:value=${secret}> <br> <input
-				type="submit" value="新規登録"> <span th:text="${message}"
+				type="submit" id="new" value="新規登録"> <span th:text="${message}"
 				style="color: red"></span>
 			<div th:text="${complete}" style="color: red"></div>
 		</div>

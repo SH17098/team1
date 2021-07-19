@@ -13,7 +13,6 @@ label {
 	width: 150px;
 }
 
-
 /*質問項目の位置調整*/
 #q_number {
 	width: 120px;
@@ -21,10 +20,19 @@ label {
 
 /*入力画面を囲む枠*/
 #inputField {
-	padding: 2em 1em;
-	margin: 2em 10em;
+	display: inline-block;
+	padding: 20px 20px 20px 10px;
 	color: balck; /*文字色*/
-	background: #FFF;
+	background: rgb(255, 255, 255);
 	border: solid 3px #048; /*線*/
 	border-radius: 10px; /*角の丸み*/
+}
+
+/*[aタグ]の線*/
+a {
+	text-decoration: none;
+}
+
+#new{
+	margin-top:15px;
 }

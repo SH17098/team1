@@ -28,3 +28,7 @@ body {
 	border-left: 2px solid rgb(137, 192, 254);
 	display: inline-block;
 }
+
+.select{
+	float:left;
+}

@@ -16,7 +16,7 @@
   <tr>
     <td th:text="${tweetUser}" class="Maintweet"></td>
     <th th:text="${tweet.tweet}"></th>
-    <td th:text="${tweet.date}"></td>
+    <td th:text="${tweet.date}" class="date"></td>
   </tr>
   <tr th:each="reply, i:${replies}">
     <td th:each="user, i2:${users}" th:if="${i.index == i2.index}" class="userName">

@@ -19,17 +19,16 @@
 		<td th:text="${tweet.date}" id="date"></td>
 		<td th:each="heart, i2:${hearts}" th:if="${i.index == i2.index}" class="heart">
         <th:block th:if="${heart == false}">
-		   <a th:href="'/like/'+${tweet.code}" style="text-decoration: none;">&#9825;</a>
+		   <a th:href="'/like/'+${tweet.code}" style="text-decoration: none; font-size:20px;">&#9825;</a>
 		</th:block>
 		<th:block th:unless="${heart == false}">
-		<a th:href="'/like/'+${tweet.code}" style="color:red;text-decoration:none; ">&#9829;</a>
+		<a th:href="'/like/'+${tweet.code}" style="color:red;text-decoration:none; font-size:20px; ">&#9829;</a>
         </th:block>
        <span th:text="${tweet.likes}"></span>
  		</td>
- 		<td><a th:href="'/reply/'+ ${tweet.code} + '/' + ${tweet.user_code}" style="text-decoration: none;">
+ 		<td class="comment"><a th:href="'/reply/'+ ${tweet.code} + '/' + ${tweet.user_code}" style="text-decoration: none;">
 		<img src="/img/hukidashi05.png" id="hukidashi">
  		</a>
-	 <span th:text="${tweet.review}"></span>
  		</td>
  		<td th:if="${tweet.user_code} == ${session.userCode}">
  		<form action="/tweet/delete" method="post">

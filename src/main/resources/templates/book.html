@@ -43,7 +43,7 @@
 		<th:block th:if="${book.rate == 5}">
 		<td>★★★★★</td>
 		</th:block>
-		<td><a th:href="'/comment/'+ ${book.code}">レビュー</a></td>
+		<td><a th:href="'/comment/'+ ${book.code}">レビュー(<span th:text="${book.comment}"></span>)</a></td>
 </tr>
 </table>
 <br>

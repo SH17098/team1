@@ -13,6 +13,10 @@ table{
 	width: 40%;
 }
 
+.date{
+	width:10%;
+}
+
 tr{
 	border-bottom: solid 2px white;
 }

@@ -26,7 +26,7 @@
         </th:block>
        <span th:text="${tweet.likes}"></span>
  		</td>
- 		<td><a th:href="'/reply/'+ ${tweet.code} + '/' + ${tweet.user_code}">reply</a></td>
+ 		<td><a th:href="'/reply/'+ ${tweet.code} + '/' + ${tweet.user_code}" style="text-decoration: none;">💬</a></td>
  		<td th:if="${tweet.user_code} == ${session.userCode}">
  		<form action="/tweet/delete" method="post">
  		<input type="hidden" name="deleteCode" th:value="${tweet.code}">

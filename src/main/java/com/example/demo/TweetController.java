@@ -107,7 +107,7 @@ public class TweetController {
 		//サニタイジング
 		tweet = Sanitizing.convert(tweet);
 
-		if(tweet.equals("")) {
+		if (tweet.equals("")) {
 			mv.addObject("error", "投稿内容を入力してください");
 			tweet(mv);
 
@@ -116,7 +116,7 @@ public class TweetController {
 		}
 
 		//test用
-//		session.setAttribute("userCode", 1);
+		//		session.setAttribute("userCode", 1);
 		//セッションからusercodeを取得
 		int user_code = (int) session.getAttribute("userCode");
 
@@ -161,7 +161,7 @@ public class TweetController {
 			int tweet_code = tweet2.getCode();
 
 			//test
-//			System.out.println(userCode + "/" + tweet_code);
+			//			System.out.println(userCode + "/" + tweet_code);
 			//デフォルト
 			boolean like = false;
 
@@ -189,11 +189,11 @@ public class TweetController {
 	public ModelAndView delete(
 			@RequestParam("deleteCode") String delete_code,
 			ModelAndView mv) {
-//削除
+		//削除
 
 		int deleteCode = Integer.parseInt(delete_code);
 		//test
-		System.out.println(deleteCode);
+		//		System.out.println(deleteCode);
 
 		//まず子テーブルlikesの履歴を消す
 		likeRepository.deleteByTweetCode(deleteCode);
@@ -201,8 +201,7 @@ public class TweetController {
 		//それから親テーブルtweet自体を消す
 		tweetRepository.deleteById(deleteCode);
 
-
-//再度表示用
+		//再度表示用
 		//tweetテーブルを全件取得し、tweetのみ表示
 		List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
 		mv.addObject("tweets", tweets);
@@ -248,7 +247,7 @@ public class TweetController {
 			hearts.add(like);
 		}
 		//test
-//		System.out.println(hearts);
+		//		System.out.println(hearts);
 
 		mv.addObject("hearts", hearts);
 
@@ -260,37 +259,40 @@ public class TweetController {
 	@RequestMapping("/reply/{tweetCode}/{tweetUserCode}")
 	@Transactional
 	public ModelAndView reply(
-			@PathVariable(name="tweetCode") int tweetCode,
-			@PathVariable(name="tweetUserCode") int userCode,
+			@PathVariable(name = "tweetCode") int tweetCode,
+			@PathVariable(name = "tweetUserCode") int userCode,
 			ModelAndView mv) {
 		//セッションに保存
 		session.setAttribute("tweetCode", tweetCode);
 		session.setAttribute("tweetUser", userCode);
 
+		//選択されたツイートも一番上に表示する
+		Optional<Tweet> record = tweetRepository.findById(tweetCode);
+		Tweet tweet = null;
+		String tweetUser = "";
+		if (record.isEmpty() == false) {
+			tweet = record.get();
+			mv.addObject("tweet", tweet); //選択したツイートの取得完了
+
+			Optional<User> record3 = userRepository.findById(userCode);
+			User user = null;
+			if (record3.isEmpty() == false) {
+				user = record3.get();
+			}
+			tweetUser = user.getUserId(); //userネームの取得完了
+			mv.addObject("tweetUser", tweetUser);
+
+		}
+
 		//tweetCodeからそれに関するreplyを取得
 		List<Reply> replies = replyRepository.findByTweetCode(tweetCode);
-		if(replies.size() == 0) {
+		if (replies.size() == 0) {
 			mv.addObject("none", "まだコメントはありません。");
-		}else {
+			mv.setViewName("reply");
+			return mv;
+
+		} else {
 			mv.addObject("replies", replies); //tweetに対するreply取得
-
-			//選択されたツイートも一番上に表示する
-			Optional<Tweet> record = tweetRepository.findById(tweetCode);
-			Tweet tweet = null;
-			String tweetUser = "";
-			if(record.isEmpty() == false) {
-				tweet = record.get();
-				mv.addObject("tweet", tweet); //選択したツイートの取得完了
-
-                Optional<User> record3 = userRepository.findById(userCode);
-                User user = null;
-                if(record3.isEmpty() == false) {
-                	user = record3.get();
-                }
-                tweetUser = user.getUserId(); //userネームの取得完了
-                mv.addObject("tweetUser", tweetUser);
-
-			}
 
 			//userIdの取得
 			List<String> users = new ArrayList<>();
@@ -311,7 +313,7 @@ public class TweetController {
 		}
 
 		mv.setViewName("reply");
-        return mv;
+		return mv;
 	}
 
 	//リプライ機能
@@ -323,24 +325,49 @@ public class TweetController {
 		//サニタイジング
 		reply = Sanitizing.convert(reply);
 
-        int tweetCode = (int)session.getAttribute("tweetCode");
-        int tweetUser = (int)session.getAttribute("tweetUser");
+		int tweetCode = (int) session.getAttribute("tweetCode");
+		int tweetUser = (int) session.getAttribute("tweetUser");
 
-		if(reply.equals("")) {
+		if (reply.equals("")) {
 			mv.addObject("error", "投稿内容を入力してください");
 
-//			mv.setViewName("reply");
-//			return mv;
-		}else {
+			//			mv.setViewName("reply");
+			//			return mv;
+		} else {
 
-		int userCode = (int)session.getAttribute("userCode");
+			int userCode = (int) session.getAttribute("userCode");
 
-		//replyテーブルに保存
-		Reply new_reply = new Reply(userCode, tweetCode, reply);
-        replyRepository.saveAndFlush(new_reply);
+			//replyテーブルに保存
+			Reply new_reply = new Reply(userCode, tweetCode, reply);
+			replyRepository.saveAndFlush(new_reply);
 
 		}
-		    reply(tweetCode, tweetUser, mv);
+		reply(tweetCode, tweetUser, mv);
+
+		mv.setViewName("reply");
+		return mv;
+	}
+
+	//削除機能
+	@PostMapping("/reply/delete")
+	@Transactional
+	public ModelAndView deleteReply(
+			@RequestParam("deleteCode") String delete_code,
+			ModelAndView mv) {
+		//削除
+
+		int deleteCode = Integer.parseInt(delete_code);
+		//test
+		//		System.out.println(deleteCode);
+
+		//replyテーブルの履歴を消す
+		replyRepository.deleteById(deleteCode);
+
+		//再度表示用
+		int tweetCode = (int) session.getAttribute("tweetCode");
+		int tweetUser = (int) session.getAttribute("tweetUser");
+
+		reply(tweetCode, tweetUser, mv);
 
 		mv.setViewName("reply");
 		return mv;

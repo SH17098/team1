@@ -57,8 +57,27 @@ body {
   border-radius: 0.5rem;
 }
 
+.favorite{
+	text-decoration: none;
+	display: inline-block;
+	border-radius: 5%;
+	text-align:center; /*文字位置*/
+	line-height: 2.7em;
+}
+.favorite:hover{
+	cursor: pointer;
+}
 
+#like{
+	color: white;
+	background-color:#ff6666;
+	border : 2px solid #cc6666;
+}
 
+#unlike{
+	background-color: #cc99ff;
+	border: 2px solid #cc99cc;
+}
 
 
 /*解答・解説ボタン*/

@@ -30,8 +30,12 @@
 <br>
 <div th:text="${explanation}" id="explanation"></div>
 </form>
-
-<a href="/flashcard/favorite">好き</a>
+<th:block th:if="${session.favorite == true}">
+<a href="/flashcard/favorite" class="favorite" id="unlike">お気に入りを解除</a>
+</th:block>
+<th:block th:unless="${session.favorite == true}">
+<a href="/flashcard/favorite" class="favorite" id="like">お気に入りに登録</a>
+</th:block>
 <a href="/flashcard/use" id="next">次へ</a>
 </body>
 </html>

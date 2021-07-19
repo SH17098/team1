@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>フラッシュカード</title>
+<link href="/css/incorrectTest.css" rel="stylesheet">
+</head>
+<body>
+	<span th:replace="menu"></span>
+
+
+	<h1>お気に入り登録したカード一覧</h1>
+
+	<br>
+	<div th:text="${none}"></div>
+
+	<table align="center">
+		<tr th:each="flashcard:${flashcards}">
+			<form action="/flashcard/favorite/detail" method="post">
+				<input type="hidden" name="flashcard_code" th:value="${flashcard.code}">
+				<td id="question" th:text="${flashcard.question}"></td>
+			<td><input type="submit" id="detail" value="詳細"></td>
+			</form>
+		</tr>
+
+	</table>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>過去問</title>
+<link href="/css/incorrectDetail.css" rel="stylesheet">
+</head>
+<body>
+<span th:replace="menu"></span>
+
+
+<h1>お気に入り登録したカード</h1>
+<div class="fixed">
+問題
+<br>
+<div class="change" th:text="${question}"></div>
+</div>
+
+<br>
+<div class="fixed">
+解答
+<br>
+<div class="change" th:text="${answer}"></div>
+</div>
+
+<br>
+
+<div class="fixed">
+解説
+<br>
+<div class="change" th:text="${explanation}"></div>
+</div>
+
+</body>
+</html>

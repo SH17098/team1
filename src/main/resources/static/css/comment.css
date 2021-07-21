@@ -47,15 +47,15 @@ label.star {
 }
 
 input.star:checked ~ label.star:before { /*５星の時は色が濃い */
-content:'☆';
-  color:#FE7;
+content:'★';
+  color:#ffff00;
   transition: all .25s;
 }
 
 
 input.star-5:checked ~ label.star:before { /* 普通の星は黄色 */
-  color: #FD4;
-  text-shadow: 0 0 20px #952;
+  color: #ffff00;
+  text-shadow: 0 0 20px rgb(128, 0, 255);
 }
 
 input.star-1:checked ~ label.star:before { /*　一つ星だと色がオレンジに */
@@ -83,4 +83,32 @@ content:'☆';
   text-decoration: none;
   color: white;
   border-radius: 0.5rem;
+}
+
+#back{
+	font-size: 15px;
+  font-weight: 200;
+  line-height: 0.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;/*カーソルを指に*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+/*ボタン色*/
+#back{
+  color: #000;
+  background-color: #e1d3fe;
 }

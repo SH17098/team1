@@ -9,6 +9,10 @@ body {
 
 }
 
+
+
+
+
 table{
 	width: 40%;
 }
@@ -96,3 +100,20 @@ textarea{
 	height: 20px;
 }
 
+.submit form{
+	display: inline-block; /*横並びに*/
+	margin: 0 10px;
+}
+
+/*並び替えボタンの装飾*/
+.line{
+	border-radius: 5%;  /*丸み*/
+	font-size: 15px;
+	cursor: pointer;
+	padding: 10px 18px;
+	background:rgb(193, 193, 193);
+	color: black;
+	line-height: 1em;
+	transtion: .3s;
+	border: 2px solid rgba(153, 153, 153, 0.59);
+}

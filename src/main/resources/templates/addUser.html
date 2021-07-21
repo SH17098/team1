@@ -13,25 +13,40 @@
 		<br>
 		<div id="inputField">
 
-			<label>名前：</label><input type="text" name="name"
-				placeholder="名前を入力してください" th:value=${name}> <br> <label>ユーザーID：</label><input
-				type="text" name="userId" placeholder="ユーザーIDを設定してください"
-				th:value=${userId}> <br> <label>メールアドレス：</label><input
-				type="text" name="mail" placeholder="メールアドレスを入力してください"
-				th:value=${mail}> <br> <label>パスワード設定：</label><input
-				type="password" name="password" placeholder="パスワードを設定してください"
-				th:value=${secret}> <br> <label>パスワード確認：</label>
-				<input type="password" name="passwordCheck"
-				placeholder="もう一度パスワードを入力してください" th:value=${secret}> <br>
+			<label>名前：</label>
+			<input type="text" name="name" placeholder="名前を入力してください" th:value=${name}>
+				<br>
 
-			<label id="q_number">質問：</label><select name="q_number">
+				<label>ユーザーID：</label>
+				<input type="text" name="userId" placeholder="ユーザーIDを設定してください" th:value=${userId}>
+				<br>
+
+				<label>メールアドレス：</label>
+				<input type="text" name="mail" placeholder="メールアドレスを入力してください" th:value=${mail}>
+				<br>
+
+				<label>パスワード設定：</label>
+				<input type="password" name="password" placeholder="パスワードを設定してください" th:value=${secret}>
+				<br>
+
+				<label>パスワード確認：</label>
+				<input type="password" name="passwordCheck" placeholder="もう一度パスワードを入力してください" th:value=${secret}>
+				<br>
+
+			<label id="q_number">質問：</label>
+			<select name="q_number">
 				<option value="a">出身地は？</option>
 				<option value="b">好きな食べ物は？</option>
 				<option value="c">好きな色は？</option>
-			</select> <br> <label>質問回答：</label><input type="text" name="answer"
-				placeholder="回答を設定してください" th:value=${secret}> <br> <input
-				type="submit" id="new" value="新規登録"> <span th:text="${message}"
-				style="color: red"></span>
+			</select>
+			<br>
+
+			<label>質問回答：</label>
+			<input type="text" name="answer" placeholder="回答を設定してください" th:value=${secret}>
+			<br>
+
+			<input type="submit" id="new" value="新規登録">
+			<span th:text="${message}" style="color: red"></span>
 			<div th:text="${complete}" style="color: red"></div>
 		</div>
 		<br> <a href="/">ログイン画面へ戻る</a>

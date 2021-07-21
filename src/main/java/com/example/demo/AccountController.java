@@ -101,6 +101,12 @@ public class AccountController extends SecurityController{
 
 			}
 
+		}else {//データが見つからなかった場合
+			//アカウントが登録されているか分からないようにパスワードが一致してなかった場合とメッセージを一緒に
+			mv.addObject("message","ユーザーIDとパスワードが一致しません");
+			mv.setViewName("login");
+
+
 		}
 
 		return mv;

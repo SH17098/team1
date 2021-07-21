@@ -38,14 +38,14 @@ label.star {
 /* :before はそれよりも前*/
 
 input.star:checked ~ label.star:before { /* 普通の星は黄色 */
-content:'☆';
-  color:#FE7;
+content:'★';
+  color:#ffff00;
   transition: all .25s;
 }
 
 
 input.star-5:checked ~ label.star:before { /*５星の時は色が濃い */
-  color: #FD4;
+  color: #ffff00;
   text-shadow: 0 0 20px #952;
 }
 

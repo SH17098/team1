@@ -111,3 +111,21 @@ textarea{
 	background-color: ff3333;
 	border-radius: 0.5rem;
 }
+
+.btn-flat-simple {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #00BCD4;
+  background: #ECECEC;
+  transition: .4s;
+  border: 1px solid rgb(183, 183, 219);
+
+}
+
+.btn-flat-simple:hover {
+  background: #00bcd4;
+  color: white;
+}

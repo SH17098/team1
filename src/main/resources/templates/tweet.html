@@ -6,10 +6,23 @@
 <link href="/css/tweet.css" rel="stylesheet">
 </head>
 <body>
+
+
 <span th:replace="menu"></span>
 
-
 <h1>掲示板</h1>
+<br>
+<div class="submit">
+<form action="/tweet/old" method="get">
+<input type="submit" value="投稿が古い順" class="line">
+</form>
+<form action="/tweet/new" method="get">
+<input type="submit" value="投稿が新しい順" class="line">
+</form>
+</div>
+<br>
+
+
 <table align="center" class="tweet">
  	<tr th:each="tweet, i:${tweets}">
 	    <td th:each="user, i3:${users}" th:if="${i.index == i3.index}" class="userName">

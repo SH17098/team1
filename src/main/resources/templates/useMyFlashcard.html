@@ -11,12 +11,15 @@
 
 
 
-<h1>共有版フラッシュカード学習</h1>
+<h1>Myフラッシュカード学習</h1>
+<br>
+<span th:text="${complete}" style="color:red"></span>
+<br>
 <h3>問題</h3>
 <div th:text="${question}" id="questionText"></div>
 
 <br>
-<form action="/flashcard/answer" method="get">
+<form action="/flashcard/answer/my" method="get">
 
 <input type="submit" class="button" value="解答を見る">
 
@@ -25,17 +28,26 @@
 </form>
 
 <br>
-<form action="/flashcard/explanation" method="get">
+<form action="/flashcard/explanation/my" method="get">
 <input type="submit" class="button" value="解説を見る">
 <br>
 <div th:text="${explanation}" id="explanation"></div>
 </form>
 <th:block th:if="${session.favorite == true}">
-<a href="/flashcard/favorite" class="favorite" id="unlike">お気に入りを解除</a>
+<a href="/flashcard/favorite/my" class="favorite" id="unlike">お気に入りを解除</a>
 </th:block>
 <th:block th:unless="${session.favorite == true}">
-<a href="/flashcard/favorite" class="favorite" id="like">お気に入りに登録</a>
+<a href="/flashcard/favorite/my" class="favorite" id="like">お気に入りに登録</a>
 </th:block>
-<a href="/flashcard/use" id="next">次へ</a>
+<a href="/flashcard/use/my" id="next">次へ</a>
+<br>
+<br>
+<form action="/flashcard/update">
+<input type="submit" value="変更">
+</form>
+<form action="/flashcard/delete">
+<input type="submit" value="削除">
+</form>
+<br><br>
 </body>
 </html>

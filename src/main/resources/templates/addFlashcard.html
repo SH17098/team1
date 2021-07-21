@@ -13,6 +13,11 @@
 <h1>カードの新規作成</h1>
 <form action="/flashcard/add" method="post">
 <p th:text="${message}" style="color:red"></p>
+<select name="share">
+<option value="1">共有する</option>
+<option value="0">共有しない</option>
+</select>
+<br>
 <textarea id="question" name="question" th:placeholder="問題文を入力" th:text="${question}"></textarea>
 <br>
 <input type="text" id="answer" name="answer" th:placeholder="答えを入力" th:value=${answer}>

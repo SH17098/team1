@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>参考書レビュー</title>
+</head>
+<body>
+<a href="/owner/top">TOP</a>
+<a href="/owner/booklist">参考書一覧に戻る</a>
+<div th:text="${none}"></div>
+<table align="center">
+<tr th:each="review: ${reviews}">
+  <td th:text="${review.comment}"></td>
+  <td>
+    <form action="/owner/bookreview/delete" method="get">
+    <input type="hidden" name="book_code" th:value="${review.bookCode}">
+    <input type="hidden" name="review_code" th:value="${review.code}">
+    <input type="submit" value="削除">
+    </form>
+  </td>
+</tr>
+</table>
+<br>
+</body>
+</html>

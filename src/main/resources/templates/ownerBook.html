@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Books</title>
+</head>
+<body>
+<a href="/owner/top">TOP</a>
+<table align="center">
+<tr th:each="book:${books}">
+<td>
+  <span th:text="${book.name}"></span>
+  </td>
+ <td>
+  <span th:text="${book.price}"></span>
+   </td>
+   <td><a th:href="'/owner/bookreview/'+ ${book.code}">レビュー(<span th:text="${book.comment}"></span>)</a></td>
+  <td>
+    <form action="/owner/book/update" method="get">
+    <input type="hidden" name="book_code" th:value="${book.code}">
+    <input type="submit" value="更新">
+    </form>
+  </td>
+  <td>
+    <form action="/owner/book/delete" method="get">
+    <input type="hidden" name="book_code" th:value="${book.code}">
+    <input type="submit" value="削除">
+    </form>
+  </td>
+
+</tr>
+
+</table>
+</body>
+</html>

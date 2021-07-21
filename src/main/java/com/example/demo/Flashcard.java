@@ -16,6 +16,12 @@ public class Flashcard {
 	@Column(name="code")
 	private Integer code;
 
+	@Column(name="user_code")
+	private Integer userCode;
+
+	@Column(name="share")
+	private Integer share;
+
 	@Column(name="question")
 	private String question;
 
@@ -26,13 +32,15 @@ public class Flashcard {
 	private String explanation;
 
 	//コンストラクタ
-	public Flashcard(Integer code, String question,String answer, String explanation) {
-		this(question, answer, explanation);
+	public Flashcard(Integer code, Integer userCode, Integer share, String question,String answer, String explanation) {
+		this(userCode, share, question, answer, explanation);
 		this.code = code;
 	}
 
-	public Flashcard(String question,String answer, String explanation) {
+	public Flashcard(Integer userCode, Integer share, String question,String answer, String explanation) {
 		super();
+		this.userCode = userCode;
+		this.share = share;
 		this.question = question;
 		this.answer = answer;
 		this.explanation = explanation;
@@ -42,14 +50,30 @@ public class Flashcard {
 		super();
 	}
 
+	//gettersetter
 
-	//ゲッターセッター
 	public Integer getCode() {
 		return code;
 	}
 
 	public void setCode(Integer code) {
 		this.code = code;
+	}
+
+	public Integer getUserCode() {
+		return userCode;
+	}
+
+	public void setUserCode(Integer userCode) {
+		this.userCode = userCode;
+	}
+
+	public Integer getShare() {
+		return share;
+	}
+
+	public void setShare(Integer share) {
+		this.share = share;
 	}
 
 	public String getQuestion() {
@@ -75,6 +99,7 @@ public class Flashcard {
 	public void setExplanation(String explanation) {
 		this.explanation = explanation;
 	}
+
 
 
 }

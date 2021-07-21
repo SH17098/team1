@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Reply</title>
+</head>
+<body>
+<a href="/owner/top">TOP</a>
+<a href="/owner/tweet">ツイート一覧に戻る</a>
+<p th:text="${none}"></p>
+<table>
+<tr th:each="reply:${replies}">
+<td th:text="${reply.reply}"></td>
+<td>
+<form action="/owner/tweet/reply/delete" method="get">
+<input type="hidden" name="reply_code" th:value="${reply.code}">
+<input type="hidden" name="tweet_code" th:value="${reply.tweetCode}">
+<input type="submit" value="削除">
+</form>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

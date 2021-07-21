@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>新規作成</title>
+<link href="/css/addFlashcard.css" rel="stylesheet">
+</head>
+<body>
+
+<span th:replace="menu"></span>
+
+
+<h1>カード内容の変更</h1>
+<form action="/flashcard/update" method="post">
+<p th:text="${message}" style="color:red"></p>
+<select name="share">
+<option value="1">共有する</option>
+<option value="0">共有しない</option>
+</select>
+<br>
+問題文：
+<textarea id="question" name="question" th:text="${flashcard.question}"></textarea>
+<br>
+答え：
+<input type="text" id="answer" name="answer" th:value=${flashcard.answer}>
+<br>
+<br>
+解説：
+<textarea id="explanation" name="explanation" th:text="${flashcard.explanation}"></textarea>
+
+<br>
+<br>
+<input type="reset" class="button" id="reset" value="元に戻す">
+<input type="submit" class="button" value="変更内容を保存">
+<br>
+</form>
+<br>
+<br>
+<br>
+</body>
+</html>

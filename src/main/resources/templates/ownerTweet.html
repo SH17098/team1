@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>掲示板管理</title>
+</head>
+<body>
+<a href="/owner/top">TOP</a>
+<table>
+<tr th:each="tweet:${tweets}">
+<td th:text="${tweet.tweet}"></td>
+<td><a th:href="'/owner/tweet/reply/'+${tweet.code}">コメント</a></td>
+<td>
+<form action="/owner/tweet/delete" method="get">
+<input type="hidden" name="tweet_code" th:value="${tweet.code}">
+<input type="submit" value="削除">
+</form>
+</td>
+</tr>
+</table>
+</body>
+</html>

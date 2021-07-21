@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface FavoriteRepository extends JpaRepository<Favorite, Integer>{
   Optional<Favorite> findByUserCodeAndFlashcardCode(int userCode, int flashcardCode);
   List<Favorite> findByUserCode(int userCode);
+void deleteByFlashcardCode(int flashcardCode);
 }

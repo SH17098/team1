@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReplyRepository extends JpaRepository<Reply, Integer>{
    List<Reply> findByTweetCode(int tweetCode);
+
+void deleteByTweetCode(int tweetCode);
 }

@@ -231,8 +231,8 @@ public class AccountController extends SecurityController{
 				//DBと情報が一致したらuserIDとパスワードを表示
 				String password = user.getPassword();
 				String userId = user.getUserId();
-				mv.addObject("password", "パスワードは" + password + "です。");
-				mv.addObject("userId", "あなたのユーザーネームは" + userId + "です。");
+				mv.addObject("password", "パスワードは「 " + password + "」です。");
+				mv.addObject("userId", "あなたのユーザーネームは「" + userId + "」です。");
 				mv.addObject("name", name);
 				mv.addObject("mail", mail);
 				mv.addObject("q_number", q_number);

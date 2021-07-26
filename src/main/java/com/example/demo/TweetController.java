@@ -196,25 +196,56 @@ public class TweetController extends SecurityController{
 
 	//ページ移動
 	@PostMapping("/tweet/edit")
-	public ModelAndView edit(
-			@RequestParam("tweet") String tweet,
+	public ModelAndView edit1(@RequestParam("editCode") String editCode,
 			ModelAndView mv){
+		//ツイートの取得
+		//int型をStringに変換
+		int code = Integer.parseInt(editCode);
 
-		tweet = Sanitizing.convert(tweet);
-
-		if(tweet.equals("")) {
-			mv.addObject("masseage","未入力です");
-			mv.setViewName("edit");
-			return security(mv);
-		}
-
+		session.setAttribute("code",code);
 		mv.setViewName("edit");
 		return security(mv);
+
+
 	}
 
 
 	//編集
+	@RequestMapping("/tweet/edit")
+	public ModelAndView edit(@RequestParam("tweet") String tweet,
+			ModelAndView mv
+			) {
+		tweet = Sanitizing.convert(tweet);
 
+		if (tweet.equals("")) {
+
+			mv.addObject("message", "未入力です");
+			mv.setViewName("edit");
+
+			return security(mv);
+		}
+
+		int code = (int) session.getAttribute("code");
+		Optional<Tweet> recordEdit = tweetRepository.findById(code);
+		Tweet Edit = null;
+		if (recordEdit.isEmpty() == false) {
+			Edit = recordEdit.get();
+		}
+
+		// パラメータからオブジェクトを生成
+		Tweet edit = new Tweet(code,Edit.getLikes(), Edit.getUser_code(), tweet, Edit.getDate());
+		// tweetテーブルへの登録
+		tweetRepository.saveAndFlush(edit);
+
+
+
+		mv.addObject("tweet", tweet);
+
+
+
+		mv.setViewName("edit");
+		return security(mv);
+	}
 
 
 	/**

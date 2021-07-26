@@ -10,9 +10,10 @@
 <span th:replace="menu"></span>
 
 <h1>編集</h1>
+<div th:text="${message}"></div>
 <br>
 <form action="/tweet/edit">
-<input type="text" class="text" name="tweet"> <!-- th:value=${tweet} -->
+<input type="text" class="text" name="tweet" th:value=${tweet}> <!--  -->
 <br>
 <input type="submit" class="edit" value="変更">
 </form>

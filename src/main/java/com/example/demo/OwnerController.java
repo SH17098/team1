@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +31,8 @@ public class OwnerController extends SecurityController2{
 	@Autowired
 	FlashcardRepository flashcardRepository;
 
-//	@Autowired
-//	FavoriteRepository favoriteRepository;
+	@Autowired
+	LikeRepository likeRepository;
 
 	@Autowired
 	CommentRepository commentRepository;
@@ -41,6 +42,9 @@ public class OwnerController extends SecurityController2{
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	ReportRepository reportRepository;
 
 	/**
 	 * ログイン画面を表示
@@ -53,8 +57,27 @@ public class OwnerController extends SecurityController2{
 		return "ownerLogin";
 	}
 
+	//ログアウト
+	@RequestMapping("/ownership/studytool/logout")
+	public String logout() {
+		session.invalidate();
+		return "ownerLogin";
+	}
+
 	@RequestMapping("/owner/top")
 	public ModelAndView top(ModelAndView mv){
+		List<Report> reports = reportRepository.findAll();
+		String answer = "none";
+		for(int i = 1; i<reports.size(); i++) {
+			Report report = reports.get(i);
+			answer = report.getAnswer();
+			if(answer.equals("まだ返答はありません。")) {
+				mv.addObject("notification","🔔");
+				break;
+			}
+		}
+
+
 		mv.setViewName("ownerTop");
 		return security(mv);
 	}
@@ -79,8 +102,7 @@ public class OwnerController extends SecurityController2{
 				return security(mv);
 			} else {
 				session.setAttribute("securityCode", "1234");
-				mv.setViewName("ownerTop");
-				return security(mv);
+				return top(mv);
 
 			}
 		}
@@ -163,11 +185,13 @@ public class OwnerController extends SecurityController2{
 
 	//参考書削除
 	@RequestMapping("/owner/book/delete")
+	@Transactional
 	public ModelAndView bookDelete(
 			@RequestParam("book_code") String book_code,
 			ModelAndView mv) {
 		int bookCode = Integer.parseInt(book_code);
 
+		commentRepository.deleteByBookCode(bookCode);
 		bookRepository.deleteById(bookCode);
 
 
@@ -175,6 +199,7 @@ public class OwnerController extends SecurityController2{
 	}
 	//参考書レビュー削除
 	@RequestMapping("/owner/bookreview/delete")
+	@Transactional
 	public ModelAndView bookReviewDelete(
 			@RequestParam("book_code") String book_code,
 			@RequestParam("review_code") String review_code,
@@ -233,12 +258,15 @@ public class OwnerController extends SecurityController2{
 
 	//tweetの削除
 	@RequestMapping("/owner/tweet/delete")
+	@Transactional
 	public ModelAndView deleteTweet(
 			@RequestParam("tweet_code") String tweet_code,
 			ModelAndView mv) {
 		//まずリプライを消す
 		int tweetCode = Integer.parseInt(tweet_code);
 		replyRepository.deleteByTweetCode(tweetCode);
+		//次にlikeを消す
+		likeRepository.deleteByTweetCode(tweetCode);
 		//次にtweet自体を消す
 		tweetRepository.deleteById(tweetCode);
 		return tweets(mv);
@@ -246,6 +274,7 @@ public class OwnerController extends SecurityController2{
 
 	//replyの削除
 	@RequestMapping("/owner/tweet/reply/delete")
+	@Transactional
 	public ModelAndView deleteReply(
 			@RequestParam("tweet_code") String tweet_code,
 			@RequestParam("reply_code") String reply_code,
@@ -305,19 +334,51 @@ public class OwnerController extends SecurityController2{
         mv.setViewName("ownerUser");
 		return security(mv);
 	}
+//
+//
+//	//user情報削除
+//	@RequestMapping("/owner/user/delete")
+//	public ModelAndView userDelete(
+//			@RequestParam("user_code") String user_code,
+//			ModelAndView mv) {
+//		int userCode = Integer.parseInt(user_code);
+//
+//		userRepository.deleteById(userCode);
+//
+//
+//		return users(mv);
+//	}
 
+	//reportの管理画面
+	@RequestMapping("/owner/report")
+	public ModelAndView reports(ModelAndView mv) {
+		List<Report> reports = reportRepository.findByOrderByCodeAsc();
+		if(reports.size() == 0) {
+			mv.addObject("none", "まだ問い合わせはありません。");
+		}else {
+		    mv.addObject("reports", reports);
+		}
 
-	//user情報削除
-	@RequestMapping("/owner/user/delete")
-	public ModelAndView userDelete(
-			@RequestParam("user_code") String user_code,
+        mv.setViewName("ownerReport");
+        return security(mv);
+	}
+
+	@PostMapping("/owner/report")
+	public ModelAndView report(
+			@RequestParam("report_code") String report_code,
 			ModelAndView mv) {
-		int userCode = Integer.parseInt(user_code);
+		int reportCode = Integer.parseInt(report_code);
+	    Optional<Report> record = reportRepository.findById(reportCode);
+        Report report = null;
+	    if(record.isEmpty() == false) {
+	    	report = record.get();
+	    }
+	    //対処済み報告を
+	    String answer = "対処しました。";
+	    Report update = new Report(report.getCode(), report.getUserCode(), report.getType(), report.getReport(), answer);
+	    reportRepository.saveAndFlush(update);
 
-		userRepository.deleteById(userCode);
-
-
-		return users(mv);
+		return reports(mv);
 	}
 
 }

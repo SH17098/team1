@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>レポート</title>
+<link href="/css/book.css" rel="stylesheet">
+</head>
+<body>
+
+
+<span th:replace="menu"></span>
+
+
+<h1>管理者への連絡状況一覧</h1>
+<br>
+<p th:text="${none}">
+<br>
+<table align="center">
+<tr>
+    <th>通告の種類</th><th>内容</th><th >管理者からの返答</th>
+</tr>
+
+<tr th:each="report:${reports}">
+		<td th:text="${report.type}"></td>
+		<td th:text="${report.report}"></td>
+		<td th:text="${report.answer}"></td>
+</tr>
+</table>
+<br>
+<form action="/report" method="post">
+<select name="type">
+<option value="フラッシュカード">フラッシュカード</option>
+<option value="過去問">過去問</option>
+<option value="掲示板">掲示板</option>
+<option value="参考書">参考書</option>
+</select>
+<textarea name="report" placeholder="通告内容を記入"></textarea>
+<input type="submit" value="送信">
+</form>
+<br>
+<br><br><br>
+</body>
+</html>

@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface CommentRepository extends JpaRepository<Comment, Integer>{
  List<Comment> findByBookCode(int bookCode); //本の種類に合わせて検索
 // Optional<Comment> findByBookCode(int bookCode); //本の種類に合わせて検索
+
+void deleteByBookCode(int bookCode);
 }

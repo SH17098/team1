@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>レポート</title>
+</head>
+<body>
+<a href="/owner/top">TOP</a>
+<h1>ユーザーからの通告一覧</h1>
+<br>
+<p th:text="${none}">
+<br>
+<table border="1" align="center">
+<tr>
+    <th>通告の種類</th><th>通告内容</th><th>対応状況</th>
+</tr>
+
+<tr th:each="report:${reports}">
+		<td th:text="${report.type}"></td>
+		<td th:text="${report.report}"></td>
+<td>
+<th:block th:if="${report.answer == 'まだ返答はありません。'}">
+<form action="/owner/report" method="post">
+<input type="hidden" name="report_code" th:value="${report.code}">
+<input type="submit" value="対応を完了する">
+</form></th:block>
+<th:block th:unless="${report.answer == 'まだ返答はありません。'}">
+対応済</th:block>
+</tr>
+</table>
+<br>
+<br>
+<br><br><br>
+</body>
+</html>

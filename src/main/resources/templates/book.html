@@ -24,7 +24,7 @@
 <br>
 <table align="center">
 <tr>
-    <th>参考書</th><th>値段</th><th>評価</th><th></th>
+    <th class="i">参考書</th><th class="i">値段</th><th class="i">評価</th><th class="review"></th><th class="url"></th>
 </tr>
 
 <tr th:each="book:${books}">
@@ -46,6 +46,7 @@
 		<td>★★★★★</td>
 		</th:block>
 		<td><a th:href="'/comment/'+ ${book.code}">レビュー(<span th:text="${book.comment}"></span>)</a></td>
+		<td><a th:href="${book.amazon}">Amazonで見る</a></td>
 </tr>
 </table>
 <br>

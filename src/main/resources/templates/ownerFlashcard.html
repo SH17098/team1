@@ -5,6 +5,22 @@
 <title>flashcard</title>
 </head>
 <body>
-
+<a href="/owner/top">TOP</a>
+<br>
+共有されているフラッシュカード一覧
+<p th:text="${none}"></p>
+<table>
+<tr th:each="flashcard:${flashcards}">
+<td th:text="${flashcard.question}"></td>
+<td th:text="${flashcard.answer}"></td>
+<td th:text="${flashcard.explanation}"></td>
+<form action="/owner/flashcard/delete" method="get">
+<td>
+<input type="hidden" name="delete_code" th:value="${flashcard.code}">
+<input type="submit" value="共有を停止">
+</td>
+</form>
+</tr>
+</table>
 </body>
 </html>

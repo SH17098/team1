@@ -21,18 +21,21 @@ public class Book {
 
 	private Integer comment;
 
+	private String amazon;
+
 	//コンストラクタ
-	public Book(Integer code, String name,Integer price, Integer rate, Integer comment) {
-		this(name, price, rate, comment);
+	public Book(Integer code, String name,Integer price, Integer rate, Integer comment, String amazon) {
+		this(name, price, rate, comment, amazon);
 		this.code = code;
 	}
 
-	public Book(String name,Integer price, Integer rate, Integer comment) {
+	public Book(String name,Integer price, Integer rate, Integer comment, String amazon) {
 		super();
 		this.name = name;
 		this.price = price;
 		this.rate = rate;
 		this.comment = comment;
+		this.amazon = amazon;
 	}
 
 	public Book() {
@@ -71,6 +74,7 @@ public class Book {
 	public void setRate(Integer rate) {
 		this.rate = rate;
 	}
+
 	public Integer getComment() {
 		return comment;
 	}
@@ -78,6 +82,15 @@ public class Book {
 	public void setComment(Integer comment) {
 		this.comment = comment;
 	}
+
+	public String getAmazon() {
+		return amazon;
+	}
+
+	public void setAmazon(String amazon) {
+		this.amazon = amazon;
+	}
+
 
 
 

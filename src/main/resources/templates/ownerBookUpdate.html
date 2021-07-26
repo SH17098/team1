@@ -11,6 +11,7 @@
 <input type="hidden" name="book_code" th:value="${book.code}">
 <textarea name="name"><th:block th:text="${book.name}"></th:block></textarea>
 <input type="text" name="price" th:value=${book.price}>
+<input type="text" name="amazon" th:value=${book.amazon}>
 <input type="submit" value="更新を確定する">
 </form>
 </body>

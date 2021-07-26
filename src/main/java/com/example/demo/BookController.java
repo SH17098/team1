@@ -95,8 +95,9 @@ public class BookController extends SecurityController{
 				if (!comment.equals("")) { //コメントが書かれていたら、コメント数を1にする
 					review = 1;
 				}
+				String amazon = "#";
 				//データベースに登録
-				Book newBook = new Book(name, price, rate, review);
+				Book newBook = new Book(name, price, rate, review, amazon);
 				bookRepository.saveAndFlush(newBook);
 
 				List<Book> books = bookRepository.findByOrderByCodeAsc();
@@ -203,7 +204,7 @@ public class BookController extends SecurityController{
 			review++;
 
 			//更新
-			Book update = new Book(book.getCode(), book.getName(), book.getPrice(), new_rate, review);
+			Book update = new Book(book.getCode(), book.getName(), book.getPrice(), new_rate, review, book.getAmazon());
 			//		    Book update = new Book(book.getCode(), book.getName(), book.getPrice(), book.getRate(), review);
 			bookRepository.saveAndFlush(update);
 

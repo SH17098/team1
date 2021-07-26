@@ -15,6 +15,11 @@
 <br>
 <span th:text="${complete}" style="color:red"></span>
 <br>
+<div>
+<th:block th:if="${flashcard.share == 0}">このカードは共有されていません。</th:block>
+<th:block th:if="${flashcard.share == 1}">共有しているカードです。</th:block>
+</div>
+<br>
 <h3>問題</h3>
 <div th:text="${question}" id="questionText"></div>
 

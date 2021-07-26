@@ -15,6 +15,7 @@
   <span th:text="${book.price}"></span>
    </td>
    <td><a th:href="'/owner/bookreview/'+ ${book.code}">レビュー(<span th:text="${book.comment}"></span>)</a></td>
+<td><a th:href="${book.amazon}">url</a></td>
   <td>
     <form action="/owner/book/update" method="get">
     <input type="hidden" name="book_code" th:value="${book.code}">

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class OwnerController {
+public class OwnerController extends SecurityController2{
 	@Autowired
 	HttpSession session;
 
@@ -30,11 +30,17 @@ public class OwnerController {
 	@Autowired
 	FlashcardRepository flashcardRepository;
 
+//	@Autowired
+//	FavoriteRepository favoriteRepository;
+
 	@Autowired
 	CommentRepository commentRepository;
 
 	@Autowired
 	ReplyRepository replyRepository;
+
+	@Autowired
+	UserRepository userRepository;
 
 	/**
 	 * ログイン画面を表示
@@ -48,8 +54,9 @@ public class OwnerController {
 	}
 
 	@RequestMapping("/owner/top")
-	public String top() {
-		return "ownerTop";
+	public ModelAndView top(ModelAndView mv){
+		mv.setViewName("ownerTop");
+		return security(mv);
 	}
 
 
@@ -69,10 +76,11 @@ public class OwnerController {
 			if (record.isEmpty()) {
 				mv.addObject("error", "idもしくはpasswordが一致しません");
 				mv.setViewName("ownerLogin");
-				return mv;
+				return security(mv);
 			} else {
+				session.setAttribute("securityCode", "1234");
 				mv.setViewName("ownerTop");
-				return mv;
+				return security(mv);
 
 			}
 		}
@@ -87,7 +95,7 @@ public class OwnerController {
 		mv.addObject("books", books);
 
 		mv.setViewName("ownerbook");
-		return mv;
+		return security(mv);
 	}
 
 	//参考書レビュー表示
@@ -106,7 +114,7 @@ public class OwnerController {
 		}
 
 		mv.setViewName("ownerBookReview");
-		return mv;
+		return security(mv);
 	}
 
 	//参考書更新画面
@@ -124,7 +132,7 @@ public class OwnerController {
 		}
 
 		mv.setViewName("ownerBookUpdate");
-		return mv;
+		return security(mv);
 	}
 
 	//参考書更新
@@ -133,6 +141,7 @@ public class OwnerController {
 			@RequestParam("book_code") int bookCode,
 			@RequestParam("name") String name,
 			@RequestParam("price") String book_price,
+			@RequestParam("amazon") String amazon,
 			ModelAndView mv) {
 
 		int price = Integer.parseInt(book_price);
@@ -142,8 +151,11 @@ public class OwnerController {
         if (record.isEmpty() == false) {
 			book = record.get();
 		}
+
+        //url追加
+
 		//更新
-		Book update = new Book(bookCode, name, price, book.getRate(), book.getComment());
+		Book update = new Book(bookCode, name, price, book.getRate(), book.getComment(), amazon);
 		bookRepository.saveAndFlush(update);
 
 		return booklist(mv);
@@ -181,7 +193,7 @@ public class OwnerController {
 			comment--;
 		}
 
-		Book update = new Book(bookCode, book.getName(), book.getPrice(), book.getRate(), comment);
+		Book update = new Book(bookCode, book.getName(), book.getPrice(), book.getRate(), comment, book.getAmazon());
 		bookRepository.saveAndFlush(update);
 
 
@@ -197,7 +209,7 @@ public class OwnerController {
 		mv.addObject("tweets", tweets);
 
 		mv.setViewName("ownerTweet");
-		return mv;
+		return security(mv);
 	}
 
 	//リプライ一覧表示
@@ -216,7 +228,7 @@ public class OwnerController {
 		}
 
 		mv.setViewName("ownerTweetReply");
-		return mv;
+		return security(mv);
 	}
 
 	//tweetの削除
@@ -247,11 +259,65 @@ public class OwnerController {
 	}
 
 
-//
-//	//flashcard一覧表示
-//	@RequestMapping("/owner/tweet")
-//	public ModelAndView tweets(ModelAndView mv) {
-//
 
+	//flashcard共有されてるもの表示
+	@RequestMapping("/owner/flashcard")
+	public ModelAndView flashcards(ModelAndView mv) {
+		//flashcardの中で、shareが1になってるものを一覧表示
+		List<Flashcard> flashcards = flashcardRepository.findByShare(1);
+		if(flashcards.size() == 0) {
+			mv.addObject("none", "現在共有されているものはありません。");
+		}
+
+		mv.addObject("flashcards", flashcards);
+		mv.setViewName("ownerFlashcard");
+		return security(mv);
+	}
+
+	//flashcard共有停止
+	@RequestMapping("/owner/flashcard/delete")
+	public ModelAndView deleteFlashcard(
+			@RequestParam("delete_code") String delete_code,
+			ModelAndView mv) {
+		int deleteCode = Integer.parseInt(delete_code);
+
+		//コードで検索
+		Flashcard flashcard = null;
+		Optional<Flashcard> record = flashcardRepository.findById(deleteCode);
+		if(record.isEmpty()==false) {
+			flashcard = record.get();
+		}
+		//flashcardのshareを0に変更
+		int share = 0;
+		Flashcard update = new Flashcard(flashcard.getCode(),flashcard.getUserCode(),share, flashcard.getQuestion(), flashcard.getAnswer(), flashcard.getExplanation());
+		flashcardRepository.saveAndFlush(update);
+
+		return flashcards(mv);
+	}
+
+	//user情報の管理画面
+	@RequestMapping("/owner/user")
+	public ModelAndView users(ModelAndView mv) {
+		//全情報を取得して一覧表示
+		List<User> users = userRepository.findAll();
+		mv.addObject("users", users);
+
+        mv.setViewName("ownerUser");
+		return security(mv);
+	}
+
+
+	//user情報削除
+	@RequestMapping("/owner/user/delete")
+	public ModelAndView userDelete(
+			@RequestParam("user_code") String user_code,
+			ModelAndView mv) {
+		int userCode = Integer.parseInt(user_code);
+
+		userRepository.deleteById(userCode);
+
+
+		return users(mv);
+	}
 
 }

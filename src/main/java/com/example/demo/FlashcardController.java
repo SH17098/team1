@@ -168,6 +168,7 @@ public class FlashcardController extends SecurityController {
 			if (flashcard.getUserCode() == userCode) {//ユーザ自身のものなら
 				session.setAttribute("flashcard", flashcard);//セッションに追加
 				mv.addObject("question", flashcard.getQuestion());
+				mv.addObject("flashcard", flashcard);
 
 				//登録表示用
 				int flashcardCode = flashcard.getCode();
@@ -238,6 +239,7 @@ public class FlashcardController extends SecurityController {
 
 		mv.addObject("answer", answer);
 		mv.addObject("question", current_flashcard.getQuestion());
+		mv.addObject("flashcard", current_flashcard);
 
 		mv.setViewName("useMyFlashcard");
 		return security(mv);
@@ -255,6 +257,7 @@ public class FlashcardController extends SecurityController {
 		mv.addObject("explanation", explanation);
 		mv.addObject("answer", current_flashcard.getAnswer());
 		mv.addObject("question", current_flashcard.getQuestion());
+		mv.addObject("flashcard", current_flashcard);
 
 		mv.setViewName("useMyFlashcard");
 		return security(mv);

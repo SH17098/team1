@@ -17,11 +17,16 @@
 	<table align="center">
 		<tr th:each="test:${tests}">
 			<td id="code" th:text="問題 +${test.code}"></td>
+			<td id="question" th:text="${test.question}"></td>
 			<form action="/incorrect/detail" method="post">
 				<input type="hidden" name="test_code" th:value="${test.code}">
-				<td id="question" th:text="${test.question}"></td>
-			<td><input type="submit" id="detail" value="詳細"></td>
+			    <td><input type="submit" id="detail" value="詳細"></td>
 			</form>
+			<form action="/incorrect/delete" method="get">
+				<input type="hidden" name="delete_code" th:value="${test.code}">
+			    <td><input type="submit" id="detail" value="習得済"></td>
+			</form>
+
 		</tr>
 
 	</table>

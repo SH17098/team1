@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Books</title>
+</head>
+<body>
+<a href="/owner/top">TOP</a>
+<table align="center">
+<tr th:each="user:${users}">
+<td>
+  <span th:text="${user.userCode}"></span>
+  </td>
+<td>
+  <span th:text="${user.name}"></span>
+</td>
+<td>
+  <span th:text="${user.userId}"></span>
+</td>
+<td>
+  <span th:text="${user.email}"></span>
+</td>
+<td>
+  <span th:text="${user.password}"></span>
+</td>
+<td>
+  <span th:text="${user.q_number}"></span>
+</td>
+<td>
+  <span th:text="${user.answer}"></span>
+</td>
+  <td>
+    <form action="/owner/user/delete" method="get">
+    <input type="hidden" name="user_code" th:value="${user.userCode}">
+    <input type="submit" value="削除">
+    </form>
+  </td>
+
+</tr>
+
+</table>
+</body>
+</html>

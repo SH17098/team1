@@ -213,19 +213,27 @@ public class TestController extends SecurityController{
 		return security(mv);
 	}
 
-	//	//解説を表示
-	//	@RequestMapping("/test/explanation")
-	//	public ModelAndView showexplanation(ModelAndView mv) {
-	//		Test current_test = (Test) session.getAttribute("test");//現在のフラッシュカード情報をセッションから取得
-	//		String explanation = current_test.getExplanation(); //answerのみ取得
-	//
-	//		mv.addObject("explanation", explanation);
-	//		mv.addObject("answer", current_test.getAnswer());
-	//        mv.addObject("question", current_test.getQuestion());
-	//		mv.addObject("option", current_test.getOption());
-	//
-	//		mv.setViewName("useTest");
-	//		return mv;
-	//	}
+		//習得済みを削除
+		@RequestMapping("/incorrect/delete")
+		public ModelAndView showexplanation(
+				@RequestParam("delete_code") String delete_code,
+				ModelAndView mv) {
+			int deleteCode = Integer.parseInt(delete_code);
+			//test
+//			System.out.println(deleteCode);
+
+			Optional<Incorrect> record = incorrectRepository.findByTestCode(deleteCode);
+            int testCode = 0;
+            Incorrect incorrect = null;
+			if(record.isEmpty() == false) {
+			    incorrect = record.get();
+			    testCode = incorrect.getCode();
+			}
+			//codeでincorrectから削除
+			incorrectRepository.deleteById(testCode);
+
+
+			return incorrect(mv);
+		}
 
 }

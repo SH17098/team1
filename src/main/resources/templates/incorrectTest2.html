@@ -9,7 +9,7 @@
 	<span th:replace="menu"></span>
 
 
-	<h1>間違えた問題</h1>
+	<h1>2回以上間違えた問題</h1>
 
 	<br>
 	<div th:text="${none}"></div>
@@ -22,7 +22,7 @@
 				<input type="hidden" name="test_code" th:value="${test.code}">
 			    <td><input type="submit" id="detail" value="詳細"></td>
 			</form>
-			<form action="/incorrect/delete" method="get">
+			<form action="/incorrect2/delete" method="get">
 				<input type="hidden" name="delete_code" th:value="${test.code}">
 			    <td><input type="submit" id="detail" value="習得済"></td>
 			</form>

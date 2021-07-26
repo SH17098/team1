@@ -24,6 +24,9 @@ public class TestController extends SecurityController{
 	@Autowired
 	IncorrectRepository incorrectRepository;
 
+	@Autowired
+	DoubleIncorrectRepository doubleRepository;
+
 	//過去問のホーム画面の表示
 	@RequestMapping("/test")
 	public ModelAndView test(ModelAndView mv) {
@@ -75,6 +78,7 @@ public class TestController extends SecurityController{
 	 */
 
 	@PostMapping("/test/answer")
+//	@Transactional
 	public ModelAndView showAnswer(
 			@RequestParam("option") String option,
 			ModelAndView mv) {
@@ -126,7 +130,15 @@ public class TestController extends SecurityController{
 				//incorrectテーブルに保存
 				Incorrect newIncorrect = new Incorrect(userCode, testCode);
 				incorrectRepository.saveAndFlush(newIncorrect);
+			}else { //2回目以降
+				Optional<DoubleIncorrects> record = doubleRepository.findByUserCodeAndTestCode(userCode, testCode);
+				if(record.isEmpty()) {//まだ登録されてなかったら
+					DoubleIncorrects newDouble = new DoubleIncorrects(userCode, testCode);
+					doubleRepository.saveAndFlush(newDouble);
+				}
 			}
+
+
 
 			//不正解と表示
 			mv.addObject("correct", "不正解");
@@ -182,6 +194,43 @@ public class TestController extends SecurityController{
 	}
 
 	/**
+	  *過去に間違えた問題を表示
+	 */
+
+	@RequestMapping("/test/incorrect2")
+	public ModelAndView incorrect2(ModelAndView mv) {
+		//userCodeを取得
+		int userCode = (int) session.getAttribute("userCode");
+		List<DoubleIncorrects> lists = doubleRepository.findByUserCode(userCode);
+
+		//まだ間違えてない場合
+		if (lists.size() == 0) {
+			mv.addObject("none", "まだ２回以上間違えた問題はありません。");
+		}
+
+		//test_codeを取得
+		List<Integer> testCode = new ArrayList<Integer>();
+		for (int i = 0; i < lists.size(); i++) {
+			DoubleIncorrects incorrect = lists.get(i);
+			testCode.add(incorrect.getTestCode());
+		}
+
+		List<Test> tests = new ArrayList<Test>();
+		//testCodeを使って、テスト一覧を表示
+		for (int k = 0; k < testCode.size(); k++) {
+			Optional<Test> record = testRepository.findById(testCode.get(k));
+			if (record.isEmpty() == false) {
+				Test nextTest = record.get();
+				tests.add(nextTest);
+			}
+		}
+
+		mv.addObject("tests", tests);
+		mv.setViewName("incorrectTest2");
+		return security(mv);
+	}
+
+	/**
 	  *過去に間違えた問題の詳細を表示
 	 */
 
@@ -215,7 +264,7 @@ public class TestController extends SecurityController{
 
 		//習得済みを削除
 		@RequestMapping("/incorrect/delete")
-		public ModelAndView showexplanation(
+		public ModelAndView delete(
 				@RequestParam("delete_code") String delete_code,
 				ModelAndView mv) {
 			int deleteCode = Integer.parseInt(delete_code);
@@ -234,6 +283,28 @@ public class TestController extends SecurityController{
 
 
 			return incorrect(mv);
+		}
+		//習得済みを削除
+		@RequestMapping("/incorrect2/delete")
+		public ModelAndView delete2(
+				@RequestParam("delete_code") String delete_code,
+				ModelAndView mv) {
+			int deleteCode = Integer.parseInt(delete_code);
+			//test
+//			System.out.println(deleteCode);
+
+			Optional<DoubleIncorrects> record = doubleRepository.findByTestCode(deleteCode);
+            int testCode = 0;
+            DoubleIncorrects incorrect = null;
+			if(record.isEmpty() == false) {
+			    incorrect = record.get();
+			    testCode = incorrect.getCode();
+			}
+			//codeでincorrectから削除
+			doubleRepository.deleteById(testCode);
+
+
+			return incorrect2(mv);
 		}
 
 }

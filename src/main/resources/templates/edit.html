@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="/css/reply.css" rel="stylesheet">
+
+<title>掲示板</title>
+</head>
+<body>
+<span th:replace="menu"></span>
+
+<h1>編集</h1>
+<br>
+<form action="/tweet/edit">
+<input type="text" class="text" name="tweet"> <!-- th:value=${tweet} -->
+<br>
+<input type="submit" class="edit" value="変更">
+</form>
+<br>
+<a href="/tweet" class="btn-flat-simple">掲示板</a>
+</body>
+</html>

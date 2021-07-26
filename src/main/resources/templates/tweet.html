@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>掲示板</title>
 <link href="/css/tweet.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -11,7 +12,7 @@
 <span th:replace="menu"></span>
 
 <h1>掲示板</h1>
-<br>
+<p><a href="#contribution" id="migration">投稿する</a></p>
 <div class="submit">
 <form action="/tweet/old" method="get">
 <input type="submit" value="投稿が古い順" class="line">
@@ -44,6 +45,12 @@
  		</a>
  		</td>
  		<td th:if="${tweet.user_code} == ${session.userCode}">
+ 		<form action="/tweet/edit" method="post">
+ 		<input type="hidden" name="editCode" th:value="${tweet.code}">
+ 		<input type="submit" value="編集" class="edit">
+ 		</form>
+		</td>
+ 		<td th:if="${tweet.user_code} == ${session.userCode}">
  		<form action="/tweet/delete" method="post">
  		<input type="hidden" name="deleteCode" th:value="${tweet.code}">
  		<input type="submit" value="削除" class="delete">
@@ -55,7 +62,7 @@
 	<br>
 <table align="center">
 <form action="/tweet/add" method="post">
-<tr><td><textarea name="tweet" placeholder="試験情報を共有しましょう！"></textarea></td>
+<tr><td><textarea name="tweet" id="contribution" placeholder="試験情報を共有しましょう！"></textarea></td>
 <td><input type="submit" value="投稿" class="button"></td>
 <tr>
 </form></table>

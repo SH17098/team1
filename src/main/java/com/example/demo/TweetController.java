@@ -43,7 +43,7 @@ public class TweetController extends SecurityController{
 	@RequestMapping("/tweet")
 	public ModelAndView tweet(ModelAndView mv) {
 		//tweetテーブルを全件取得し、tweetのみ表示
-		List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
+		List<Tweet> tweets = tweetRepository.findByOrderByCodeDesc();
 		mv.addObject("tweets", tweets);
 
 		//userIdの取得
@@ -136,7 +136,7 @@ public class TweetController extends SecurityController{
 		tweetRepository.saveAndFlush(newTweet);
 
 		//表示用
-		List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
+		List<Tweet> tweets = tweetRepository.findByOrderByCodeDesc();
 		mv.addObject("tweets", tweets);
 
 		//userCodeからuserIDを取得してリスト化
@@ -191,6 +191,33 @@ public class TweetController extends SecurityController{
 	}
 
 	/**
+	  *編集機能
+	 */
+
+	//ページ移動
+	@PostMapping("/tweet/edit")
+	public ModelAndView edit(
+			@RequestParam("tweet") String tweet,
+			ModelAndView mv){
+
+		tweet = Sanitizing.convert(tweet);
+
+		if(tweet.equals("")) {
+			mv.addObject("masseage","未入力です");
+			mv.setViewName("edit");
+			return security(mv);
+		}
+
+		mv.setViewName("edit");
+		return security(mv);
+	}
+
+
+	//編集
+
+
+
+	/**
 	  *投稿削除
 	 */
 
@@ -211,7 +238,7 @@ public class TweetController extends SecurityController{
 
 		//再度表示用
 		//tweetテーブルを全件取得し、tweetのみ表示
-		List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
+		List<Tweet> tweets = tweetRepository.findByOrderByCodeDesc();
 		mv.addObject("tweets", tweets);
 
 		//userIdの取得
@@ -365,6 +392,8 @@ public class TweetController extends SecurityController{
 		mv.setViewName("reply");
 		return security(mv);
 	}
+
+
 
 	/**
 	  *削除機能

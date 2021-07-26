@@ -61,7 +61,7 @@ public class LikeController extends SecurityController{
 
 			//表示用
 			//全データを取得して表示
-			List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
+			List<Tweet> tweets = tweetRepository.findByOrderByCodeDesc();
 			mv.addObject("tweets", tweets);
 
 			//userIdの取得
@@ -132,7 +132,7 @@ public class LikeController extends SecurityController{
 
 			//表示用
 			//tweetテーブルを全件取得し、tweetと時間、like数を表示
-			List<Tweet> tweets = tweetRepository.findByOrderByCodeAsc();
+			List<Tweet> tweets = tweetRepository.findByOrderByCodeDesc();
 			mv.addObject("tweets", tweets);
 
 			//userIdの取得

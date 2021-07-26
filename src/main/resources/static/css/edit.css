@@ -9,108 +9,13 @@ body {
 
 }
 
-table{
-	width: 40%;
-}
-
-.date{
-	width:10%;
-}
-
-tr{
-	border-bottom: solid 2px white;
-}
-table.reply tr:hover{ /*hoverしてる行を色で表示*/
-  background-color: #d4f0fd;
-}
-
-
-tr:last-child{ /*一番下のボーダー削除*/
-	border-bottom: none;
-}
-/*名前の表示*/
-.userName{
-  position: relative;  /*相対位置*/
-  text-align: left;
-  width: 15%;
-  background-color: #52c2d0;
-  color: white;
-  text-align: center;
-  padding: 10px 0;
-}
-.userName:after{  /*吹き出しの三角の部分*/
-  display: block;
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  top:calc(50% - 10px);
-  right:-10px;
-  border-left: 10px solid #52c2d0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-}
-.Maintweet{
-  position: relative;  /*相対位置*/
-  text-align: left;
-  width: 15%;
-  background-color: #ff6666;
-  color: white;
-  text-align: center;
-  padding: 10px 0;
-}
-.Maintweet:after{  /*吹き出しの三角の部分*/
-  display: block;
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  top:calc(50% - 10px);
-  right:-10px;
-  border-left: 10px solid #ff6666;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-}
-
-textarea{
-	resize: none;  /*大きさ固定*/
-	width:500px;
-	height:50px;
-	border-radius: 0.5rem; /*丸み*/
-
-}
-
-.reply{ /*テーブル全体*/
-  text-align: center;
-  width: 70%;
-  text-align: center;
-  background-color: #eee;
-  padding: 10px 0;
-}
-
-#date{
-	width:15%;
-}
-
-
-.button{  /*投稿ボタン*/
-	background-color: #6699cc;
-  position: relative;
-  display: inline-block;
-  padding: 8px 17px;
-  cursor: pointer;
-  transition: all 0.3s;
-  text-align: center;
-  vertical-align: middle;
-  text-decoration: none;
-  color: white;
-  border-radius: 0.5rem;
-}
-
-.delete{  /*削除ボタン*/
+ #edit{  /*削除ボタン*/
 	background-color: ff3333;
 	border-radius: 0.5rem;
 }
+
+
+
 
 .btn-flat-simple {
   position: relative;
@@ -128,4 +33,12 @@ textarea{
 .btn-flat-simple:hover {
   background: #00bcd4;
   color: white;
+}
+
+textarea{
+	resize: none;  /*大きさ固定*/
+	width:500px;
+	height:50px;
+	border-radius: 0.5rem; /*丸み*/
+
 }

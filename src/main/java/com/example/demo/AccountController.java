@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class AccountController extends SecurityController{
+public class AccountController extends SecurityController {
 
 	@Autowired
 	HttpSession session;
@@ -56,7 +57,7 @@ public class AccountController extends SecurityController{
 			mv.setViewName("login");
 			return mv;
 
-		//片方が空欄だった場合
+			//片方が空欄だった場合
 		} else if (userId.equals("")) {
 			//ユーザーIDが空だった場合
 
@@ -101,11 +102,10 @@ public class AccountController extends SecurityController{
 
 			}
 
-		}else {//データが見つからなかった場合
-			//アカウントが登録されているか分からないようにパスワードが一致してなかった場合とメッセージを一緒に
-			mv.addObject("message","ユーザーIDとパスワードが一致しません");
+		} else {//データが見つからなかった場合
+				//アカウントが登録されているか分からないようにパスワードが一致してなかった場合とメッセージを一緒に
+			mv.addObject("message", "ユーザーIDとパスワードが一致しません");
 			mv.setViewName("login");
-
 
 		}
 
@@ -165,6 +165,16 @@ public class AccountController extends SecurityController{
 
 		if (record.isEmpty() == false) {
 			mv.addObject("message", "このIDは既に存在しています");
+			mv.setViewName("addUser");
+
+			return mv;
+		}
+
+		//パスワードの文字と8文字以上16文字以内の処理
+		//大文字・小文字・数字指定
+		Pattern checkPassword = Pattern.compile("\"^(?=.*[A-Z])^(?=.*[a-z])^(?=.*[0-9])[a-zA-Z0-9!\\\"#$%&''()\\\\-^@[;:],./\\\\|`{+*}<>?_]{8,16}$\"");
+		if (!checkPassword.matcher(password).matches()) {
+			mv.addObject("message", "大文字・小文字・数字を含めた8文字以上16文字以内でパスワードを設定してください");
 			mv.setViewName("addUser");
 
 			return mv;
@@ -317,6 +327,7 @@ public class AccountController extends SecurityController{
 		if (record.isEmpty() == false) {
 			user = record.get();
 		}
+
 		mv.addObject("name", user.getName());
 		mv.addObject("mail", user.getEmail());
 		mv.addObject("password", user.getPassword());
@@ -349,6 +360,23 @@ public class AccountController extends SecurityController{
 			mv.setViewName("updateProfile");
 
 			return security(mv);
+		}
+
+		//パスワードの文字と8文字以上16文字以内の処理
+		Pattern checkPassword = Pattern.compile("^(?=.*[A-Z])^(?=.*[a-z])^(?=.*[0-9])[a-zA-Z0-9!\"#$%&''()\\-^@[;:],./\\|`{+*}<>?_]{8,16}$");
+		//パスワードの文字数が足りない場合
+		if (!checkPassword.matcher(password).matches()) {//文字数・文字指定合わない場合
+			mv.addObject("name",name);
+			mv.addObject("mail", mail);
+			mv.addObject("password",password);
+
+			mv.addObject("message", "大文字・小文字・数字を含めた8文字以上16文字以内でパスワードを設定してください");
+
+			mv.setViewName("updateProfile");
+
+			return mv;
+
+
 		}
 
 		int userCode = (int) session.getAttribute("userCode");

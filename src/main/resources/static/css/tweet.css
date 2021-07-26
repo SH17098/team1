@@ -89,7 +89,8 @@ textarea{
   border-radius: 0.5rem;
 }
 
-.delete{  /*削除ボタン*/
+
+.delete .edit{  /*削除ボタン*/
 	background-color: ff3333;
 	border-radius: 0.5rem;
 }
@@ -133,6 +134,8 @@ textarea{
   overflow: hidden;
   transition: .4s;
 }
+
+
 
 #migration:hover {
   background: #668ad8;
